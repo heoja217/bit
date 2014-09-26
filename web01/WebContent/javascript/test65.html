@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>엘리먼트 만들기 : 속성 추가</title>
+</head>
+<body>
+<script>
+
+"use strict";
+//<a href = 'http://www.daum.net'>다음</a>
+
+var e1 = document.createElement('a');
+e1.href = 'http://www.daum.net'; //속성 추가
+e1.innerHTML = '다음';
+//e1.ohora = '헐...'; //추가되지 않음 : 엘리먼트에 기존 속성값을 설정할때는 
+// 일반 객체에 속성값을 설정하는 방식으로 가능
+// BUT!! 존재하지 않는 속성을 추가할때는 일반 객체에 속성을 설정하는 방식으로는 불가능.
+
+// 엘리먼트에 존재하지 않는 속성 추가하기
+e1.setAttribute('ohora','헐...');
+
+document.body.appendChild(e1);
+
+var e2 = document.createElement('button');
+e2.type = 'button';
+e2.innerHTML = 'test';
+e2.onclick = function(event) {
+	console.log('button click');
+}
+document.body.appendChild(e2);
+
+console.log(e1.ohora);
+console.log(e1.getAttribute('ohora'));
+
+
+// 결론 속성을 새로 추가할때 setAttribute()
+// 새로 추가된 속성 값을 꺼낼 때 getAtribute()
+
+</script>
+
+
+</html>

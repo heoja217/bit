@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>객체2</title>
+</head>
+<body>
+<script>
+/*
+ 객체를 사용하여 값을 조직적으로 관리
+ => 보다 유지, 보수가 용이하도록 소스코드를 관리.
+ */
+"use strict";
+
+// 배열을 이용한 복합데이터 관리
+var scores = [["홍길동", 100,90,80],
+              ["임꺽정", 90,90,70],
+              ["장보고", 80,90,100]];
+
+for (var i in scores) {
+	console.log(scores[i][0], 
+	  scores[i][1], 
+	  scores[i][2],
+	  scores[i][3]);
+}
+
+
+console.log("-------------------------");
+
+//객체를 이용한 복합데이터 관리
+var scores2 = [{name:"홍길동",kor:100, eng:90, math:80},
+               {name:"임꺽정",kor:90, eng:90, math:70},
+               {name:"장보고",kor:80, eng:90, math:100}];
+
+
+for (var i in scores2) {
+	console.log(scores2[i].name, scores2[i].kor, scores2[i].eng, scores2[i].math);
+}
+
+</script>
+</body>
+</html>

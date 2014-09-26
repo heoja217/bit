@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>익명함수</title>
+</head>
+<body>
+<script>
+"use strict";
+
+/* 익명함수 만들기
+ function() {}
+ 1) 나중에 따로 호출 불가능하기때문에, 선언과 동시에 변수에 저장해야함.
+ 2) 익명 함수는 일반 명령어로 취급.
+  =>익명함수를 만들기 전에 먼저 사용할수 없다.
+*/
+
+var f1 = function() {
+  console.log("f1");
+}
+ 
+var f2 = function() {
+	console.log("f2");
+}
+
+f1();
+f2(); 
+
+</script>
+
+<script>
+
+//f3(); // 오류! 익명함수를 만들기 전에 호출할수 없다.
+var f3 = function() {
+	console.log("f3");
+}
+
+f3();
+
+</script>
+</body>
+</html>
