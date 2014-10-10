@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+<title>MP</title>
+</head>
+
+<body>
+
+<script src='../study/study02_1.js'></script>
+<script>
+soundManager.onready(function() {
+	   soundManager.createSound({id:'mySound1',url:'/audio/foo.mp3'});
+	});
+</script>
+<button id="play" onclick="soundManager.play('mySound1');return false">Play Button</button>
+<button id="pause" onclick="soundManager.pause('mySound1');return false">Pause Button</button>
+</body>
+</html>
+
+
+
+
+
+
+
+

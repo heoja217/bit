@@ -1,0 +1,74 @@
+@CHARSET "UTF-8";
+
+#logo {
+	margin-top:5px;
+	background: white;
+	width: 90;
+	float: left;
+	border-radius: 20px;
+	padding : 5px 10px 5px 10px;
+}
+
+
+#header { /* 
+  border : 1px solid red; */
+
+	height: 100px;
+	border-radius: 10px 10px 0 0;
+	background: url(hbg.jpg);
+	background-position: -300px;
+	 padding : 5px 10px 5px 10px;
+	margin-bottom: 10px;
+}
+
+#player {
+	/* 
+  border : 1px solid green; */
+  
+	text-align: center;
+	background: #424242;
+	line-height: 2em;
+	height: 440px;
+	width: 320px;
+	float: left;
+	padding: 10px;
+}
+
+#btn {
+	margin-bottom:5px;
+}
+
+#playlist {
+	text-align: left;
+	line-height: 2em;
+	width: 350px;
+	margin-left: 350px;
+	line-height: 2em;
+	height: 450px;
+}
+
+#listTop {
+	float : top;
+	height : 50px;
+	text-align : center;
+}
+
+#mulist{
+	margin-left:30px;
+	float : left;
+}
+
+#mudetail{
+	float: left;
+	margin-left :120px; 
+}
+
+#footer {
+	text-align: center;
+	background: #1C1C1C;
+	height: 80px;
+	border-radius: 0 0 10px 10px;
+	color: #848484;
+	margin:10px 0 10px 0 ;
+	 padding : 5px 10px 0 10px;
+}

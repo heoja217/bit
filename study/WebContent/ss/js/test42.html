@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ECMSScript의 속성추가방법</title>
+</head>
+<body>
+<script>
+
+"use strict";
+
+var obj1 = {};
+obj1.name = "홍길동";
+obj1['kor'] = 100;
+obj1["eng"] = 100;
+
+/* Object() 함수에 있는 기능을 사용하여 객체에 값 추가하기.
+ Object.dfineProperty(객체,'키',{설정정보});
+
+  * {설정정보}
+ - value 객체에 저장할 값 (기본:undefined)
+ - writable 나중에 값을 변경가능한지 여부를 지정 (false)
+ - get 값을 리턴할 때 호출될 함수 지정 (undefined)
+ - set 값을 설정할 때 호출될 함수 지정 (undefined)
+ - configurable 나중에 객체 설정정보를 변경가능한지 여부 지정 (false)
+ - enumerable for ..in을 사용하여 해당 속성을 출력할수 있는가 여부(false) */
+
+ 
+
+// 프로퍼티property란? 객체에 저장되는 값
+// ex) obj.name="홍길동" <= name 은 obj의 프로퍼티
+//     obj.plus= function(){...} <= plus는 obj의 프로퍼티
+// 즉, 프로퍼티는 일반적인 값도 될 수 있고, 함수도 될 수 있다.
+
+// obj1.math = 100;
+Object.defineProperty(obj1,'math',{value:100});
+
+
+console.log(obj1.name);
+console.log(obj1.kor);
+console.log(obj1.eng);
+console.log(obj1.math);
+
+obj1.eng=90; // 변경 가능
+
+obj1.math=90; // 변경 불가 => define.property()에서 변경불가로 최초설정
+
+console.log(obj1.name);
+console.log(obj1.kor);
+console.log(obj1.eng);
+console.log(obj1.math);
+
+</script>
+</body>
+</html>

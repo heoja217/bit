@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>music</title>
+<link href="common.css" rel="stylesheet" type="text/css">
+<link href="generalpage.css" rel="stylesheet" type="text/css">
+
+
+</head>
+<body>
+	<div id='main'>
+
+		<div id='header'>
+			<div id='logo'>
+				<img src='logo_melon.png'>
+			</div>
+		</div>
+
+		<div id='player'>
+			<div id='music' style='display: none;' class='inact'>
+				<div id='btn'>
+					<button type='button' id='prevBtn'>prev</button>
+					<button type='button' id='nextBtn'>next</button>
+				</div>
+				<marquee height="50" bgcolor="#151515">
+					<font color='#ffffff'>
+						<p id='muTitle'>오호라</p>
+					</font>>
+				</marquee>
+				<audio id="audio" src="mu1.mp3" controls autoplay></audio>
+				<img id='image' width='300px' src='musicimg1.jpg'>
+			</div>
+		</div>
+
+
+
+
+
+		<div id='playlist'>
+			<div id='listTop'>
+				<div id='mulist'>
+					<h2>playlist</h>
+				</div>
+				<div id='mudetail'>
+					<h2>detail</h2>
+				</div>
+			</div>
+			<div id = "content">
+			<ul id='list'>
+			</div>
+
+
+		</div>
+
+
+		<div id='footer'>
+			<p>허정아 송민준</p>
+			<img src='logo_melon2.png'>
+
+		</div>
+
+	</div>
+	<script src='test69_common.js'></script>
+	<script src='music.js'></script>
+</body>
+</html>
