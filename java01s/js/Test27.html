@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script>
+var v1;
+var v2;
+var op;
+var result;
+
+v1 = parseInt(prompt('값1'));
+v2 = parseInt(prompt('값2'));
+op = prompt('연산자');
+
+compute();
+displayResult();
+
+function compute() {
+	switch (op) {
+	case "+" : result = v1 + v2; break;
+  case "-" : result = v1 - v2; break;
+  case "*" : result = v1 * v2; break;
+  case "/" : result = v1 / v2; break;
+	}
+}
+function displayResult(){
+	console.log(v1, op, v2, "=", result);
+}
+
+
+
+</script>
+
+</body>
+</html>

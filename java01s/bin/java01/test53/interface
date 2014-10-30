@@ -1,0 +1,10 @@
+*interface 
+  : 호출 규칙 = 사용규칙
+  
+  
+  caller                  callee
+  
+     A     <--call-->       B
+     
+                                                                      ↑
+                           대체하기 쉬워짐.

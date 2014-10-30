@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script>
+var nameList = [
+      {name:"홍", age:2},
+      {name:"임", age:1}];
+
+console.log(nameList[0]);
+console.log(nameList[1]);
+
+var nameMap = {};
+nameMap.s001 = {name:"홍", age:2};
+nameMap['s002'] = {name:"임", age:1};
+
+console.log('----------------------');
+console.log(nameMap['s001']);
+console.log(nameMap.s002);
+
+var key = 's001';
+console.log(nameMap[key]);
+//console.log(nameMap.key);//Error!
+
+</script>
+</body>
+</html>
