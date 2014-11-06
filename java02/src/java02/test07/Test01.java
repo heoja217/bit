@@ -32,6 +32,7 @@ public class Test01 {
 		Class clazz = null;
 		Command command = null;
 		Component component = null;
+		
 
 		for (String className : classNames) {
 			clazz = Class.forName(className);
@@ -42,10 +43,17 @@ public class Test01 {
 			// 3) 로딩된 클래스 중에서 @Component 애노테이션이 붙은 클래스만
 			// 인스턴스를 생성한다.
 			component = (Component) clazz.getAnnotation(Component.class);
+			
 			/*
-			 * Type ㄴ클래스 ㄴ인터페이스 ㄴ애노테이션 ㄴ ... (Component.class)(Component 클래스
-			 * 객체주소) 모든 타입에는 .class라는 이름의 스태틱변수가 존재함. (= new Class) -> 그 클래스에대한
-			 * 타입의 정보를 다루는 Class(java.lang.Class)라는 도구가 들어있음
+			 * Type 
+			 * ㄴ클래스 
+			 * ㄴ인터페이스 
+			 * ㄴ애노테이션 
+			 * ㄴ ... 
+			 * (Component.class)(Component 클래스 객체주소) 
+			 * 모든 타입에는 .class라는 이름의 스태틱변수가 존재함. 
+			 * (= new Class) -> 그 클래스에대한
+			 타입의 정보를 다루는 Class(java.lang.Class)라는 도구가 들어있음
 			 */
 
 			// 타입 정보를 알려주면 클래스에 애노테이션 정보를 리턴

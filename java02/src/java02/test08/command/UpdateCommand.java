@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Scanner;
 
-import java02.test09.Command;
-import java02.test09.Score;
-import java02.test09.ScoreDao;
-import java02.test09.annotation.Component;
+import java02.test08.Command;
+import java02.test08.Score;
+import java02.test08.ScoreDao;
+import java02.test08.annotation.Component;
 
 @Component("update")
 public class UpdateCommand implements Command {

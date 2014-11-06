@@ -1,13 +1,14 @@
 package java02.test09.command;
 
 import java.util.Map;
+
+import java02.test09.Command;
 import java02.test09.Score;
 import java02.test09.ScoreDao;
-import java02.test09.annotation.Command;
 import java02.test09.annotation.Component;
 
 @Component("list")
-public class ListCommand{
+public class ListCommand implements Command {
   ScoreDao scoreDao;
   
   public void setScoreDao(ScoreDao scoreDao) {
@@ -15,7 +16,12 @@ public class ListCommand{
     this.scoreDao = scoreDao;
   }
 
-  @Command
+  @Override
+  public String getCommandInfo() {
+    return "list";
+  }
+
+  @Override
   public void service(Map<String, Object> params) throws Exception {
     // 이 메서드가 호출되기 전에 ScoreDao 의존 객체가 저장될 것이기 때문에
     // 다음 코드는 제거한다.

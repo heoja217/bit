@@ -3,13 +3,14 @@ package java02.test09.command;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Scanner;
+
+import java02.test09.Command;
 import java02.test09.Score;
 import java02.test09.ScoreDao;
-import java02.test09.annotation.Command;
 import java02.test09.annotation.Component;
 
 @Component("update")
-public class UpdateCommand{
+public class UpdateCommand implements Command {
   ScoreDao scoreDao;
   Scanner scanner;
   
@@ -20,9 +21,14 @@ public class UpdateCommand{
   public void setScanner(Scanner scanner) {
     this.scanner = scanner;
   }
+  
+  @Override
+  public String getCommandInfo() {
+    return "update";
+  }
 
-  @Command
-  public void doUpdate (Map<String, Object> params) throws Exception {
+  @Override
+  public void service(Map<String, Object> params) throws Exception {
     @SuppressWarnings("unchecked")
     ArrayList<String> options = 
         (ArrayList<String>)params.get("options");

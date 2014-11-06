@@ -46,6 +46,7 @@ public class Test01 {
 		scanner = new Scanner(System.in);
 
 		commandMap = new HashMap<String, Command>();
+		
 
 		Reflections reflections = new Reflections("test08");
 		Set<Class<?>> clazzList = reflections

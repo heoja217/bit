@@ -2,8 +2,8 @@ package java02.test08.command;
 
 import java.util.Map;
 
-import java02.test09.Command;
-import java02.test09.annotation.Component;
+import java02.test08.Command;
+import java02.test08.annotation.Component;
 
 @Component("help")
 public class HelpCommand implements Command {

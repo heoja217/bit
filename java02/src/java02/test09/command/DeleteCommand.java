@@ -3,13 +3,14 @@ package java02.test09.command;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Scanner;
+
+import java02.test09.Command;
 import java02.test09.Score;
 import java02.test09.ScoreDao;
-import java02.test09.annotation.Command;
 import java02.test09.annotation.Component;
 
 @Component("delete")
-public class DeleteCommand {
+public class DeleteCommand implements Command {
   ScoreDao scoreDao;
   Scanner scanner;
   
@@ -21,8 +22,12 @@ public class DeleteCommand {
     this.scanner = scanner;
   }
 
+  @Override
+  public String getCommandInfo() {
+    return "delete";
+  }
 
-  @Command
+  @Override
   public void service(Map<String, Object> params) throws Exception {
     @SuppressWarnings("unchecked")
     ArrayList<String> options = 
