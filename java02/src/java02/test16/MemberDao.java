@@ -1,24 +1,16 @@
-/*Prepared Statement 사용하기
- => SQL문을 미리 준비하여 입력값을 파라미터로 전달한다
- => 이점 1) 서버에 SQL문을 보내기 전에 한번만 컴파일한다.
-            => 만약 같은 SQL문을 한번에 여러번 실행하는 경우에는 속도가 빠름.
-         2) 입력값을 파라미터로 전달하기 떄문에 =>바이너리 데이터 입력 가능하다.
-         3) 코딩이 간결함.
-*/
-package java02.test15;
+package java02.test16;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductDao {
-  public ProductDao() {}
+public class MemberDao {
+  public MemberDao() {}
 
-  public Product selectOne(int no) {
+  public Member selectOne(String id) {
     Connection con = null;
     Statement stmt = null;
     ResultSet rs = null;
@@ -31,15 +23,20 @@ public class ProductDao {
           "study");
       stmt = con.createStatement();
       rs = stmt.executeQuery(
-          "SELECT PNO,PNAME,QTY,MKNO FROM PRODUCTS"
-          + " WHERE PNO=" + no);
+          "SELECT UID,PWD,EMAIL,UNAME,TEL,FAX,DET_ADDR,PHOT,ANO FROM MEMBERS"
+          + " WHERE UID=" + "'"+id+"'");
       if (rs.next()) {
-        Product product = new Product();
-        product.setNo(rs.getInt("PNO"));
-        product.setName(rs.getString("PNAME"));
-        product.setQuantity(rs.getInt("QTY"));
-        product.setMakerNo(rs.getInt("MKNO"));
-        return product;
+        Member member = new Member();
+        member.setId(rs.getString("UID"));
+        member.setPw(rs.getString("PWD"));
+        member.setEmail(rs.getString("EMAIL"));
+        member.setName(rs.getString("UNAME"));
+        member.setTel(rs.getString("TEL"));
+        member.setFax(rs.getString("FAX"));
+        member.setAddr(rs.getString("DET_ADDR"));
+        member.setPhot(rs.getString("PHOT"));
+        member.setAddno(rs.getInt("ANO"));
+        return member;
       } else {
         return null;
       }
@@ -54,34 +51,7 @@ public class ProductDao {
     }
   }
   
-  public void update(Product product) {
-    Connection con = null;
-    PreparedStatement stmt = null;
-    
-    try {
-      Class.forName("com.mysql.jdbc.Driver");
-      con = DriverManager.getConnection(
-          "jdbc:mysql://localhost:3306/studydb" + 
-            "?useUnicode=true&characterEncoding=utf8", 
-          "study",
-          "study");
-      stmt = con.prepareStatement("UPDATE PRODUCTS SET PNAME=?,QTY=? WHERE PNO=?");
-     
-      stmt.setString(1, product.getName());
-      stmt.setInt(2, product.getQuantity());
-      stmt.setInt(3, product.getNo());
-      stmt.executeUpdate();
-              
-    } catch (Exception ex) {
-      throw new RuntimeException(ex);
-      
-    } finally {
-      try {stmt.close();} catch (Exception ex) {}
-      try {con.close();} catch (Exception ex) {}
-    }
-  }
-  
-  public void delete(int no) {
+  public void update(Member member) {
     Connection con = null;
     Statement stmt = null;
     
@@ -93,8 +63,16 @@ public class ProductDao {
           "study",
           "study");
       stmt = con.createStatement();
-      stmt.executeUpdate("DELETE FROM PRODUCTS"
-          + " WHERE PNO=" + no);
+      stmt.executeUpdate("UPDATE MEMBERS SET"
+        + " PWD='" + member.getPw()
+        + "', EMAIL='" + member.getEmail()
+        + "', UNAME='" + member.getName()
+        + "', TEL='" + member.getTel()
+        + "', FAX='" + member.getFax()
+        + "', DET_ADDR='" + member.getAddr()
+        + "', PHOT='" + member.getPhot()
+        + "', ANO=" + member.getAddno()
+        + " WHERE UID='" + member.getId()+"'");
       
     } catch (Exception ex) {
       throw new RuntimeException(ex);
@@ -105,7 +83,31 @@ public class ProductDao {
     }
   }
   
-  public List<Product> selectList(int pageNo, int pageSize) {
+  public void delete(String id) {
+    Connection con = null;
+    Statement stmt = null;
+    
+    try {
+      Class.forName("com.mysql.jdbc.Driver");
+      con = DriverManager.getConnection(
+          "jdbc:mysql://localhost:3306/studydb" + 
+            "?useUnicode=true&characterEncoding=utf8", 
+          "study",
+          "study");
+      stmt = con.createStatement();
+      stmt.executeUpdate("DELETE FROM MEMBERS"
+          + " WHERE UID='"+id+"'");
+      
+    } catch (Exception ex) {
+      throw new RuntimeException(ex);
+      
+    } finally {
+      try {stmt.close();} catch (Exception ex) {}
+      try {con.close();} catch (Exception ex) {}
+    }
+  }
+  
+  public List<Member> selectList() {
     Connection con = null;
     Statement stmt = null;
     ResultSet rs = null;
@@ -117,23 +119,19 @@ public class ProductDao {
           "study", 
           "study");
       stmt = con.createStatement();
+      rs = stmt.executeQuery(
+          "SELECT UID,PWD,EMAIL,UNAME,TEL,FAX,DET_ADDR,PHOT,ANO FROM MEMBERS");
       
-      String sql = "SELECT PNO,PNAME,QTY,MKNO FROM PRODUCTS";
-      if (pageSize > 0) {
-        sql += " limit " + ((pageNo - 1) * pageSize) + "," +pageSize;
-      }
-      rs = stmt.executeQuery(sql);
-      
-      ArrayList<Product> list = new ArrayList<Product>();
-      Product product = null;
+      ArrayList<Member> list = new ArrayList<Member>();
+      Member member = null;
       
       while (rs.next()) {
-        product = new Product();
-        product.setNo(rs.getInt("PNO"));
-        product.setName(rs.getString("PNAME"));
-        product.setQuantity(rs.getInt("QTY"));
-        product.setMakerNo(rs.getInt("MKNO"));
-        list.add(product);
+        member = new Member();
+        member.setId(rs.getString("UID"));
+        member.setName(rs.getString("UNAME"));
+        member.setEmail(rs.getString("EMAIL"));
+        member.setTel(rs.getString("Tel"));
+        list.add(member);
       }
       
       return list;
@@ -148,9 +146,9 @@ public class ProductDao {
     }
   }
   
-  public void insert(Product product) {
+  public void insert(Member member) {
     Connection con = null;
-    PreparedStatement stmt = null;
+    Statement stmt = null;
     
     try {
       Class.forName("com.mysql.jdbc.Driver");
@@ -159,15 +157,18 @@ public class ProductDao {
             "?useUnicode=true&characterEncoding=utf8", 
           "study",
           "study");
-      stmt = con.prepareStatement("INSERT INTO PRODUCTS(PNAME,QTY,MKNO) VALUES(?,?,?)");
       
-      // ?를 in-parameter라고 부른다.
-      // 인파라미터의 인덱스는 1부너...
-      stmt.setString(1, product.getName());
-      stmt.setInt(2, product.getQuantity());
-      stmt.setInt(3, product.getMakerNo());
-      
-      stmt.executeUpdate();
+      stmt = con.createStatement();
+      stmt.executeUpdate("INSERT INTO MEMBERS(UID,PWD,EMAIL,UNAME,TEL,FAX,DET_ADDR,PHOT,ANO)" +
+        " VALUES('" + member.getId() + "','" 
+        + member.getPw() + "','"
+        + member.getEmail() + "','"
+        + member.getName() + "','"
+        + member.getTel() + "','"
+        + member.getFax() + "','"
+        + member.getAddr() + "','"
+        + member.getPhot() + "',"
+        + member.getAddno() + ")");
       
     } catch (Exception ex) {
       throw new RuntimeException(ex);

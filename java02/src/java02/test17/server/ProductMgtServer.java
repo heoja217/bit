@@ -1,18 +1,22 @@
-package java02.test15;
+package java02.test17.server;
 
+import java.io.PrintStream;
 import java.lang.reflect.Method;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Set;
-import java02.test15.annotation.Command;
-import java02.test15.annotation.Component;
+
+import java02.test17.server.annotation.Command;
+import java02.test17.server.annotation.Component;
 
 import org.reflections.ReflectionUtils;
 import org.reflections.Reflections;
 
 @SuppressWarnings({"unchecked", "rawtypes"})
-public class ProductMgt {
+public class ProductMgtServer {
   static class CommandInfo {
     public Object instance;
     public Method method;
@@ -27,7 +31,7 @@ public class ProductMgt {
     scanner = new Scanner(System.in);
     commandMap = new HashMap<>();
     
-    Reflections reflections = new Reflections("java02.test15");
+    Reflections reflections = new Reflections("java02.test17.server.command");
     Set<Class<?>> clazzList = 
         reflections.getTypesAnnotatedWith(Component.class);
     
@@ -67,21 +71,34 @@ public class ProductMgt {
     
   }
   
-  public void service() {
-    CommandInfo commandInfo = null;
-    loop: 
-    while (true) {
+  class ServiceThread extends Thread {
+    Socket socket;
+    Scanner in;
+    PrintStream out;
+    
+    public ServiceThread(Socket socket) throws Exception {
+      this.socket = socket;
+      in = new Scanner(socket.getInputStream());
+      out = new PrintStream(socket.getOutputStream());
+    }
+
+    @Override
+    public void run() {
+      CommandInfo commandInfo = null;
       try {
-        String[] token = promptCommand();
+        String[] token = in.nextLine().split("\\?");
         commandInfo = commandMap.get(token[0]);
         
         if (commandInfo == null) {
-          System.out.println("해당 명령을 지원하지 않습니다.");
-          continue;
+          out.println("해당 명령을 지원하지 않습니다.");
+          out.println();
+          return;
         }
         
         HashMap<String,Object> params = 
             new HashMap<String,Object>();
+        
+        params.put("out", out);
         
         ArrayList<String> options = new ArrayList<String>();
         for (int i = 1; i < token.length; i++) {
@@ -91,13 +108,25 @@ public class ProductMgt {
         
         commandInfo.method.invoke(commandInfo.instance, params);
         
-        if (token[0].equals("exit"))
-          break loop;
-        
       } catch (Exception e) {
         e.printStackTrace();
-        System.out.println("명령어 처리 중 오류 발생. 다시 시도해 주세요.");
+        out.println("명령어 처리 중 오류 발생. 다시 시도해 주세요.");
+        out.println();
+        //출력의 끝에는 빈 라인을 보냄.
+      } finally {
+        try {in.close();} catch (Exception e) {}
+        try {out.close();} catch (Exception e) {}
+        try {socket.close();} catch (Exception e) {}
       }
+    }
+  }
+  
+  public void service() throws Exception {
+    ServerSocket serverSocket = new ServerSocket(8888);
+    Socket socket = null;
+    while (true) {
+      socket = serverSocket.accept();
+      new ServiceThread(socket).start();
     }
   }
   
@@ -105,14 +134,8 @@ public class ProductMgt {
     scanner.close();
   }
 
-  private String[] promptCommand() {
-    System.out.print("명령>");
-    String[] token = scanner.nextLine().split(" ");
-    return token;
-  }
-
   public static void main(String[] args) throws Exception {
-    ProductMgt app = new ProductMgt();
+    ProductMgtServer app = new ProductMgtServer();
     app.init();
     app.service();
     app.destroy();

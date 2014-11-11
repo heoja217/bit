@@ -1,33 +1,33 @@
-package java02.test15;
+package java02.test16;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Set;
-import java02.test15.annotation.Command;
-import java02.test15.annotation.Component;
+import java02.test16.annotation.Command;
+import java02.test16.annotation.Component;
 
 import org.reflections.ReflectionUtils;
 import org.reflections.Reflections;
 
 @SuppressWarnings({"unchecked", "rawtypes"})
-public class ProductMgt {
+public class MemberMgt {
   static class CommandInfo {
     public Object instance;
     public Method method;
   }
   
   Scanner scanner; 
-  ProductDao productDao;
+  MemberDao memberDao;
   HashMap<String,CommandInfo> commandMap;
   
   public void init() throws Exception {
-    productDao = new ProductDao();
+    memberDao = new MemberDao();
     scanner = new Scanner(System.in);
     commandMap = new HashMap<>();
     
-    Reflections reflections = new Reflections("java02.test15");
+    Reflections reflections = new Reflections("java02.test16");
     Set<Class<?>> clazzList = 
         reflections.getTypesAnnotatedWith(Component.class);
     
@@ -54,8 +54,8 @@ public class ProductMgt {
       }
       
       try { 
-        method = clazz.getMethod("setProductDao", ProductDao.class);
-        method.invoke(command, productDao);
+        method = clazz.getMethod("setMemberDao", MemberDao.class);
+        method.invoke(command, memberDao);
       } catch (Exception e) {}
       
       try { 
@@ -112,7 +112,7 @@ public class ProductMgt {
   }
 
   public static void main(String[] args) throws Exception {
-    ProductMgt app = new ProductMgt();
+    MemberMgt app = new MemberMgt();
     app.init();
     app.service();
     app.destroy();

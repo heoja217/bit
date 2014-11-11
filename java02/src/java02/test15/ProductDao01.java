@@ -15,8 +15,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductDao {
-  public ProductDao() {}
+public class ProductDao01 {
+  public ProductDao01() {}
 
   public Product selectOne(int no) {
     Connection con = null;
@@ -105,7 +105,7 @@ public class ProductDao {
     }
   }
   
-  public List<Product> selectList(int pageNo, int pageSize) {
+  public List<Product> selectList() {
     Connection con = null;
     Statement stmt = null;
     ResultSet rs = null;
@@ -117,12 +117,8 @@ public class ProductDao {
           "study", 
           "study");
       stmt = con.createStatement();
-      
-      String sql = "SELECT PNO,PNAME,QTY,MKNO FROM PRODUCTS";
-      if (pageSize > 0) {
-        sql += " limit " + ((pageNo - 1) * pageSize) + "," +pageSize;
-      }
-      rs = stmt.executeQuery(sql);
+      rs = stmt.executeQuery(
+          "SELECT PNO,PNAME,QTY,MKNO FROM PRODUCTS");
       
       ArrayList<Product> list = new ArrayList<Product>();
       Product product = null;

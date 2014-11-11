@@ -5,7 +5,7 @@
          2) 입력값을 파라미터로 전달하기 떄문에 =>바이너리 데이터 입력 가능하다.
          3) 코딩이 간결함.
 */
-package java02.test15;
+package java02.test17.server;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
