@@ -64,25 +64,25 @@ public class ProductCommand {
   
   @Command("delete")
   public void delete(Map<String, Object> params) {
+
+    PrintStream out = (PrintStream)params.get("out");
     @SuppressWarnings("unchecked")
     ArrayList<String> options = 
         (ArrayList<String>)params.get("options");
     
-    int no = Integer.parseInt(options.get(0));
-    
-    Product product = productDao.selectOne(no);
+
+    HashMap<String, String> valueMap = parseQueryString(options.get(0));
+
+    Product product = productDao.selectOne(Integer.parseInt(valueMap.get("no")));
     if (product == null) {
-      System.out.println("해당 번호의 제품 정보를 찾을 수 없습니다.");
-      return;
+      out.println("해당 번호의 제품 정보를 찾을 수 없습니다.");
+      out.println();
     }
     
-    System.out.print(product.getName() + "을 삭제하시겠습니까?(y/n)");
-    if (scanner.nextLine().equalsIgnoreCase("y")) {
-      productDao.delete(no);
-      System.out.println("삭제하였습니다.");
-    } else {
-      System.out.println("삭제 취소하였습니다.");
-    }
+    productDao.delete(Integer.parseInt(valueMap.get("no")));
+    out.println("삭제하였습니다.");
+    out.println();
+
   }
   
   @Command("list")
@@ -117,15 +117,18 @@ public class ProductCommand {
     @SuppressWarnings("unchecked")
     ArrayList<String> options = 
         (ArrayList<String>)params.get("options");
+
+    HashMap<String, String> valueMap = parseQueryString(options.get(0));
+
+
+    PrintStream out = (PrintStream)params.get("out");
     
-    int no = Integer.parseInt(options.get(0));
-    
-    Product product = productDao.selectOne(no);
+    Product product = productDao.selectOne(Integer.parseInt(valueMap.get("no")));
     if (product == null) {
-      System.out.println("해당 번호의 제품 정보를 찾을 수 없습니다.");
-      return;
+      out.println("해당 번호의 제품 정보를 찾을 수 없습니다.");
+      out.println();
     }
-    
+
     Product tempProduct = null;
     
     try {
@@ -133,30 +136,12 @@ public class ProductCommand {
     } catch (CloneNotSupportedException ex) {
       throw new RuntimeException(ex);
     }
+    tempProduct.setName(valueMap.get("name"));
+    tempProduct.setQuantity(Integer.parseInt(valueMap.get("qty")));
+    tempProduct.setMakerNo(Integer.parseInt(valueMap.get("mkno")));
     
-    String text = null;
-    System.out.printf("제품명(%s):", product.getName());
-    text = scanner.nextLine();
-    if (text.length() > 0)
-      tempProduct.setName(text);
-    
-    System.out.printf("수량(%d):", product.getQuantity());
-    text = scanner.nextLine();
-    if (text.length() > 0)
-      tempProduct.setQuantity(Integer.parseInt(text));
-    
-    System.out.printf("제조사 번호(%d):", product.getMakerNo());
-    text = scanner.nextLine();
-    if (text.length() > 0)
-      tempProduct.setMakerNo(Integer.parseInt(text)); 
-    
-    System.out.print("정말 변경하시겠습니까?(y/n)");
-    if (scanner.nextLine().equalsIgnoreCase("y")) {
-      productDao.update(tempProduct);
-      System.out.println("변경하였습니다.");
-    } else {
-      System.out.println("변경 취소하였습니다.");
-    }
+    productDao.update(tempProduct);
+    //update?no=18&name=ttt&qty=20&mkno=6
   }
   
   @Command("view")
