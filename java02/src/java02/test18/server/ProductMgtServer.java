@@ -1,4 +1,4 @@
-package java02.test17.server;
+package java02.test18.server;
 
 import java.io.PrintStream;
 import java.lang.reflect.Method;
@@ -9,9 +9,9 @@ import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Set;
 
-import java02.test17.server.annotation.Command;
-import java02.test17.server.annotation.Component;
-import java02.test17.server.util.DBConnectionPool;
+import java02.test18.server.annotation.Command;
+import java02.test18.server.annotation.Component;
+import java02.test18.server.util.DBConnectionPool;
 
 import org.reflections.ReflectionUtils;
 import org.reflections.Reflections;
@@ -41,7 +41,7 @@ public class ProductMgtServer {
     productDao.setDbConnectionPool(conPool);
     
     Reflections reflections = 
-        new Reflections("java02.test17.server.command");
+        new Reflections("java02.test18.server.command");
     Set<Class<?>> clazzList = 
         reflections.getTypesAnnotatedWith(Component.class);
     
