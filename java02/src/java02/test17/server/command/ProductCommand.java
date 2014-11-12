@@ -24,33 +24,16 @@ public class ProductCommand {
     this.scanner = scanner;
   }
   
-  private HashMap<String,String> parseQueryString(String query) {
-    // ex) name=pname&qty=20&mkno=6
-    // ==> {"name=pname","qty=20","mkno=6"}
-    String[] entryList = query.split("&");
-    HashMap<String, String> tempMap = new HashMap<>(); 
-    String[] token = null;
-    for (String entry : entryList) {
-      token = entry.split("=");
-      tempMap.put(token[0], token[1]);
-    }
-    return tempMap;
-  }
-  
   @Command("add")
   public void add(Map<String, Object> params) {
     PrintStream out = (PrintStream)params.get("out");
-    ArrayList<String> options = (ArrayList<String>) params.get("options");
    
     try {
-
-      HashMap<String, String> valueMap = parseQueryString(options.get(0));
-
       Product product = new Product();
 
-      product.setName(valueMap.get("name"));
-      product.setQuantity(Integer.parseInt(valueMap.get("qty")));
-      product.setMakerNo(Integer.parseInt(valueMap.get("mkno")));
+      product.setName((String)params.get("name"));
+      product.setQuantity(Integer.parseInt((String)params.get("qty")));
+      product.setMakerNo(Integer.parseInt((String)params.get("mkno")));
 
       productDao.insert(product);
       out.println("저장하였습니다.");
@@ -67,19 +50,15 @@ public class ProductCommand {
 
     PrintStream out = (PrintStream)params.get("out");
     @SuppressWarnings("unchecked")
-    ArrayList<String> options = 
-        (ArrayList<String>)params.get("options");
-    
 
-    HashMap<String, String> valueMap = parseQueryString(options.get(0));
-
-    Product product = productDao.selectOne(Integer.parseInt(valueMap.get("no")));
+    int no = Integer.parseInt((String)params.get("no"));
+    Product product = productDao.selectOne(no);
     if (product == null) {
       out.println("해당 번호의 제품 정보를 찾을 수 없습니다.");
       out.println();
     }
     
-    productDao.delete(Integer.parseInt(valueMap.get("no")));
+    productDao.delete(no);
     out.println("삭제하였습니다.");
     out.println();
 
@@ -88,17 +67,15 @@ public class ProductCommand {
   @Command("list")
   public void list(Map<String, Object> params) {
     @SuppressWarnings("unchecked")
-    ArrayList<String> options = 
-        (ArrayList<String>)params.get("options");
     int pageNo = 0;
     int pageSize = 0;
-    
-    if (options.size() > 0){
-      pageNo = Integer.parseInt(options.get(0));        
+
+    if ((String)params.get("pageNo") != null){
+      pageNo = Integer.parseInt((String)params.get("pageNo"));        
       pageSize = 3;
     }
-    if (options.size() > 1) {
-      pageSize = Integer.parseInt(options.get(1));
+    if ((String)params.get("pageSize") != null) {
+      pageSize = Integer.parseInt((String)params.get("pageSize"));
     }
 
     PrintStream out = (PrintStream)params.get("out");
@@ -115,44 +92,38 @@ public class ProductCommand {
   @Command("update")
   public void update(Map<String, Object> params) {
     @SuppressWarnings("unchecked")
-    ArrayList<String> options = 
-        (ArrayList<String>)params.get("options");
-
-    HashMap<String, String> valueMap = parseQueryString(options.get(0));
-
 
     PrintStream out = (PrintStream)params.get("out");
     
-    Product product = productDao.selectOne(Integer.parseInt(valueMap.get("no")));
+    Product product = productDao.selectOne(Integer.parseInt((String)params.get("no")));
     if (product == null) {
       out.println("해당 번호의 제품 정보를 찾을 수 없습니다.");
       out.println();
     }
 
-    Product tempProduct = null;
-    
     try {
-      tempProduct = product.clone();
-    } catch (CloneNotSupportedException ex) {
-      throw new RuntimeException(ex);
+      product = new Product();
+      product.setNo(Integer.parseInt((String) params.get("no")));
+      product.setName((String) params.get("name"));
+      product.setQuantity(Integer.parseInt((String) params.get("qty")));
+      product.setMakerNo(Integer.parseInt((String) params.get("mkno")));
+
+      productDao.update(product);
+      // update?no=18&name=ttt&qty=20&mkno=6
+      out.println("변경하였습니다.");
+      out.println();
+    } catch (Exception e) {
+      e.printStackTrace();
+      out.println("서버 오류");
+      out.println();
     }
-    tempProduct.setName(valueMap.get("name"));
-    tempProduct.setQuantity(Integer.parseInt(valueMap.get("qty")));
-    tempProduct.setMakerNo(Integer.parseInt(valueMap.get("mkno")));
-    
-    productDao.update(tempProduct);
-    //update?no=18&name=ttt&qty=20&mkno=6
   }
   
   @Command("view")
   public void view(Map<String, Object> params) throws Exception {
     @SuppressWarnings("unchecked")
-    ArrayList<String> options = 
-        (ArrayList<String>)params.get("options");
     
-    int no = Integer.parseInt(options.get(0));
-    
-    Product product = productDao.selectOne(no);
+    Product product = productDao.selectOne(Integer.parseInt((String)params.get("no")));
 
     PrintStream out = (PrintStream)params.get("out");
     
@@ -161,7 +132,7 @@ public class ProductCommand {
       out.println();
     }
     
-    out.println("제품번호: " + no);
+    out.println("제품번호: " + Integer.parseInt((String)params.get("no")));
     out.println("제품명: " + product.getName());
     out.println("수량: " + product.getQuantity());
     out.println("제조사 번호: " + product.getMakerNo());

@@ -65,11 +65,12 @@ public class ProductDao {
             "?useUnicode=true&characterEncoding=utf8", 
           "study",
           "study");
-      stmt = con.prepareStatement("UPDATE PRODUCTS SET PNAME=?,QTY=? WHERE PNO=?");
+      stmt = con.prepareStatement("UPDATE PRODUCTS SET PNAME=?,QTY=?,MKNO=? WHERE PNO=?");
      
       stmt.setString(1, product.getName());
       stmt.setInt(2, product.getQuantity());
       stmt.setInt(3, product.getNo());
+      stmt.setInt(4, product.getMakerNo());
       stmt.executeUpdate();
               
     } catch (Exception ex) {

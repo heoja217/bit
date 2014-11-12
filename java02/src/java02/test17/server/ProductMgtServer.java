@@ -82,6 +82,17 @@ public class ProductMgtServer {
       out = new PrintStream(socket.getOutputStream());
     }
 
+    private void parseQueryString(String query, HashMap<String,Object> map) {
+      // ex) name=pname&qty=20&mkno=6
+      // ==> {"name=pname","qty=20","mkno=6"}
+      String[] entryList = query.split("&");
+      String[] token = null;
+      for (String entry : entryList) {
+        token = entry.split("=");
+        map.put(token[0], token[1]);
+      }
+    }
+    
     @Override
     public void run() {
       CommandInfo commandInfo = null;
@@ -100,12 +111,10 @@ public class ProductMgtServer {
         
         params.put("out", out);
         
-        ArrayList<String> options = new ArrayList<String>();
-        for (int i = 1; i < token.length; i++) {
-          options.add(token[i]);
+        if (token.length > 1) {
+          parseQueryString(token[1], params);
         }
-        params.put("options", options);
-        
+                  
         commandInfo.method.invoke(commandInfo.instance, params);
         
       } catch (Exception e) {
