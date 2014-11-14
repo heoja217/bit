@@ -65,7 +65,7 @@
 	PNAME=#{name},
 	QTY=#{quantity},
 	MKNO=#{makerNo}
-	WHERE PNO=?#{no}
+	WHERE PNO=#{no}
   </update>
   
   <delete id="delete" parameterType="java.lang.Integer">

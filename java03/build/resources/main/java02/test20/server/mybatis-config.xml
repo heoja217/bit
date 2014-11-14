@@ -24,6 +24,6 @@
   
   
   <mappers>
-    <mapper resource="java02/test19/server/ProductDao.xml"/>
+    <mapper resource="java02/test20/server/MemberDao.xml"/>
   </mappers>
 </configuration>

@@ -5,10 +5,12 @@ package java02.test19.server;
 
 import java.util.HashMap;
 import java.util.List;
+import java02.test19.server.annotation.Component;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
+@Component
 public class ProductDao {
 
   SqlSessionFactory sqlSessionFactory;
