@@ -29,13 +29,16 @@ public class Test01 {
     Car c23 = (Car)ctx.getBean("b23");
     
 
-    if (c1 != c2) 
-      System.out.println("c1 != c2");
-    if (c2 != c3) 
-      System.out.println("c2 != c3");
-    if (c1 != c3) 
-      System.out.println("c1 != c3");
+    // 빈을 설정할때 이름을 지정하지않으면 패키지명+클래스명+#인덱스를 이름으로 사용
+    // 그리고 0번 빈의 별명은 "패키지명+클래스명"이 됨
+    Car c30 = (Car)ctx.getBean("java02.test21.spring.exam02.Car");
+    Car c31 = (Car)ctx.getBean("java02.test21.spring.exam02.Car#0");
     
+    if (c31 == c30) System.out.println("c31==c30");
+    Car c32 = (Car)ctx.getBean("java02.test21.spring.exam02.Car#1");
+    Car c33 = (Car)ctx.getBean("java02.test21.spring.exam02.Car#2");
+    
+  
     
   }
   
