@@ -6,45 +6,37 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Scanner;
-import java02.test21.server.CommandMapping.CommandInfo;
+
+import java02.test21.server.command.CommandMapping;
+import java02.test21.server.command.CommandMapping.CommandInfo;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Component;
 
 @SuppressWarnings({"unchecked", "rawtypes"})
 public class ProductMgtServer {
 
-  
   Scanner scanner; 
   ApplicationContext appCtx;
   CommandMapping commandMapping;
   
   public void init() throws Exception {
-    String resource = "java02/test19/server/mybatis-config.xml";
-    InputStream inputStream = Resources.getResourceAsStream(resource);
-    SqlSessionFactory sqlSessionFactory = 
-        new SqlSessionFactoryBuilder().build(inputStream);
     
     scanner = new Scanner(System.in);
 
    
-    // java02.test21.server 패키지 및 하위 패키지의 모든 클래스를 뒤진다
-    // @Component 애노테이션이 붙은 클래스를 찾는다.
-    // 해당 클래스의 인스턴스를 생성하여 보관한다.
-    appCtx = new ApplicationContext("java02.test21.server");
-    
-    // sqlSessionFactory 의인스턴스를 생성하여 보관
-    appCtx.addBean("sqlSessionFactory", sqlSessionFactory);
-    
-    //의존객체 주입
-    appCtx.injectDependency();
-   
-    
+    appCtx =
+        new ClassPathXmlApplicationContext(
+            new String[]{"java02/test21/server/application-context.xml"});
     
     // objPool에서 @Command 애노테이션이 붙은 메서드를 찾아서 명령어와 메서드 연결정보를 구축
     commandMapping = new CommandMapping();
-    commandMapping.prepare(appCtx.getAllBeans());
+    commandMapping.prepare(
+        appCtx.getBeansWithAnnotation(Component.class).values());
     
   }
   

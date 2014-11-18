@@ -2,19 +2,21 @@ package java02.test21.server.command;
 
 import java.io.PrintStream;
 import java.util.Map;
-import java.util.Scanner;
-import java02.test21.server.Product;
-import java02.test21.server.ProductDao;
-import java02.test21.server.annotation.Command;
-import java02.test21.server.annotation.Component;
 
-@Component("product")
+import java02.test21.server.annotation.Command;
+import java02.test21.server.dao.ProductDao;
+import java02.test21.server.domain.Product;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
 public class ProductCommand {
+  @Autowired
   ProductDao productDao;
   
-  public void setProductDao(ProductDao productDao) {
-    this.productDao = productDao;
-  }
+  /* 걍 알아두시라고 =>setter 메서드를 통해서가 아닌 의존객체 강제주입은 객체지향의 캡슐화를 깨트림...
+  */
   
   @Command("product/add")
   public void add(Map<String, Object> params) {

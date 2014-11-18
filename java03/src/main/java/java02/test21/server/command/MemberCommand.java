@@ -2,18 +2,17 @@ package java02.test21.server.command;
 
 import java.io.PrintStream;
 import java.util.Map;
-import java02.test21.server.Member;
-import java02.test21.server.MemberDao;
 import java02.test21.server.annotation.Command;
-import java02.test21.server.annotation.Component;
+import java02.test21.server.dao.MemberDao;
+import java02.test21.server.domain.Member;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 @Component
 public class MemberCommand {
+  @Autowired
   MemberDao memberDao;
-
-  public void setMemberDao(MemberDao memberDao) {
-    this.memberDao = memberDao;
-  }
   
   @Command("member/add")
   public void add(Map<String, Object> params) {

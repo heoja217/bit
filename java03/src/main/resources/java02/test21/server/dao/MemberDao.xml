@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- SQL문의 네임스페이스 설정 -->
+<mapper namespace="java02.test19.server.MemberDao">
+
+  <select id="selectList" parameterType="map" resultType="Member">
+    SELECT 
+      UID as id,
+      PWD as pw,
+      EMAIL as email,
+      UNAME as name,
+      TEL as tel,
+      FAX as fax,
+      DET_ADDR as addr,
+      PHOT as phot,
+      ANO as addno 
+    FROM MEMBERS
+    <if test="pageSize > 0">
+    limit #{startIndex}, #{pageSize}
+    </if>
+  </select>
+
+<!-- 만약 파라미터 값이 문자열, 기본형, 랩퍼클래스 객체라면 값을 꺼낼 때 아무 이름이나 지정해도 됨 -->
+  <select id="selectOne"
+          parameterType = "string"
+          resultType="Member">
+    SELECT 
+    UID as id,
+    PWD as pw,
+    EMAIL as email,
+    UNAME as name,
+    TEL as tel,
+    FAX as fax,
+    DET_ADDR as addr,
+    PHOT as phot,
+    ANO as addno 
+    FROM MEMBERS WHERE UID=#{value}
+  </select>
+  
+  <insert id="insert" parameterType="Member">
+  INSERT INTO MEMBERS(
+    UID,PWD,EMAIL,UNAME,TEL,FAX,DET_ADDR,PHOT,ANO)
+  VALUES(#{id},#{pw},#{email},#{name},#{tel},#{fax},#{addr},#{phot},#{addno})
+  </insert>
+  
+  <update id="update" parameterType="Member">
+	UPDATE MEMBERS SET
+    PWD=#{pw},
+    EMAIL=#{email},
+    UNAME=#{name},
+    TEL=#{tel},
+    FAX=#{fax},
+    DET_ADDR=#{addr},
+    PHOT=#{phot},
+    ANO=#{addno}
+	WHERE UID=#{id}
+  </update>
+  
+  <delete id="delete" parameterType="string">
+  DELETE FROM MEMBERS WHERE UID=#{value}
+  </delete>
+</mapper>
