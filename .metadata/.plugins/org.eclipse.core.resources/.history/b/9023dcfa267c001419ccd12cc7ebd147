@@ -1,0 +1,5 @@
+<table id='productTable' class='table table-hover'>
+<tr>
+  <th>#</th><th>제품</th><th>수량</th><th>제조사</th>
+</tr>
+</table>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>Handlebars JS -01</h1>
+
+<div id='d1'></div>
+
+<!-- text이하는 자유롭게 지정 가능하나 되도록 아래와같이... -->
+<script type="text/x-handlebars-template">
+<div style='border:red solid 2px; width: 200px;'>
+이름: {{name}}<br>
+이름: {{age}}<br>
+이름: {{tel}}<br>
+</div>
+</script>
+
+<script type="text/javascript" src='../js/handlebars-v2.0.0.js'></script>
+<script type="text/javascript" src='../js/jquery-1.11.1.js'></script>
+<script type="text/javascript">
+
+//1) HTML 데이터 준비
+var source = $('#template').html();
+
+//2) HTML의 인파라미터에 값을 넣어줄 함수를 얻는다.
+var template = Handlebars.compile(source);
+
+//3) 템플릿함수를 통해 값을 넣는다.=> 값이 들어간 HTML을 리턴
+var html = template({
+	name: '홍길동',
+	age: 20,
+	tel: '123-4567'
+	});
+//4) HTML을 원하는 곳에 넣는다.
+$('#d1').html(html);
+
+
+
+
+
+
+</script>
+
+
+</body>
+</html>

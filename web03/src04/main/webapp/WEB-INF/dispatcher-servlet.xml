@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:c="http://www.springframework.org/schema/c" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+	
+	<context:component-scan base-package="java63.web03.control"/>
+	<!-- 
+	
+	1) 요청을 처리할 빈을 조회
+	2) 요청 핸들러를 찾는다
+			└요청에 대해 호출될 메서드
+			└@RequestMapping 애노테이션 선언 메서드
+	2) 메서드의 파라미터 조사 => 파라미터에 일치하는 값을 찾아서 메서드를 호출할때 넘겨준다.
+	3) 호출
+	4) 메서드의 리턴 타입 조사 => String -> forwarding
+																	?		 ->			?			
+	 -->
+	
+	
+	
+</beans>

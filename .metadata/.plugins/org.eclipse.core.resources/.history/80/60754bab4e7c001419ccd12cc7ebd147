@@ -1,0 +1,28 @@
+var currPageNo;
+var maxPageNo;
+
+$(function(){
+	$('.footer').load('../common/footer.html');
+
+	$('#btnLogin').click(function(event){
+		console.log($('#save').is('checked'));
+		/*$.post('../json/auth/login.do?'
+			, {
+					uid : $('#uid').val(),
+					pwd : $('#pwd').val(),
+					s
+			}
+			, function(data){
+		     setPageNo(data.currPageNo, data.maxPageNo);
+		     
+		     require(['text!templates/product-table.html'], function(html){
+		     	var template = Handlebars.compile(html);
+		     	$('#listDiv').html(template(data));
+		    });
+
+			});*/
+	})
+	
+});
+
+

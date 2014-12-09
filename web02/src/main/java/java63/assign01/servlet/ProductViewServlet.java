@@ -24,16 +24,15 @@ public class ProductViewServlet extends GenericServlet {
 
     int no = Integer.parseInt(request.getParameter("no"));
     
-    Product product;
     try {
-      product = productDao.selectOne(no);
+      Product product = productDao.selectOne(no);
       
       if (product == null) {
         out.println("<p>해당 번호의 제품 정보를 찾을 수 없습니다.</p>");
         return;
       }
       
-      out.println("<p>제품번호: " + no + "</p>");
+      out.println("<p>제품번호: " + product.getNo() + "</p>");
       out.println("<p>제품명: " + product.getName() + "</p>");
       out.println("<p>수량: " + product.getQuantity() + "</p>");
       out.println("<p>제조사 번호: " + product.getMakerNo() + "</p>");

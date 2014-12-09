@@ -1,0 +1,26 @@
+var currPageNo;
+var maxPageNo;
+
+$(function(){
+	$('.footer').load('../common/footer.html');
+
+	$('#btnLogin').click(function(event){
+		$.post('../json/auth/login.do?'
+			, {
+					uid : $('#uid').val(),
+					pwd : $('#pwd').val(),
+					save : $('#save').is(':checked')
+			}
+			, function(data){
+				if(data.status == 'success') {
+					location.href = '../product/app.html';
+				} else {
+					alert('로그인 아이디 또는 암호가 잘못되었습니다.');
+					$('#pwd').val('');
+				}
+			}
+			, 'json');
+	});
+});
+
+

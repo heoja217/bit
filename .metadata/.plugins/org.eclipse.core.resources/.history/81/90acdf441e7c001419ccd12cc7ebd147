@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>Handlebars JS -01</h1>
+
+<table id='cardTable' border='1'>
+<tr>
+<th>이름</th> <th>나이</th><th>전화</th>
+</tr>
+
+</table>
+
+
+<!-- text이하는 자유롭게 지정 가능하나 되도록 아래와같이... -->
+<script id='template' type="text/x-handlebars-template">
+<tr>
+	<td>이름: {{name}}</td>
+	<td>나이: {{age}}</td>
+	<td>전화: {{tel}}</td>
+</tr>
+{{/list}}
+</script>
+
+<script type="text/javascript" src='../js/handlebars-v2.0.0.js'></script>
+<script type="text/javascript" src='../js/jquery-1.11.1.js'></script>
+<script type="text/javascript">
+
+var source = $('#template').html();
+var template = Handlebars.compile(source);
+var html = template({
+	cards: [
+	{name: '홍길동', age: 20, tel: '123-4567'},
+	{name: '임꺽정', age: 22, tel: '123-4567'},
+	{name: '안중근', age: 23, tel: '123-4567'},
+	{name: '윤봉길', age: 24, tel: '123-4567'},
+	{name: '유관순', age: 17, tel: '123-4567'},
+	]
+});
+$('#d1').html(html);
+
+
+</script>
+
+
+</body>
+</html>

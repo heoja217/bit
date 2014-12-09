@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>Handlebars JS -01</h1>
+
+<div id='d1'></div>
+
+<script type="text/javascript" src='../js/handlebars-v2.0.0.js'></script>
+<script type="text/javascript" src='../js/jquery-1.11.1.js'></script>
+<script type="text/javascript">
+
+var source = '<p>Hello, {{name}}</p>';
+var template = Handlebars.compile(source);
+
+var html = template({name: '홍길동'});
+
+$('#d1').html(html);
+
+
+
+
+
+
+</script>
+
+
+</body>
+</html>

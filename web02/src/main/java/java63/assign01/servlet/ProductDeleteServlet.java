@@ -17,7 +17,6 @@ public class ProductDeleteServlet extends GenericServlet {
   public void service(ServletRequest request, ServletResponse response)
       throws ServletException, IOException {
     ProductDao productDao = new ProductDao();
-    
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
     

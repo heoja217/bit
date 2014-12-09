@@ -1,0 +1,5 @@
+<div class='header'>
+<p class='userinfo'>
+  <a href='mailto:'></a></p>
+<p class='logout'><a href='/web03/auth/logout.do'>로그아웃</a></p>
+</div>  

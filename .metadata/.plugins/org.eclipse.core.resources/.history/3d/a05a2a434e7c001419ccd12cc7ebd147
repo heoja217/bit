@@ -1,0 +1,30 @@
+var currPageNo;
+var maxPageNo;
+
+$(function(){
+	$('.footer').load('../common/footer.html');
+
+	$('#btnLogin').click(function(event){
+		alert('로그인 하실게요!');
+	})
+	
+});
+
+function loadProductList(pageNo) {
+	if (pageNo == 0) { pageNo = currPageNo; 
+	} else if (pageNo == -1) { 
+		pageNo = maxPageNo; }
+	
+	
+	$.getJSON('../json/product/list.do?pageNo=' + pageNo, 
+    function(data){
+		//			console.log(data);
+      setPageNo(data.currPageNo, data.maxPageNo);
+      
+      require(['text!templates/product-table.html'], function(html){
+      	var template = Handlebars.compile(html);
+      	$('#listDiv').html(template(data));
+      });
+
+		});
+}
