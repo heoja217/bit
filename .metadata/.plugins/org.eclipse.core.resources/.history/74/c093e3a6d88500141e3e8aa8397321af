@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>모달레이어</title>
+<link type="text/css" rel="stylesheet" href="modalLayer.css" />
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" src="jquery.modalLayer.js"></script>
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+	$('.open_modal').modalLayer();
+});
+</script>
+</head>
+
+<body>
+<div id="wrap">
+<p><a href="#person_request" class="open_modal">레이어 오픈 샘플보기1</a></p>
+<p><a href="#person_request2" class="open_modal">레이어 오픈 샘플보기2</a></p>
+</div>
+<!-- 모달창 1 시작 -->
+<div class="modal m-regist" id="person_request" aria-hidden="true" aria-labelledby="modalTitle2" role="alertdialog">
+	<h1 id="modalTitle2">개인정보를 입력해주세요! </h1>
+	<form action="#" method="get">
+		<fieldset>
+			<legend>개인정보등록</legend>
+			<div class="m-input01">
+				<label for="u-name">이름:</label>
+				<input type="text" id="u-name" />
+			</div>
+			<div class="m-input02">
+				<label for="u-mail">메일:</label>
+				<input type="text" id="u-mail" />
+			</div>
+			<div class="m-input03">
+				<label for="phone01">핸드폰 앞자리</label>
+				<input type="text" id="phone01" /><br />
+				<label for="phone02">핸드폰 중간자리</label>
+				<input type="text" id="phone02" /><br />
+				<label for="phone03">핸드폰 뒷자리</label>
+				<input type="text" id="phone03" />
+			</div>
+			<div class="m-input04">
+					<input type="checkbox" id="mail_agree2" />
+					<label class="checklabel02" for="mail_agree2">
+						추후 뉴스레터 (제품 정보 및 할인 행사 등)수신에 동의 합니다.
+					</label><br />
+					<input type="radio" id="radio2" />
+					<label class="checklabel02" for="radio2">
+						추후 뉴스레터 (제품 정보 및 할인 행사 등)수신에 동의 합니다.
+					</label>
+			</div>
+			<button type="submit" class="m-regist-submit">참여완료</button>
+		</fieldset>
+	</form>
+	<button type="button" class="closeModalLayer">닫기</button>
+</div>
+<!-- //모달창1 끝 -->
+
+<!-- 모달창 2 시작 -->
+<div class="modal m-regist" id="person_request2" aria-hidden="true" aria-labelledby="modalTitle3 modalDescription" role="alertdialog">
+	<h1 id="modalTitle3">개인정보를 입력해주세요! </h1>
+	<form action="#" method="get">
+		<fieldset>
+			<legend>개인정보등록</legend>
+			<div class="m-input01">
+				<label for="u-name22">이름:</label>
+				<input type="text" id="u-name22" />
+			</div>
+			<div class="m-input02">
+				<label for="u-mail22">메일:</label>
+				<input type="text" id="u-mail22" />
+			</div>
+			<div class="m-input03">
+				<label for="phone012">핸드폰 앞자리</label>
+				<input type="text" id="phone012" /><br />
+				<label for="phone022">핸드폰 중간자리</label>
+				<input type="text" id="phone022" /><br />
+				<label for="phone032">핸드폰 뒷자리</label>
+				<input type="text" id="phone032" />
+			</div>
+			<div class="m-input04">
+					<input type="checkbox" id="protection_agree2" />
+					<label class="checklabel01" for="protection_agree2">
+						개인 정보 취급 방침에 동의 합니다.
+					</label><br />
+					<input type="checkbox" id="mail_agree" />
+					<label class="checklabel02" for="mail_agree">
+						추후 뉴스레터 (제품 정보 및 할인 행사 등)수신에 동의 합니다.
+					</label><br />
+					<input type="radio" id="radio" />
+					<label class="checklabel02" for="radio">
+						추후 뉴스레터 (제품 정보 및 할인 행사 등)수신에 동의 합니다.
+					</label>
+			</div>
+			<button type="submit" class="m-regist-submit">참여완료</button>
+		</fieldset>
+	</form>
+	<div id="modalDescription">
+		<h2>이벤트 유의사항</h2>
+		<ul>
+			<li>수집, 이용 항목 : 이름, 메일, 핸드폰번호</li>
+			<li>프로모션을 위해 사용되며, 다른 목적으로 사용되지 않습니다.</li>
+			<li>이용, 보관 기간 : 이벤트 기간 내 보관되며, 이벤트가 종료된 후 고객 정보는 폐기됩니다. </li>
+			<li>당첨자 안내는 이벤트 사이트 내에서 확인 할 수 있습니다.</li>
+		</ul>
+	</div>
+	<button type="button" class="closeModalLayer">닫기</button>
+</div>
+<!-- //모달창 2 끝 -->
+</body>
+</html>

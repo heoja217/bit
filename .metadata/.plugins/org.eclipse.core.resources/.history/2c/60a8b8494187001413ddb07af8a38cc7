@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bootstrap-select test page</title>
+
+  <meta charset="utf-8">
+
+  <link rel="stylesheet" type="text/css" href="dist/css/bootstrap-select.css">
+  <link href="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      padding-top: 70px;
+    }
+  </style>
+
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+  <script src="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="js/bootstrap-select.js"></script>
+</head>
+<body>
+    <div class="form-group">
+      <select id="lunch" class="selectpicker" data-live-search="true" title="Please select a lunch ...">
+        <option>Hot Dog, Fries and a Soda</option>
+        <option>Burger, Shake and a Smile</option>
+        <option>Sugar, Spice and all things nice</option>
+        <option>Baby Back Ribs</option>
+        <option>A really really long option made to illustrate an issue with the live search in an inline form</option>
+      </select>
+    </div>
+
+
+</div>
+</body>
+</html>

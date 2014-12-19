@@ -1,0 +1,14 @@
+var http = require('http');
+var url = require('url');
+var qs = require('querystring');
+
+var httpServer = http.createServer(function(req, resp){
+	resp.writeHead(200, 'OK', {
+		'Content-Type' : 'text/html;charset=UTF-8'
+	});
+	resp.write('<html><head><title>test...</title></head>');
+	resp.write('<body><h1>첫번쨰 테스트</h1>');
+	resp.write('</body></html>');
+	resp.end();
+});
+httpServer.listen(9999, '127.0.0.1');

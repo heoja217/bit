@@ -1,0 +1,550 @@
+/*리셋*/
+*{font-family: arial,'dotum', '돋움', Sans-serif;}
+body{ font-size:11px; color:#555}
+a{text-decoration:none; color:#666; font-weight:bold}
+button, input[type="submit"], input[type="button"]{cursor:pointer}
+button[type="submit"]{display:block; width:100px; margin:15px 0 15px 120px}
+/*리셋*/
+div.modal{position:absolute; z-index:100; padding:10px; display:none}
+div.modal div.modal-inside{position:relative;}
+div.modal h1{height:50px; overflow:hidden; display:block; font-size:16px}
+div.modal button.closeModalLayer{overflow:hidden; *overflow:visible; padding:0; margin:0; line-height:0; width:40px; height:34px; position:absolute; top:15px; right:16px;}
+div.modal fieldset legend, span.hide, p.hide {display:block;position:absolute;left:-9999px;width:1px;height:1px;line-height:0;overflow:hidden;font-size:0;text-indent:-9999px}
+div.m-regist{ width:596px; background:#eee; border:#000 solid 3px;}
+div.m-regist fieldset{padding:37px 0 0 116px;}
+div.m-regist div{padding:3px 0}
+div.m-regist div label{width:110px; overflow:hidden; display:inline-block; *display:inline; }
+div.m-regist div label,
+div.m-regist div input{line-height:14px; vertical-align:middle;}
+div.m-regist div.m-input04 input,
+div.m-regist div.m-input04 label{width:auto; display:inline;}
+div.m-regist div.footer_txt{padding:5px 0 0 30px}
+div.m-regist div.footer_txt img{vertical-align:top;}
+/* 백보드 div */
+div.overlay {width:100%;height:100%;z-index:2;background-color:#000; opacity:0.4; filter: alpha(opacity=40); -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=40)"; position:fixed; top:0; left:0;	margin:0;	padding:0; display:none}
+    .form-label-left{
+        width:150px !important;
+    }
+    .form-line{
+        padding-top:12px;
+        padding-bottom:12px;
+    }
+    .form-label-right{
+        width:150px !important;
+    }
+    .form-all{
+        width:650px;
+        color:#555 !important;
+        font-family:'Lucida Grande';
+        font-size:14px;
+    }
+    .form-radio-item label, .form-checkbox-item label, .form-grading-label, .form-header{
+        color: #555;
+    }
+
+</style>
+
+<style type="text/css" id="form-designer-style">
+    /* Injected CSS Code */
+@import "http://www.jotform.com/themes/css/buttons/form-submit-button-3d_edgy_yellow.css";
+.form-all {
+  font-family: "Lucida Grande", sans-serif;
+}
+.form-all {
+  width: 650px;
+}
+.form-label-left,
+.form-label-right {
+  width: 150px;
+}
+.form-label {
+  white-space: normal;
+}
+.form-label.form-label-auto {
+  display: inline-block;
+  float: left;
+  text-align: left;
+  width: 150px;
+}
+.form-label-left {
+  display: inline-block;
+  white-space: normal;
+  float: left;
+  text-align: left;
+}
+.form-label-right {
+  display: inline-block;
+  white-space: normal;
+  float: left;
+  text-align: right;
+}
+.form-label-top {
+  white-space: normal;
+  display: block;
+  float: none;
+  text-align: left;
+}
+.form-all {
+  font-size: 14px;
+}
+.form-label {
+  font-weight: bold;
+}
+.form-checkbox-item label,
+.form-radio-item label {
+  font-weight: normal;
+}
+.supernova {
+  background-color: #d9ceb2;
+}
+.supernova body {
+  background-color: transparent;
+}
+/*
+@width30: (unit(@formWidth, px) + 60px);
+@width60: (unit(@formWidth, px)+ 120px);
+@width90: (unit(@formWidth, px)+ 180px);
+*/
+/* | */
+@media screen and (min-width: 480px) {
+  .supernova {
+    background-color: #948c75;
+  }
+  .supernova .form-all {
+    border: 1px solid #79725d;
+    -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 3px 9px rgba(0, 0, 0, 0.1);
+  }
+}
+/* | */
+/* | */
+@media screen and (max-width: 480px) {
+  .jotform-form {
+    padding: 10px 0;
+  }
+}
+/* | */
+/* | */
+@media screen and (min-width: 480px) and (max-width: 768px) {
+  .jotform-form {
+    padding: 30px 0;
+  }
+}
+/* | */
+/* | */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .jotform-form {
+    padding: 60px 0;
+  }
+}
+/* | */
+/* | */
+@media screen and (min-width: 1024px) {
+  .jotform-form {
+    padding: 90px 0;
+  }
+}
+/* | */
+.form-all {
+  background-color: #d9ceb2;
+  border: 1px solid transparent;
+}
+.form-header-group {
+  border-color: #c8b890;
+}
+.form-matrix-table tr {
+  border-color: #c8b890;
+}
+.form-matrix-table tr:nth-child(2n) {
+  background-color: #d1c3a1;
+}
+.form-all {
+  color: #7a6a53;
+}
+.form-header-group .form-header {
+  color: #7a6a53;
+}
+.form-header-group .form-subHeader {
+  color: #988468;
+}
+.form-sub-label {
+  color: #988468;
+}
+.form-label-top,
+.form-label-left,
+.form-label-right {
+  color: #7a6a53;
+}
+.form-checkbox-item label,
+.form-radio-item label {
+  color: #988468;
+}
+.form-line.form-line-active {
+  -webkit-transition-property: all;
+  -moz-transition-property: all;
+  -ms-transition-property: all;
+  -o-transition-property: all;
+  transition-property: all;
+  -webkit-transition-duration: 0.3s;
+  -moz-transition-duration: 0.3s;
+  -ms-transition-duration: 0.3s;
+  -o-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-timing-function: ease;
+  -moz-transition-timing-function: ease;
+  -ms-transition-timing-function: ease;
+  -o-transition-timing-function: ease;
+  transition-timing-function: ease;
+  background-color: rgba(255, 255, 224, 0.4);
+}
+/* ömer */
+.form-radio-item,
+.form-checkbox-item {
+  padding-bottom: 0px !important;
+}
+.form-radio-item:last-child,
+.form-checkbox-item:last-child {
+  padding-bottom: 0;
+}
+/* ömer */
+/*.ctrl-custom-size(@bgSize, @tickSize, @tickOffsetTop, @tickOffsetLeft, @radius) {
+
+    input {
+        display: none;
+    }
+    
+    label {
+        position: relative;
+        margin-left: 0;
+    }
+
+    label:before {
+        content: '';
+        position: relative;
+        display: inline-block;
+        vertical-align: baseline;
+        margin-right: 4px;
+        .border-box();
+        .rounded(@radius);
+
+        width: @bgSize;
+        height: @bgSize;
+    }
+
+    label:after {
+        content: '';
+        position: absolute;
+        z-index: 10;    
+        display: inline-block;
+        opacity: 0;
+
+        top:@tickOffsetTop;
+        left:@tickOffsetLeft;
+        width: @tickSize;
+        height: @tickSize;
+        .rounded(@radius);
+    }
+
+    input:checked + label:after {
+        opacity: 1;
+    }
+
+}*/
+.form-single-column .form-checkbox-item,
+.form-single-column .form-radio-item {
+  width: 100%;
+}
+.supernova {
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center top;
+  background-repeat: repeat;
+}
+/* | */
+/* | */
+.form-all {
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center top;
+  background-repeat: repeat;
+}
+.form-header-group {
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center top;
+}
+.form-line {
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+.form-line {
+  padding: 12px 36px;
+}
+.form-all .form-submit-button,
+.form-all .form-submit-reset,
+.form-all .form-submit-print {
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+}
+.form-all .form-sub-label {
+  margin-left: 3px;
+}
+.form-all .qq-upload-button,
+.form-all .form-submit-button,
+.form-all .form-submit-reset,
+.form-all .form-submit-print {
+  height: 35px;
+  width: 80px;
+  font-size: 1em;
+  padding: 9px 15px;
+  font-family: "Lucida Grande", sans-serif;
+  font-size: 13px;
+  font-weight: normal;
+}
+.form-all .form-pagebreak-back,
+.form-all .form-pagebreak-next {
+  font-size: 1em;
+  padding: 9px 15px;
+  font-family: "Lucida Grande", sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+}
+/*
+    TODO: Significant improvement possibility:
+
+    following import statement is not required in design mode,
+    but it should be inside the exported css of current design, in the form itself
+    when it is shown to people. Being of this here, causing re-drawn problems.
+    we should find a way to only include this in css send while saving current design
+
+    see prepareModel4Save for implementation for @buttonFontType
+*/
+/*
+&amp; when ( @buttonFontType = google ) {
+    @import (css) "@{buttonFontLink}";
+}
+*/
+h2.form-header {
+  line-height: 1.618em;
+  font-size: 1.714em;
+}
+h2 ~ .form-subHeader {
+  line-height: 1.5em;
+  font-size: 1.071em;
+}
+.form-header-group {
+  text-align: left;
+}
+/*.form-dropdown,
+.form-radio-item,
+.form-checkbox-item,
+.form-radio-other-input,
+.form-checkbox-other-input,*/
+.form-captcha input,
+.form-spinner input,
+.form-error-message {
+  padding: 4px 3px 2px 3px;
+}
+.form-header-group {
+  font-family: "Lucida Grande", sans-serif;
+}
+.form-section {
+  padding: 0px 0px 0px 0px;
+}
+.form-header-group {
+  margin: 12px 36px 12px 36px;
+}
+.form-header-group {
+  padding: 24px 0px 24px 0px;
+}
+.form-textbox,
+.form-textarea {
+  padding: 4px 3px 2px 3px;
+}
+/*@textInputStyle: "ti-default";
+@textInputBorderWidth: -1;
+@textInputBorderStyle: -1;
+@clrTextInputBorder: -1;
+@clrTextInputBg: -1;
+@clrTextInputFont: -1;
+@textInputHeight: -1;
+@textAreaHeight: -1;
+
+&amp; when ( @formControlStyle = ti-default ) {
+
+}*/
+.form-dropdown {
+  border-width: 0px;
+  border-style: ridge;
+  -webkit-appearance: menulist-button;
+  background-color: #ffffff;
+}
+[data-type="control_dropdown"] .form-input,
+[data-type="control_birthdate"] .form-input,
+[data-type="control_time"] .form-input,
+[data-type="control_dropdown"] .form-input-wide,
+[data-type="control_birthdate"] .form-input-wide,
+[data-type="control_time"] .form-input-wide {
+  width: 100%;
+  max-width: 200px;
+}
+[data-type="control_dropdown"] .form-dropdown {
+  /*width: 100% !important;
+        max-width: unit(@dropdownWidth, px);*/
+  width: 200px !important;
+  max-width: 100%;
+}
+[data-type="control_birthdate"] .form-sub-label-container {
+  width: 22%;
+  margin-right: 3%;
+}
+[data-type="control_birthdate"] .form-sub-label-container:first-child {
+  width: 50%;
+}
+[data-type="control_birthdate"] .form-sub-label-container:last-child {
+  margin-right: 0;
+}
+[data-type="control_birthdate"] .form-sub-label-container .form-dropdown {
+  width: 100%;
+}
+[data-type="control_time"] .form-sub-label-container {
+  width: 37%;
+  margin-right: 3%;
+}
+[data-type="control_time"] .form-sub-label-container:last-child {
+  width: 20%;
+  margin-right: 0;
+}
+[data-type="control_time"] .form-sub-label-container .form-dropdown {
+  width: 100%;
+}
+.form-dropdown {
+  margin: 0;
+  border-color: #a6a6a6;
+  -webkit-appearance: menulist!important;
+  -moz-appearance: menulist!important;
+  appearance: menulist!important;
+  border-width: 1px;
+}
+.form-buttons-wrapper {
+  margin-left: 0 !important;
+  text-align: center !important;
+}
+.form-label {
+  font-family: "Lucida Grande", sans-serif;
+}
+li[data-type="control_image"] div {
+  text-align: left;
+}
+li[data-type="control_image"] img {
+  border: none;
+  border-width: 0px !important;
+  border-style: solid !important;
+  border-color: false !important;
+}
+.form-line-column {
+  width: auto;
+}
+.form-line-error {
+  overflow: hidden;
+  -webkit-transition-property: none;
+  -moz-transition-property: none;
+  -ms-transition-property: none;
+  -o-transition-property: none;
+  transition-property: none;
+  -webkit-transition-duration: 0.3s;
+  -moz-transition-duration: 0.3s;
+  -ms-transition-duration: 0.3s;
+  -o-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-timing-function: ease;
+  -moz-transition-timing-function: ease;
+  -ms-transition-timing-function: ease;
+  -o-transition-timing-function: ease;
+  transition-timing-function: ease;
+  background-color: #fff4f4;
+}
+.form-line-error .form-error-message {
+  background-color: #ff3200;
+  clear: both;
+  float: none;
+}
+.form-line-error .form-error-message .form-error-arrow {
+  border-bottom-color: #ff3200;
+}
+.form-line-error input:not(#coupon-input),
+.form-line-error textarea,
+.form-line-error .form-validation-error {
+  border: 1px solid #ff3200;
+  -webkit-box-shadow: 0 0 3px #ff3200;
+  -moz-box-shadow: 0 0 3px #ff3200;
+  box-shadow: 0 0 3px #ff3200;
+}
+.form-all {
+  position: relative;
+}
+
+.form-all {
+  margin-top: 110px;
+}
+
+.ie-8 .form-all {
+  margin-top: auto;
+  margin-top: initial;
+}
+
+/* | */
+@media screen and (max-width: 768px) {
+  .form-all {
+    border: 0;
+    width: 100%;
+  }
+  .form-sub-label-container {
+    width: 100%;
+    margin: 0;
+  }
+  .form-input {
+    width: 100%;
+  }
+  .form-label {
+    width: 100%!important;
+  }
+  .form-line {
+    padding: 2% 5%;
+    margin: 0;
+  }
+  input[type=text],
+  input[type=email],
+  input[type=tel],
+  textarea {
+    width: 100%;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  .form-header-group {
+    padding: 3% 0!important;
+    margin: 5%!important;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  .form-buttons-wrapper {
+    margin: 0!important;
+  }
+  .form-buttons-wrapper button {
+    width: 100%;
+  }
+  table {
+    width: 100%!important;
+  }
+  table td + td {
+    padding-left: 3%;
+  }
+  .form-checkbox-item input,
+  .form-radio-item input {
+    width: auto;
+  }
+}

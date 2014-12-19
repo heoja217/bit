@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<title>Insert title here</title>
+<style type="text/css">
+/* UI Object */
+html, body{height:100%;margin:0}
+.mw_layer{display:none;position:fixed;_position:absolute;top:0;left:0;z-index:10000;width:100%;height:100%}
+.mw_layer.open{display:block}
+.mw_layer .bg{position:absolute;top:0;left:0;width:100%;height:100%;background:#000;opacity:.5;filter:alpha(opacity=50)}
+#layer{position:absolute;top:50%;left:50%;width:400px;margin:-150px 0 0 -194px;padding:28px 28px 0 28px;border:2px solid #555;background:#fff;font-size:12px;font-family:Tahoma, Geneva, sans-serif;color:#767676;line-height:normal;white-space:normal}
+/* //UI Object */
+</style>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript">
+jQuery(function($){
+ var layerWindow = $('.mw_layer');
+ var layer = $('#layer');
+ 
+ // Show Hide
+ $('.layer_trigger').click(function(){
+  layerWindow.addClass('open');
+ });
+ $('#layer .close').click(function(){
+  layerWindow.removeClass('open');
+ });
+
+
+ // ESC Event
+ $(document).keydown(function(event){
+  if(event.keyCode != 27) return true;
+  if (layerWindow.hasClass('open')) {
+   layerWindow.removeClass('open');
+  }
+  return false;
+ });
+ // Hide Window
+ layerWindow.find('>.bg').mousedown(function(event){
+  layerWindow.removeClass('open');
+  return false;
+ });
+});
+</script>
+
+
+</head>
+<body>
+
+
+<!-- 멘티 월간 주요일정 Start -->
+<p><a href="#layer" class="layer_trigger">여기를 클릭하시면 로그인 레이어가 뜹니다</a></p>
+
+<div class="mw_layer">
+ <div class="bg"></div>
+ <div id="layer">
+    <a href="">등록</a> / <a href="#layer_anchor" title="레이어 닫기" class="close">취소</a>
+ </div>
+</div>
+<!-- 멘티 월간 주요일정 End -->
+
+
+</body>
+</html>

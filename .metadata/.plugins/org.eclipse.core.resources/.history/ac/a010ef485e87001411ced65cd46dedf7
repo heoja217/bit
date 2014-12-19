@@ -1,0 +1,54 @@
+@CHARSET "UTF-8";
+#wrap{
+    margin: 0 auto;
+    width: 480px;
+   
+    font-family:sans-serif;
+}
+.control-group{
+	margin-top :4%;
+}
+
+
+
+
+#div1{
+	margin-top : -15%;
+}
+
+#div2{
+	margin-top : -15%;
+}
+#form1{
+
+	width :220px;
+	float : left;
+}
+#form2{
+	margin-top : -4%;
+
+	width : 220px;
+	float : right;
+}
+#joinbtn{
+
+	margin-top: 3%;
+	margin-left :-9%;
+	margin-right: 14%;
+}
+#cancelbtn{
+
+	margin-top: 3%;
+	margin-left: -11%;
+	
+}
+.addressbox{
+	margin-top : 4%;
+}
+.addressbox2{
+	margin-top : 5%;
+}
+
+
+
+

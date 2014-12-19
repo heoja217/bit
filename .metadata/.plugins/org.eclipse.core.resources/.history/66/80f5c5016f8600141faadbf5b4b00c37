@@ -1,0 +1,174 @@
+  
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<script src="js/jquery-1.11.1.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="Web_join.js"></script>
+<link href='Web_join.css' rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+
+<body>
+
+	<div id="wrap">
+		<div id="header_div">
+			<h1>회원가입</h1>
+		</div>
+		<div id="center_div">
+			<form class="form-horizontal">
+				<fieldset id="form1">
+					<legend>
+						<strong>개인정보</strong>
+					</legend>
+					<div id="div1">
+						<div class="control-group">
+							<label class="control-label" for="inputId">아이디</label>
+							<div class="controls">
+								<input type="text" id="inputId" placeholder="id" size="29">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="inputPassword">비밀번호</label>
+							<div class="controls">
+								<input type="password" id="inputPassword" placeholder="Password"
+									size="29">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="inputPassword">비밀번호 확인</label>
+							<div class="controls">
+								<input type="password" id="inputPassword2"
+									placeholder="Password2" size="29">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="inputEmail">이메일</label>
+							<div class="controls">
+								<input type="text" id="inputEid" placeholder="email" size="11">
+								@ <select name="email" class="inputbox">
+									<option value="">메일선택</option>
+									<option value="naver.com">naver.com</option>
+									<option value="daum.net">daum.net</option>
+									<option value="gmail.com">gmail.com</option>
+									<option value="">직접입력</option>
+								</select> <input type="radio" name="email_info" value="yes"
+									checked="checked" class="inputbox">메일 수신 <input
+									type="radio" name="email_info" value="no" class="inputbox">메일
+								수신하지 않음
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="phoneNumber">핸드폰 번호</label>
+							<div class="controls">
+								<input type="text" size="5" class="inputPhone"> - <input
+									type="text" size="5" class="inputPhone"> - <input
+									type="text" size="11" class="inputPhone"><br> <input
+									type="radio" name="phone_info" value="yes" checked="checked"
+									class="inputbox">SMS 수신 <input type="radio"
+									name="phone_info" value="no" class="inputbox">SMS 수신하지
+								않음
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="phoneNumber2">전화 번호</label>
+							<div class="controls">
+								<input type="text" size="5" class="inputPhone2"> - <input
+									type="text" size="5" class="inputPhone2"> - <input
+									type="text" size="11" class="inputPhone2"><br>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="aboutMe">남기실 말</label>
+							<div class="controls">
+								<textarea rows="3" cols="27" id="aboutMe"></textarea>
+							</div>
+						</div>
+					</div>
+				</fieldset>
+			</form>
+			<br>
+			<form class="form-horizontal">
+				<fieldset id="form2">
+					<legend>
+						<strong> 회사정보 </strong>
+					</legend>
+					<div id="div2">
+						<div class="control-group">
+							<label class="control-label" for="companyName">회사명</label>
+							<div class="controls">
+								<input type="text" size=29 class="companyName">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="companyNumber">사업번호</label>
+							<div class="controls">
+								<input type="text" size="5" class="companyNumber"> - <input
+									type="text" size="5" class="inputbox"> - <input
+									type="text" size="11" class="inputbox">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="representative">대표자</label>
+							<div class="controls">
+								<input type="text" size=29 class="representative">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="faxNumber">팩스번호</label>
+							<div class="controls">
+								<input type="text" size="5" class="faxNumber"> - <input
+									type="text" size="5" class="inputbox"> - <input
+									type="text" size="11" class="inputbox">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="categorize">분류</label>
+							<div class="controls">
+								<input type="text" size=29 class="categorize">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="event">종목</label>
+							<div class="controls">
+								<input type="text" size=29 class="event">
+							</div>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="CompanyAddress">회사주소</label>
+						<div class="controls">
+							<input type="text" size="6" class="inputbox"> - <input
+								type="text" size="6" class="inputbox">
+							<button class="btn btn-warning btn-small" type="button">주소검색</button>
+							<input type="text" size=29 class="addressbox"><Br> 
+							<input type="text" size=29 class="addressbox2"><br>
+						</div>
+					</div>
+				</fieldset>
+			<div>
+					<a href="login.html" id="joinbtn" class="btn btn-warning btn-small" type="button">가입</a>
+					<a id="cancelbtn" class="btn btn-warning btn-small" type="button">취소</a>
+
+				</div>
+				
+
+			</form>
+
+		</div>
+		
+<script src='../js/jquery-1.11.1.js'></script>
+		<script>
+	  $('#cancelbtn').click(function(){
+	    history.back();
+	  });
+	  
+
+		</script>
+</body>
+</html>
+
