@@ -1,0 +1,20 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Review</title>
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+</head>
+<body>
+	<div id="area">
+		<div id="area">
+			<!-- stuff -->
+		</div>
+	</div>
+	<script>
+	$("#area").load("something.html #area > *");
+
+    </script>
+</body>
+</html>

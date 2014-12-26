@@ -1,0 +1,29 @@
+# default log level
+# log appender -> log tool name
+log4j.rootLogger=DEBUG, console
+
+# package => level
+#log4j.logger.org.apache.ibatis=ERROR
+
+#log4j.logger.java02=WARN
+
+#console log appender
+# log.appender.[log tool name]
+# 1) ConsoleAppender => System.out or System.err
+# 2) FileAppender => FileOutputStream
+# 3) SocketAppender => networkin 
+log4j.appender.console=org.apache.log4j.ConsoleAppender
+
+# console's output Layout
+# SimpleLayout -> ex) DEBUG -DB connection ok!
+# HTMLLayout -> html tag
+# XMLLAyout -> sml tag
+#$PatternLayout -> DEBUG.
+#ex)log4j.appender.console.layout=org.apache.log4j.SimpleLayout
+#ex)log4j.appender.console.layout=org.apache.log4j.HTMLLayout
+#ex)log4j.appender.console.layout=org.apache.log4j.xml.XMLLayout
+log4j.appender.console.layout=org.apache.log4j.PatternLayout
+log4j.appender.console.layout.ConversionPattern=%5p [%t] %c - %m%n
+
+
+# Pattern

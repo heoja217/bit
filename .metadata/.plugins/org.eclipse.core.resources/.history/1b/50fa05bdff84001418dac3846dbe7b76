@@ -1,6 +1,0 @@
-var http = require('http');
-var url = require('url');
-var qs = require('querystring');
-
-var httpServer = http.createServer(function(req, resp){});
-httpServer.listener(9999, '127.0.0.1');
