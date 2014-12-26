@@ -2,12 +2,13 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="validate" key="selection"/>
+		<item value="place" key="selection"/>
 		<item value="true" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="place"/>
 			<item value="validate"/>
 			<item value="required"/>
 			<item value="분류"/>
@@ -15,7 +16,6 @@
 			<item value="Type"/>
 			<item value="type"/>
 			<item value="Do you"/>
-			<item value="do you"/>
 		</list>
 		<list key="replacehistory">
 			<item value="maker"/>
@@ -28,6 +28,6 @@
 		<item value="1|Ubuntu|11.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
 		<item value="740" key="DIALOG_HEIGHT"/>
 		<item value="679" key="DIALOG_X_ORIGIN"/>
-		<item value="630" key="DIALOG_Y_ORIGIN"/>
+		<item value="260" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>
