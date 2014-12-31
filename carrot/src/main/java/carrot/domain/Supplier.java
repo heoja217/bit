@@ -32,7 +32,6 @@ public class Supplier implements Serializable {
   protected String note;
   
   
-  
 	@Override
 	public String toString() {
 		return "Supplier [no=" + no + ", corpId=" + corpId + ", password="
