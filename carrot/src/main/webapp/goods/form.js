@@ -31,7 +31,7 @@ $('#btnAdd').click(function(){
 			supplierNo : $('#supplierNo').val(),
 			code : $('#code').val(),
 			name : $('#name').val(),
-			url : $('#url').val()
+			url : $('#url').val(),
 			unit : $('#unit').val(),
 			category : $('#category').val(),
 			note : $('#note').val(),

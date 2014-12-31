@@ -25,12 +25,6 @@ public class GoodsControl {
   @Autowired GoodsService goodsService;
   @Autowired ServletContext servletContext;
 
-  @RequestMapping(value="/add", method=RequestMethod.GET)
-  public ModelAndView form() throws Exception {
-    ModelAndView mv = new ModelAndView();
-    mv.setViewName("goods/GoodsForm");
-    return mv;
-  }
  
   @RequestMapping(value="/add", method=RequestMethod.POST)
   public String add(Goods goods) throws Exception {  
