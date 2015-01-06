@@ -64,8 +64,8 @@
  
   <insert id="insert" parameterType="Goods"
     useGeneratedKeys="true" keyColumn="GNO" keyProperty="no">
-    INSERT INTO GOODS(GNO, SNO, GCODE, GNAME, GIMG, GUNIT, GCAT, GMEMO, GPRICE_A, GPRICE_B, GPRICE_C) 
-    VALUES (#{no},#{supplierNo},#{code},#{name},#{url},#{unit},#{category},#{note},#{priceA},#{priceB},#{priceC})
+    INSERT INTO GOODS(SNO, GCODE, GNAME, GIMG, GUNIT, GCAT, GMEMO, GPRICE_A, GPRICE_B, GPRICE_C) 
+    VALUES (#{supplierNo},#{code},#{name},#{url},#{unit},#{category},#{note},#{priceA},#{priceB},#{priceC})
   </insert>
   
   <update id="update" parameterType="Goods">
