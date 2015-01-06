@@ -19,9 +19,6 @@ public interface GoodsDao {
   void delete(int no);
   List<?> selectList(Map<String,Object> params);
   void insert(Goods goods);
-/*  void insertPhoto(Goods goods);
-  List<?> selectPhoto(int goodsNo);
-  void deletePhoto(int goodsNo);*/
   int totalSize();
 }
 

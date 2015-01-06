@@ -1,11 +1,11 @@
 var currPageNo;
 var maxPageNo;
 
+
 //$(document).ready(function(){});
 $(function() {
 	$('.form').load('form.html');
-
-
+	
 	loadGoodsList(1);
 
 	$(document).on('click', '.data-row a', function() {
@@ -50,7 +50,6 @@ function setPageNo(currPageNo, maxPageNo) {
 function loadGoodsList(pageNo) {
 	if (pageNo <= 0)
 		pageNo = currPageNo;
-
 	$.getJSON('../json/goods/list.do?pageNo=' + pageNo, 
 	function(data) {
 		setPageNo(data.currPageNo, data.maxPageNo);
@@ -63,6 +62,7 @@ function loadGoodsList(pageNo) {
 	});
 }
 
+/*
 
 $('#btnCancel').click(function(){
 	$('.my-update-form').css('display', 'none');
@@ -89,7 +89,7 @@ $('#btnUpdate').click(function(){
 
 
 $('#btnAdd').click(function(){
-	$.post('../json/goods/add.do'/* URL */
+	$.post('../json/goods/add.do' URL 
 			,{
 			no : $('#no').val(),
 			supplierNo : $('#supplierNo').val(),
@@ -110,9 +110,9 @@ $('#btnAdd').click(function(){
 				} else {
 					alert("등록 실패!");
 				}
-			}/* 서버로부터 응답을 받았을 때 호출될 메서드 */
-			, 'json'/* 서버가 보낸 데이터를 JSON형식으로 처리 */)
-			/* 서버 요청이 실패했을때 호출될 함수 등록 */
+			} 서버로부터 응답을 받았을 때 호출될 메서드 
+			, 'json' 서버가 보낸 데이터를 JSON형식으로 처리 )
+			 서버 요청이 실패했을때 호출될 함수 등록 
 			.fail(function(jqXHR, textStatus, errorThrown){
 				alert(textStatus + ":" + errorThrown);
 			});
@@ -172,4 +172,4 @@ function updateGoods(goodsNo) {
 			.fail(function(jqXHR, textStatus, errorThrown){
 				alert(textStatus + ":" + errorThrown);
 			});
-}
+}*/

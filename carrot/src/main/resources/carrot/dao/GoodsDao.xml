@@ -38,7 +38,6 @@
   </resultMap>
 -->  
 
-
   <sql id="goodsSelect">
     SELECT GCODE, GNAME, GIMG, GUNIT, GCAT, GMEMO, GPRICE_A, GPRICE_B, GPRICE_C
     FROM GOODS
@@ -71,6 +70,7 @@
   
   <update id="update" parameterType="Goods">
     UPDATE GOODS SET 
+	    SNO=#{supplierNo},
       GCODE=#{code},
       GNAME=#{name},
       GIMG=#{url},
@@ -85,26 +85,9 @@
   
   <delete id="delete" parameterType="int">
     DELETE FROM GOODS WHERE GNO=#{value}
-  </delete><!-- 
+  </delete> 
     
-  <insert id="insertPhoto" parameterType="Goods">
-    INSERT INTO PROD_PHOTS(PNO,URL) 
-    VALUES (#{no}, #{photo})
-  </insert>
-  
-  <select id="selectPhoto" parameterType="int" 
-      resultMap="goodsPhotoMap">
-    SELECT PPNO, PNO, URL
-    FROM PROD_PHOTS
-    <if test="value > 0">
-    WHERE PNO = #{value}
-    </if>
-  </select>
-  
-  <delete id="deletePhoto" parameterType="int">
-    DELETE FROM PROD_PHOTS
-    WHERE PNO=#{value}
-  </delete> -->
+
 </mapper>
 
 

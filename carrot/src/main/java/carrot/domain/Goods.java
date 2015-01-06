@@ -17,9 +17,6 @@
 package carrot.domain;
 
 import java.io.Serializable;
-import java.util.List;
-
-import org.springframework.web.multipart.MultipartFile;
 
 public class Goods implements Serializable {
   private static final long serialVersionUID = 1L;
@@ -35,10 +32,6 @@ public class Goods implements Serializable {
   protected int priceA;
   protected int priceB;
   protected int priceC;
-  protected String          photo;
-  protected MultipartFile   photofile;
-  protected List<?>         photoList;
-  
   
 	@Override
 	public String toString() {
@@ -116,38 +109,6 @@ public class Goods implements Serializable {
 		this.priceC = priceC;
 	}
 
-
-	public String getPhoto() {
-		return photo;
-	}
-
-
-	public void setPhoto(String photo) {
-		this.photo = photo;
-	}
-
-
-	public MultipartFile getPhotofile() {
-		return photofile;
-	}
-
-
-	public void setPhotofile(MultipartFile photofile) {
-		this.photofile = photofile;
-	}
-
-
-	public List<?> getPhotoList() {
-		return photoList;
-	}
-
-
-	public void setPhotoList(List<?> photoList) {
-		this.photoList = photoList;
-	}
-  
- 
-  
 }
 
 

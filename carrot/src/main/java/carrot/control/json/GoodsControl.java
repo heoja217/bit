@@ -81,7 +81,6 @@ public class GoodsControl {
     HashMap<String, Object> resultMap = new HashMap<>();
     resultMap.put("status", "success");
     resultMap.put("goods", goods);
-    resultMap.put("photos", goods.getPhotoList());
 
     return resultMap;  
   }

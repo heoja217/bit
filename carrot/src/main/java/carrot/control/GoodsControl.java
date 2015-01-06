@@ -1,6 +1,4 @@
-package carrot.control;
-
-import java.io.File;
+/*package carrot.control;
 
 import javax.servlet.ServletContext;
 
@@ -11,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import carrot.domain.Goods;
 import carrot.service.GoodsService;
@@ -92,3 +89,4 @@ public class GoodsControl {
 
 
 
+*/

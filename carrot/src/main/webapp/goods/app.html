@@ -4,9 +4,11 @@
 <link rel="stylesheet"
 	href="http://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 <link rel="stylesheet" href="../css/bootstrap.css" media="screen">
+<link href="http://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap-editable/css/bootstrap-editable.css" rel="stylesheet"/>
 <link rel="stylesheet" type="text/css" href="../css/datepicker.css">
 <link rel="stylesheet" type="text/css"
 	href="../css/bootstrap-select.css">
+	
 <link rel='stylesheet' href='../css/IconHoverEffects/css/component.css'>
 <link rel='stylesheet' href='../css/IconHoverEffects/css/default.css'>
 <link rel='stylesheet' href='../css/common.css'>
@@ -38,6 +40,39 @@
 		</div>
 	</div>
 
+
+	<div class="bs-component">
+		<div class="sub_bar">
+			<div class="navbar-collapse collapse navbar-responsive-collapse">
+				<ul class="nav navbar-nav">
+					<li class="dropdown"><a href="#" class="dropdown-toggle1"
+						data-toggle="dropdown">분류<b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="#">채소</a></li>
+							<li><a href="#">과일</a></li>
+							<li><a href="#">육류</a></li>
+						</ul></li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle1"
+						data-toggle="dropdown">정렬<b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="#">코드</a></li>
+							<li><a href="#">분류</a></li>
+							<li><a href="#">상품명</a></li>
+						</ul></li>
+					<div class="subbar_calendar">
+						<input id="datepicker" /> ~ <input id="datepicker2" />
+					</div>
+				</ul>
+
+				<div class="subbar-btn">
+					<button class="btn btn-default" id="create-user">추가</button>
+					<a href="#" class="btn btn-default">삭제</a>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
 	<div class="tableform">
 
 		<div id='listDiv'></div>
@@ -50,6 +85,10 @@
 		
 		
 	</div>
+	
+	<div class='form'></div>
+	<!-- 
+	
 <h2>상품 등록</h2>
 <form class='form-horizontal' role='form'>
 <div class='form-group'>
@@ -142,19 +181,23 @@
 </div>
 </form>
 		
-		
+		 -->
 	</div>
 
 
 	<div class="addorder"></div>
+	
+	
 
-	<script type="text/javascript" src='../js/jquery-1.11.1.js'></script>
+<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script> 
 	<script type="text/javascript" src='../js/handlebars-v2.0.0.js'></script>
 	<script type="text/javascript" src='../js/require.js'></script>
-	<script type="text/javascript" src="../js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="../js/bootswatch.js"></script>
-	<script type="text/javascript" src="../js/bootstrap-select.js"></script>
+	<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap-editable/js/bootstrap-editable.min.js"></script>
+	
 	<script type="text/javascript" src="../js/bootstrap-datepicker.js"></script>
+	<script type="text/javascript" src="../js/bootstrap-select.js"></script>
 	<script src='app.js'></script>
 	
 	

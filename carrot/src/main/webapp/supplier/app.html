@@ -120,10 +120,13 @@
 			$.getJSON('../json/supplier/list.do?pageNo=' + pageNo, function(data) {
 				setPageNo(data.currPageNo, data.maxPageNo);
 				var suppliers = data.suppliers;
-
 				require([ 'text!templates/supplier-table.html' ], function(html) {
+					console.log(html);
+
 					var template = Handlebars.compile(html);
 					$('#listDiv').html(template(data));
+					console.log(data);
+
 				});
 			});
 		}
