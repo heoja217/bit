@@ -1,4 +1,4 @@
-/*package carrot.control;
+package carrot.control;
 
 import javax.servlet.ServletContext;
 
@@ -72,7 +72,6 @@ public class GoodsControl {
   public String view(int no, Model model) throws Exception {
     Goods goods = goodsService.get(no);
     model.addAttribute("goods", goods);
-    model.addAttribute("photos", goods.getPhotoList());
     
     return "goods/GoodsView";
   }
@@ -88,5 +87,3 @@ public class GoodsControl {
 
 
 
-
-*/

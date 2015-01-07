@@ -2,6 +2,7 @@ package carrot.dao;
 
 import java.util.List;
 import java.util.Map;
+
 import carrot.domain.Goods;
 
 /* myBatis에서 DAO 클래스를 만들 때 

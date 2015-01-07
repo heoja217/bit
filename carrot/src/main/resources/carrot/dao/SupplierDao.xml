@@ -18,7 +18,6 @@
     <result column="STEL" property="tel"/>
     <result column="SCNAME" property="corpName"/>
     <result column="SNAME" property="headName"/>
-    <result column="ADDR" property="address"/>
     <result column="SBNO" property="corpNo"/>
     <result column="SMEMO" property="note"/>
   </resultMap>
@@ -41,7 +40,7 @@
   </resultMap>
 
   <sql id="supplierSelect">
-    SELECT SNO, SID, SPWD, STEL, SCNAME, SNAME, ADDR, SBNO, SMEMO
+    SELECT SNO, SID, SPWD, STEL, SCNAME, SNAME, SBNO, SMEMO
     FROM SUPPLIER
   </sql>
   
@@ -70,10 +69,18 @@
   
   <insert id="insert" parameterType="Supplier"
     useGeneratedKeys="true" keyColumn="PNO" keyProperty="no">
-    INSERT INTO SUPPLIER(SNO, SID, SPWD, STEL, SCNAME, SNAME, ADDR, SBNO, SMEMO) 
-    VALUES (#{no},#{corpId},#{password},#{tel},#{corpName},#{headName},#{address},#{corpNo},#{note})
+    INSERT INTO SUPPLIER(SID, SPWD, STEL, SCNAME, SNAME, SBNO, SMEMO) 
+    VALUES (#{corpId},#{password},#{tel},#{corpName},#{headName},#{corpNo},#{note})
   </insert>
+
 <!-- 
+
+  
+  INSERT INTO SUPPLIER(SID, SPWD, STEL, SCNAME, SNAME, SBNO) 
+    VALUES ('u01','1111','010-1111-1111','shop1','kim','11111111111');
+    
+    
+    
   <update id="update" parameterType="Supplier">
     UPDATE SUPPLIER SET 
       PNAME=#{name},

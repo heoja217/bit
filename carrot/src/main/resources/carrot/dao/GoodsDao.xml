@@ -27,6 +27,8 @@
     <result column="GPRICE_C" property="priceC"/>
   </resultMap>
 
+  
+
  <!-- 
   <resultMap type="GoodsListItem" id="goodsListItemMap">
     PK 컬럼은 id 태그를 사용하여 지정한다.
@@ -86,8 +88,7 @@
   <delete id="delete" parameterType="int">
     DELETE FROM GOODS WHERE GNO=#{value}
   </delete> 
-    
-
+  
 </mapper>
 
 

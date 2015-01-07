@@ -52,9 +52,6 @@ public class GoodsService {
   		propagation=Propagation.REQUIRED)
   public void add(Goods goods) {
     goodsDao.insert(goods);
-/*    if (goods.getPhoto() != null) {
-    	goodsDao.insertPhoto(goods);
-    }*/
   }
   
   @Transactional(
@@ -68,13 +65,11 @@ public class GoodsService {
   		rollbackFor=Exception.class, 
   		propagation=Propagation.REQUIRED)
   public void delete(int goodsNo) {
-//    goodsDao.deletePhoto(goodsNo);
     goodsDao.delete(goodsNo);
   }
   
   public Goods get(int goodsNo) {
   	Goods goods = goodsDao.selectOne(goodsNo);
-//  	goods.setPhotoList(goodsDao.selectPhoto(goodsNo));
   	return goods;
   }
   

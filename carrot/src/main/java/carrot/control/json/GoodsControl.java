@@ -1,5 +1,6 @@
 package carrot.control.json;
 
+import java.io.File;
 import java.util.HashMap;
 
 import javax.servlet.ServletContext;
@@ -26,7 +27,22 @@ public class GoodsControl {
 
   @RequestMapping(value="/add", method=RequestMethod.POST)
   public Object add(Goods goods) throws Exception {  
+    
+    if (goods.getPhotofile() != null
+        && !goods.getPhotofile().isEmpty()) {
+
+      String fileuploadRealPath = 
+        servletContext.getRealPath("/fileupload");
+      String filename = System.currentTimeMillis() + "_"; 
+      File file = new File(fileuploadRealPath + "/" + filename);
+    
+      goods.getPhotofile().transferTo(file);
+      goods.setUrl(filename);
+    }
+    
+  	
   	goodsService.add(goods);
+  	
   	
     HashMap<String, Object> resultMap = new HashMap<>();
     resultMap.put("status", "success");
