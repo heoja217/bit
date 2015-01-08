@@ -20,7 +20,7 @@ import carrot.service.GoodsService;
 @RequestMapping("/json/goods")
 public class GoodsControl {
   static Logger log = Logger.getLogger(GoodsControl.class);
-  static final int PAGE_DEFAULT_SIZE = 5;
+  static final int PAGE_DEFAULT_SIZE = 10;
   
   @Autowired GoodsService goodsService;
   @Autowired ServletContext servletContext;
@@ -62,7 +62,7 @@ public class GoodsControl {
   @RequestMapping("/list")
   public Object list(
       @RequestParam(defaultValue="1") int pageNo,
-      @RequestParam(defaultValue="5") int pageSize) throws Exception {
+      @RequestParam(defaultValue="10") int pageSize) throws Exception {
     
     if (pageSize <= 0)
       pageSize = PAGE_DEFAULT_SIZE;

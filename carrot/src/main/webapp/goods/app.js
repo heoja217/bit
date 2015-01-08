@@ -2,6 +2,7 @@ var currPageNo;
 var maxPageNo;
 
 
+
 //$(document).ready(function(){});
 $(function() {
 	$('.form').load('form.html');
@@ -17,7 +18,7 @@ $(function() {
 		loadGoods(0);
 	});
 });
-
+/*
 $('#prevBtn').click(function(event) {
 	if (currPageNo > 1) {
 		loadGoodsList(currPageNo - 1);
@@ -29,12 +30,13 @@ $('#nextBtn').click(function(event) {
 		loadGoodsList(currPageNo + 1);
 	}
 });
+*/
 
+//paging
 function setPageNo(currPageNo, maxPageNo) {
 	window.currPageNo = currPageNo;
 	window.maxPageNo = maxPageNo;
 
-	$('#pageNo').html(currPageNo);
 
 	if (currPageNo <= 1)
 		$('#prevBtn').css('display', 'none');
@@ -45,11 +47,21 @@ function setPageNo(currPageNo, maxPageNo) {
 		$('#nextBtn').css('display', 'none');
 	else
 		$('#nextBtn').css('display', '');
+	
+	$('#page-selection').bootpag({
+	  total: maxPageNo,
+	  page: currPageNo,
+	  maxVisible: 10 
+	}).on('page', function(event, num){
+		loadGoodsList(num);		
+	});
 }
 
+	
 function loadGoodsList(pageNo) {
 	if (pageNo <= 0)
 		pageNo = currPageNo;
+		
 	$.getJSON('../json/goods/list.do?pageNo=' + pageNo, 
 	function(data) {
 		setPageNo(data.currPageNo, data.maxPageNo);
