@@ -1,4 +1,4 @@
-function checkId() {
+/*function checkId() {
 	var swanid = document.getElementById("inputId").value;
 	if (swanid == null || swanid.length == 0) {
 		document.getElementById('checkMsg').style.color = "red";
@@ -17,9 +17,13 @@ function checkPwd() { //비밀번호 유효성검사
 	} else {
 		document.getElementById('checkPwd').innerHTML = "&nbsp";
 	}
-}
+}*/
 
 $(function() {
+	$('#joinbtnSelect').click(function(event){
+		  location.href = '/carrot/auth/Web_join.html';
+		});
+
 	$('#btnSelect').click(function() {
 		if ($('#inputId').val().length == 0) {
 			alert('아이디 입력은 필수 입력 항목입니다.');

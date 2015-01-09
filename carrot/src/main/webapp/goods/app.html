@@ -7,7 +7,6 @@
 <link rel="stylesheet" href="../css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css"	href="../css/bootstrap-theme.min.css">
 
-
 <!-- 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
@@ -27,28 +26,6 @@
 <body>
 		<div class='header'></div>
 
-	<div class="main_menu">
-		<div class="navbar-header">
-			<a class="navbar-brand" href="main.html">Swan</a>
-		</div>
-		<div class="navbar-collapse collapse navbar-responsive-collapse">
-			<ul class="nav navbar-nav">
-				<li><a href="../supplier/app.html">당일배송확인</a></li>
-				<li><a href="delivery-list.html">배송관리</a></li>
-				<li><a href="order-list.html">주문관리</a></li>
-				<li><a href="../client/app.html">거래처관리</a></li>
-				<li><a href="../goods/app.html">상품관리</a></li>
-			</ul>
-			<form class="navbar-form navbar-right">
-				<div class="hi-icon-wrap hi-icon-effect-2 hi-icon-effect-2a">
-					<a href="#" class="hi-icon hi-icon-cog">설정</a> <a href="#"
-						class="hi-icon hi-icon-list">찾기</a>
-
-				</div>
-			</form>
-		</div>
-	</div>
-
 
 	<div class="bs-component">
 		<div class="sub_bar">
@@ -64,9 +41,9 @@
 					<li class="dropdown"><a href="#" class="dropdown-toggle1"
 						data-toggle="dropdown">정렬<b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><a href="#" id="code">코드</a></li>
-							<li><a href="#" id="category">분류</a></li>
-							<li><a href="#" id="name">상품명</a></li>
+							<li><a href="#" id="order-code">코드</a></li>
+							<li><a href="#" id="order-category">분류</a></li>
+							<li><a href="#" id="order-name">상품명</a></li>
 						</ul></li>
 
 				</ul>
@@ -111,6 +88,7 @@
 					<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
 				</button>
 				<h4 class="modal-title" id="myModalLabel">상품 등록</h4>
+				<h4 class="modal-title" id="myModalLabel2" style="display:none">상품 	변경</h4>
 			</div>
 			<div class="modal-body">
 
@@ -126,35 +104,35 @@
 						<label for='supplierNo' class='col-sm-2 control-label'>업체번호</label>
 						<div class='col-sm-10'>
 							<input type='text' class='form-control' id='supplierNo'
-								placeholder='제품명 예) 0'>
+								placeholder='업체번호 예) 0'>
 						</div>
 					</div>
 					<div class='form-group'>
 						<label for='code' class='col-sm-2 control-label'>상품코드</label>
 						<div class='col-sm-10'>
 							<input type='text' class='form-control' id='code'
-								placeholder='제품명 예) 123456'>
+								placeholder='상품코드 예) 123456'>
 						</div>
 					</div>
 					<div class='form-group'>
 						<label for='name' class='col-sm-2 control-label'>상품명</label>
 						<div class='col-sm-10'>
 							<input type='text' class='form-control' id='name'
-								placeholder='수량 예) 당근'>
+								placeholder='상품명 예) 당근'>
 						</div>
 					</div>
 					<div class='form-group'>
 						<label for='category' class='col-sm-2 control-label'>분류</label>
 						<div class='col-sm-10'>
 							<input type='text' class='form-control' id='category'
-								placeholder='제품명 예) 야채'>
+								placeholder='분류 예) 야채'>
 						</div>
 					</div>
 					<div class='form-group'>
 						<label for='unit' class='col-sm-2 control-label'>단위</label>
 						<div class='col-sm-10'>
 							<input type='text' class='form-control' id='unit'
-								placeholder='제품명 예) EA'>
+								placeholder='단위 예) EA'>
 						</div>
 					</div>
 					<div class='form-group'>
@@ -167,28 +145,28 @@
 						<label for='priceA' class='col-sm-2 control-label'>가격1</label>
 						<div class='col-sm-10'>
 							<input type="text" class='form-control' id='priceA'
-								placeholder='제조일 예) 300'>
+								placeholder='가격1 예) 300'>
 						</div>
 					</div>
 					<div class='form-group'>
 						<label for='priceB' class='col-sm-2 control-label'>가격2</label>
 						<div class='col-sm-10'>
 							<input type="text" class='form-control' id='priceB'
-								placeholder='제조일 예) 200'>
+								placeholder='가격2 예) 200'>
 						</div>
 					</div>
 					<div class='form-group'>
 						<label for='priceC' class='col-sm-2 control-label'>가격3</label>
 						<div class='col-sm-10'>
 							<input type="text" class='form-control' id='priceC'
-								placeholder='제조일 예) 100'>
+								placeholder='가격3 예) 100'>
 						</div>
 					</div>
 					<div class='form-group'>
 						<label for='note' class='col-sm-2 control-label'>메모</label>
 						<div class='col-sm-10'>
 							<input type="text" class='form-control' id='note'
-								placeholder='ex) 인상예정'>
+								placeholder='메모 ex) 인상예정'>
 						</div>
 					</div>
 				</form>

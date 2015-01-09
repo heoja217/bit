@@ -26,7 +26,20 @@
     <result column="GPRICE_B" property="priceB"/>
     <result column="GPRICE_C" property="priceC"/>
   </resultMap>
-
+  
+  <resultMap type="Goods" id="goodsListItemMap">
+    <id column="GNO" property="no"/>
+    <result column="SNO" property="supplierNo"/>
+    <result column="GCODE" property="code"/>
+    <result column="GNAME" property="name"/>
+    <result column="GIMG" property="url"/>
+    <result column="GUNIT" property="unit"/>
+    <result column="GCAT" property="category"/>
+    <result column="GMEMO" property="note"/>
+    <result column="GPRICE_A" property="priceA"/>
+    <result column="GPRICE_B" property="priceB"/>
+    <result column="GPRICE_C" property="priceC"/>
+	</resultMap>
   
 
  <!-- 
@@ -46,7 +59,7 @@
   </sql>
   
   
-	<select id="selectList" parameterType="map" resultMap="goodsMap">
+	<select id="selectList" parameterType="map" resultMap="goodsListItemMap">
 		<include refid="goodsSelect" />
 		ORDER BY
 		<choose>
@@ -66,8 +79,6 @@
 			<if test="pageSize > 0">
 				limit #{startIndex}, #{pageSize}
 			</if>
-		
-		
 	</select>
   
 <!--   
@@ -109,6 +120,8 @@
       GIMG=#{url}
     WHERE GNO=#{no}
   </update>
+  
+
   
   <delete id="delete" parameterType="int">
     DELETE FROM GOODS WHERE GNO=#{value}

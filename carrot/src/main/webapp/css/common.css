@@ -44,7 +44,7 @@
 	padding-left:0px;
 	padding-top:0px;
 	padding-bottom:0px;
-	margin-left: 71%;
+	margin-left: 74%;
 	margin-bottom: 0px;
 	
 }
@@ -61,7 +61,7 @@
 }
 
 .main_menu {
-  margin-top: 0%;
+  margin-top: 1%;
   margin-left: 9%;
   margin-right: 9%;
 }
@@ -75,4 +75,13 @@
 #imgsize {
 	width: 50px;
 	
+}
+
+.userinfo {
+	float : left;
+	margin-top : 7px;
+}
+
+#page-selection {
+	margin-left : 30%;
 }

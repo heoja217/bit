@@ -1,6 +1,7 @@
 var currPageNo;
 var maxPageNo;
 var saveList="";
+var aaa;
 
 
 //$(document).ready(function(){});
@@ -20,17 +21,17 @@ $(function() {
 		loadGoods(0);
 	});
 	
-	$(document).on('click','#category', function(){
+	$(document).on('click','#order-category', function(){
 		saveList = 'category';
 		loadGoodsList(1,'category');
 	});
 	
-	$(document).on('click','#code', function(){
+	$(document).on('click','#order-code', function(){
 		saveList = 'code';
 		loadGoodsList(1,'code');
 	});
 	
-	$(document).on('click','#name', function(){
+	$(document).on('click','#order-name', function(){
 		saveList = 'name';
 		loadGoodsList(1,'name');
 	});
@@ -58,7 +59,6 @@ $('#nextBtn').click(function(event) {
 function setPageNo(currPageNo, maxPageNo) {
 	window.currPageNo = currPageNo;
 	window.maxPageNo = maxPageNo;
-
 
 	if (currPageNo <= 1)
 		$('#prevBtn').css('display', 'none');
@@ -90,13 +90,13 @@ function loadGoodsList(pageNo, orderBy, category, code, name) {
 	if (code == null)	code ="";
 	if (name == null)	name ="";
 
+	
 		
-	$.getJSON('../json/goods/list.do?pageNo=' +  + pageNo + '&orderBy=' + orderBy
+	$.getJSON('../json/goods/list.do?pageNo=' + pageNo + '&orderBy=' + orderBy
 			+ '&category=' + category + '&code=' + code + '&name=' + name, 
 	function(data) {
 		setPageNo(data.currPageNo, data.maxPageNo);
 		var goodss = data.goodss;
-		
 		require([ 'text!templates/goods-table.html' ], function(html) {
 			var template = Handlebars.compile(html);
 			$('#listDiv').html(template(data));
@@ -179,7 +179,6 @@ function loadGoods(goodsNo) {
 	$.getJSON('../json/goods/view.do?no=' + goodsNo, 
 			function(data){
 		$('#btnCancel').click();
-		$('#no').val(data.goods.no),
 		$('#supplierNo').val(data.goods.supplierNo),
 		$('#code').val(data.goods.code),
 		$('#name').val(data.goods.name),
@@ -192,9 +191,12 @@ function loadGoods(goodsNo) {
 //		$('#url').val(data.goods.url)
 
 		goods = data.goods;
-
+		aaa = data.goods.no;
+		
 		$('.my-update-form').css('display', '');
 		$('.my-new-form').css('display', 'none');
+		$('#myModalLabel2').css('display', '');
+		$('#myModalLabel').css('display', 'none');
 	});
 }
 
@@ -214,7 +216,7 @@ function deleteGoods(goodsNo) {
 function updateGoods(goodsNo) {
 	$.post('../json/goods/update.do'
 			, {
-				no : $('#no').val(),
+				no : aaa,
 				supplierNo : $('#supplierNo').val(),
 				code : $('#code').val(),
 				name : $('#name').val(),
@@ -228,10 +230,9 @@ function updateGoods(goodsNo) {
 			}, function(result) {
 				console.log(result);
 				if (result.status == "success") {
-
+					loadGoodsList(0);
 					$('#btnCancel').click();
 					$('#closeModal').click();
-					loadGoodsList(0);
 				} else {
 					alert("변경 실패!");
 				}
@@ -241,8 +242,6 @@ function updateGoods(goodsNo) {
 				alert(textStatus + ":" + errorThrown);
 			});
 }
-
-
 
 
 
