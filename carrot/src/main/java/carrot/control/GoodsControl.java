@@ -38,6 +38,10 @@ public class GoodsControl {
   public String list(
       @RequestParam(defaultValue="1") int pageNo,
       @RequestParam(defaultValue="5") int pageSize,
+      @RequestParam(required=false) Boolean code,
+      @RequestParam(required=false) Boolean name,
+      @RequestParam(required=false) Boolean category,
+      @RequestParam(defaultValue="category") String orderBy,
       Model model) throws Exception {
     
     if (pageSize <= 0)
@@ -48,7 +52,7 @@ public class GoodsControl {
     if (pageNo <= 0) pageNo = 1;
     if (pageNo > maxPageNo) pageNo = maxPageNo;
     
-    model.addAttribute("goodss", goodsService.getList(pageNo,pageSize));
+    model.addAttribute("goodss", goodsService.getList(pageNo, pageSize, category, code, name, orderBy));
     model.addAttribute("currPageNo", pageNo);
     
     if (pageNo > 1) {

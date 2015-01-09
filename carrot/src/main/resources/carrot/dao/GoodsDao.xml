@@ -46,6 +46,31 @@
   </sql>
   
   
+	<select id="selectList" parameterType="map" resultMap="goodsMap">
+		<include refid="goodsSelect" />
+		ORDER BY
+		<choose>
+			<when test="orderBy == 'category'">
+				GCAT
+			</when>
+			<when test="orderBy == 'code'">
+				GCODE
+			</when>
+			<when test="orderBy == 'name'">
+				GNAME
+			</when>
+			<otherwise>
+				GCAT
+			</otherwise>
+		</choose>
+			<if test="pageSize > 0">
+				limit #{startIndex}, #{pageSize}
+			</if>
+		
+		
+	</select>
+  
+<!--   
   <select id="selectList" parameterType="map" 
         resultMap="goodsMap">
     <include refid="goodsSelect"/> 
@@ -53,7 +78,7 @@
       limit #{startIndex}, #{pageSize}
     </if>
   </select>
-  
+   -->
   <select id="selectOne" parameterType="int" resultMap="goodsMap">
     <include refid="goodsSelect"/> 
     WHERE GNO=#{value}
@@ -75,13 +100,13 @@
 	    SNO=#{supplierNo},
       GCODE=#{code},
       GNAME=#{name},
-      GIMG=#{url},
       GUNIT=#{unit},
       GCAT=#{category},
       GMEMO=#{note},
       GPRICE_A=#{priceA},
       GPRICE_B=#{priceB},
-      GPRICE_C=#{priceC}
+      GPRICE_C=#{priceC},
+      GIMG=#{url}
     WHERE GNO=#{no}
   </update>
   

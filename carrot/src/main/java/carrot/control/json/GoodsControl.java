@@ -62,7 +62,11 @@ public class GoodsControl {
   @RequestMapping("/list")
   public Object list(
       @RequestParam(defaultValue="1") int pageNo,
-      @RequestParam(defaultValue="10") int pageSize) throws Exception {
+      @RequestParam(defaultValue="10") int pageSize,
+      @RequestParam(required=false) Boolean code,
+      @RequestParam(required=false) Boolean name,
+      @RequestParam(required=false) Boolean category,
+      @RequestParam(defaultValue="category") String orderBy) throws Exception {
     
     if (pageSize <= 0)
       pageSize = PAGE_DEFAULT_SIZE;
@@ -76,8 +80,9 @@ public class GoodsControl {
     resultMap.put("status", "success");
     resultMap.put("currPageNo", pageNo);
     resultMap.put("maxPageNo", maxPageNo);
-    resultMap.put("goodss", goodsService.getList(pageNo, pageSize));
-    
+//    resultMap.put("goodss", goodsService.getList(pageNo, pageSize));
+    resultMap.put("goodss", goodsService.getList(pageNo, pageSize, category, code, name, orderBy));
+  
     return resultMap;
   }
   

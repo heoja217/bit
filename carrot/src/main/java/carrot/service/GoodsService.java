@@ -20,12 +20,16 @@ public class GoodsService {
 	@Autowired
 	GoodsDao goodsDao;
 	
-	public List<?> getList(int pageNo, int pageSize){
-	  
-    HashMap<String,Object> paramMap = new HashMap<>();
-    paramMap.put("startIndex", ((pageNo - 1) * pageSize));
-    paramMap.put("pageSize", pageSize);
-    
+	public List<?> getList(int pageNo, int pageSize, Boolean category, Boolean code, Boolean name, String orderBy){
+
+		HashMap<String,Object> paramMap = new HashMap<>();
+		paramMap.put("startIndex", ((pageNo - 1) * pageSize));
+		paramMap.put("pageSize", pageSize);
+		paramMap.put("category", category);
+		paramMap.put("code", code);
+		paramMap.put("name", name);
+		paramMap.put("orderBy", orderBy);
+		
     return goodsDao.selectList(paramMap);
 	}
 	

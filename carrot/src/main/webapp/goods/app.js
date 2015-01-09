@@ -1,10 +1,12 @@
 var currPageNo;
 var maxPageNo;
-
+var saveList="";
 
 
 //$(document).ready(function(){});
 $(function() {
+  $('.header').load('../common/header.html');
+
 //	$('.form').load('form.html');
 	
 	loadGoodsList(1);
@@ -17,7 +19,27 @@ $(function() {
 		deleteGoods($(this).attr('data-no'))
 		loadGoods(0);
 	});
+	
+	$(document).on('click','#category', function(){
+		saveList = 'category';
+		loadGoodsList(1,'category');
+	});
+	
+	$(document).on('click','#code', function(){
+		saveList = 'code';
+		loadGoodsList(1,'code');
+	});
+	
+	$(document).on('click','#name', function(){
+		saveList = 'name';
+		loadGoodsList(1,'name');
+	});
 });
+
+
+
+
+
 /*
 $('#prevBtn').click(function(event) {
 	if (currPageNo > 1) {
@@ -53,16 +75,24 @@ function setPageNo(currPageNo, maxPageNo) {
 	  page: currPageNo,
 	  maxVisible: 10 
 	}).on('page', function(event, num){
-		loadGoodsList(num);		
+		loadGoodsList(num, saveList);		
 	});
 }
 
 	
-function loadGoodsList(pageNo) {
-	if (pageNo <= 0)
-		pageNo = currPageNo;
+function loadGoodsList(pageNo, orderBy, category, code, name) {
+	saveList = orderBy;
+	
+	if (pageNo <= 0)	pageNo = currPageNo;
+	
+	if (orderBy == null)	orderBy ="";
+	if (category == null)	category ="";
+	if (code == null)	code ="";
+	if (name == null)	name ="";
+
 		
-	$.getJSON('../json/goods/list.do?pageNo=' + pageNo, 
+	$.getJSON('../json/goods/list.do?pageNo=' +  + pageNo + '&orderBy=' + orderBy
+			+ '&category=' + category + '&code=' + code + '&name=' + name, 
 	function(data) {
 		setPageNo(data.currPageNo, data.maxPageNo);
 		var goodss = data.goodss;
@@ -82,6 +112,8 @@ function loadGoodsList(pageNo) {
 
 $(document).on('click', '#btnCancel', function() {
 //$('#btnCancel').click(function(){
+	$('.my-update-form').css('display', 'none');
+	$('.my-new-form').css('display', '');
   $('input').val('');
 	goods = null;
 });
@@ -106,8 +138,7 @@ $(document).on('click', '#btnUpdate', function() {
 		alert('변경한것이 없습니다');
 		return;
 	}
-	if (!validateForm()) return;
-
+//	if (!validateForm()) return;
 	updateGoods($('#no').val());
 });
 
@@ -130,7 +161,8 @@ $(document).on('click', '#btnAdd', function() {
 				if (result.status == "success") {
 					loadGoodsList(maxPageNo);
 					$('#btnCancel').click();
-
+					$('#closeModal').click();
+					
 				} else {
 					alert("등록 실패!");
 				}
@@ -151,13 +183,13 @@ function loadGoods(goodsNo) {
 		$('#supplierNo').val(data.goods.supplierNo),
 		$('#code').val(data.goods.code),
 		$('#name').val(data.goods.name),
-		$('#url').val(data.goods.url),
 		$('#unit').val(data.goods.unit),
 		$('#category').val(data.goods.category),
 		$('#note').val(data.goods.note),
 		$('#priceA').val(data.goods.priceA),
 		$('#priceB').val(data.goods.priceB),
-		$('#priceC').val(data.goods.priceC)
+		$('#priceC').val(data.goods.priceC),
+//		$('#url').val(data.goods.url)
 
 		goods = data.goods;
 
@@ -186,15 +218,19 @@ function updateGoods(goodsNo) {
 				supplierNo : $('#supplierNo').val(),
 				code : $('#code').val(),
 				name : $('#name').val(),
-				url : $('#url').val(),
 				unit : $('#unit').val(),
 				category : $('#category').val(),
 				note : $('#note').val(),
 				priceA : $('#priceA').val(),
 				priceB : $('#priceB').val(),
-				priceC : $('#priceC').val()
+				priceC : $('#priceC').val(),
+				url : $('#url').val()
 			}, function(result) {
+				console.log(result);
 				if (result.status == "success") {
+
+					$('#btnCancel').click();
+					$('#closeModal').click();
 					loadGoodsList(0);
 				} else {
 					alert("변경 실패!");
