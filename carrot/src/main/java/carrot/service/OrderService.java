@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import carrot.dao.ClientDao;
-import carrot.domain.Client;
+import carrot.dao.OrderDao;
+import carrot.domain.Order;
 
 /* Service 컴포넌트의 역할
  * => 비즈니스 로직 수행
@@ -17,21 +17,20 @@ import carrot.domain.Client;
  */
 
 @Service
-public class ClientService {
+public class OrderService {
   @Autowired
-  ClientDao clientDao;
+  OrderDao orderDao;
   
   public List<?> getList(int pageNo, int pageSize) {
-	  
     HashMap<String,Object> paramMap = new HashMap<>();
     paramMap.put("startIndex", ((pageNo - 1) * pageSize));
     paramMap.put("pageSize", pageSize);
     
-    return clientDao.selectList(paramMap);
+    return orderDao.selectList(paramMap);
   }
   
   public int getMaxPageNo(int pageSize) {
-    int totalSize = clientDao.totalSize();
+    int totalSize = orderDao.totalSize();
     int maxPageNo = totalSize / pageSize;
     if ((totalSize % pageSize) > 0) maxPageNo++;
     
@@ -45,32 +44,42 @@ public class ClientService {
   @Transactional(
       rollbackFor=Exception.class, 
       propagation=Propagation.REQUIRED)
-  public void add(Client client) {
-    clientDao.insert(client);
+  public void add(Order order) {
+    orderDao.insert(order);
   }
   
   @Transactional(
       rollbackFor=Exception.class, 
       propagation=Propagation.REQUIRED)
-  public void update(Client client) {
-    clientDao.update(client);
+  public void update(Order order) {
+    orderDao.update(order);
   }
   
   @Transactional(
       rollbackFor=Exception.class, 
       propagation=Propagation.REQUIRED)
-  public void delete(int clientNo) {
-    clientDao.delete(clientNo);
+  public void delete(int orderNo) {
+    orderDao.delete(orderNo);
   }
   
-  public Client get(int clientNo) {
-    Client client = clientDao.selectOne(clientNo);
-    return client;
+  public Order get(int orderNo) {
+    Order order = orderDao.selectOne(orderNo);
+    return order;
   }
-  
-  public List<Client> getList() {
-    return clientDao.selectNameList(); 
-  }
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

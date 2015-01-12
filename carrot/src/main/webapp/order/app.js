@@ -90,12 +90,12 @@ function loadGoodsList(pageNo, orderBy, category, code, name) {
 
 	
 		
-	$.getJSON('../json/goods/list.do?pageNo=' + pageNo + '&orderBy=' + orderBy
+	$.getJSON('../json/order/list.do?pageNo=' + pageNo + '&orderBy=' + orderBy
 			+ '&category=' + category + '&code=' + code + '&name=' + name, 
 	function(data) {
 		setPageNo(data.currPageNo, data.maxPageNo);
 		var goodss = data.goodss;
-		require([ 'text!templates/goods-table.html' ], function(html) {
+		require([ 'text!templates/order-table.html' ], function(html) {
 			var template = Handlebars.compile(html);
 			$('#listDiv').html(template(data));
 		});
