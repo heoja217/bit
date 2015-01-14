@@ -48,7 +48,7 @@ public class OrderControl {
   @RequestMapping("/list")
   public Object list(
       @RequestParam(defaultValue="1") int pageNo,
-      @RequestParam(defaultValue="5") int pageSize) throws Exception {
+      @RequestParam(defaultValue="5") int pageSize, int supplierNo) throws Exception {
     
     if (pageSize <= 0)
       pageSize = PAGE_DEFAULT_SIZE;
@@ -63,7 +63,7 @@ public class OrderControl {
     resultMap.put("currPageNo", pageNo);
     resultMap.put("maxPageNo", maxPageNo);
     resultMap.put("orders", 
-        orderService.getList(pageNo, pageSize));
+        orderService.getList(pageNo, pageSize, supplierNo));
     
     return resultMap;
   }

@@ -58,8 +58,10 @@
 		  T3.GNO, T3.GNAME, T3.GUNIT, T3.GCAT
 		FROM ORDERLIST T1 LEFT JOIN CLIENT T2 
 		ON T1.CNO=T2.CNO LEFT JOIN GOODS T3 ON T1.GNO=T3.GNO
+		WHERE T1.SNO=#{supplierNo}
 		
 		ORDER BY T1.OCODE		
+	
     <if test="pageSize > 0">
       limit #{startIndex}, #{pageSize}
     </if>
@@ -67,7 +69,7 @@
   
   <select id="selectOne" parameterType="int" resultMap="orderMap">
     <include refid="orderSelect"/> 
-    WHERE PNO=#{value}
+    WHERE OCODE=#{value}
   </select>
   
   <select id="totalSize" resultType="int">

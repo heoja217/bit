@@ -38,6 +38,29 @@ $(function() {
 	
 });
 
+$(document).ready(function() {
+    $('#btn_submit').click(function() {
+ 
+        var data = new FormData();
+        $.each($('#attachFile')[0].files, function(i, file) {
+            data.append('file-' + i, file);
+        });
+ 
+        $.ajax({
+            url: '/upload.do',
+            type: "post",
+            dataType: "text",
+            data: data,
+            // cache: false,
+            processData: false,
+            contentType: false,
+            success: function(data, textStatus, jqXHR) {
+                alert(data);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {}
+        });
+    });
+});
 
 /*
 $('#prevBtn').click(function(event) {

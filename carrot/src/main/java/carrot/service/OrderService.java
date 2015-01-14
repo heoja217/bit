@@ -21,11 +21,11 @@ public class OrderService {
   @Autowired
   OrderDao orderDao;
   
-  public List<?> getList(int pageNo, int pageSize) {
+  public List<?> getList(int pageNo, int pageSize, int supplierNo) {
     HashMap<String,Object> paramMap = new HashMap<>();
     paramMap.put("startIndex", ((pageNo - 1) * pageSize));
     paramMap.put("pageSize", pageSize);
-    
+    paramMap.put("supplierNo", supplierNo);
     return orderDao.selectList(paramMap);
   }
   

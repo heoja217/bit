@@ -10,30 +10,35 @@ $(function() {
 
 	$('.form').load('form.html');
 	
-	loadGoodsList(1);
+	$.getJSON('/carrot/json/auth/loginUser.do', function(data) {
+		var supplierNo=data.loginUser.sno;
+
+		loadOrderList(1,supplierNo);
+	});
 
 	$(document).on('click', '.data-row a', function() {
-		loadGoods($(this).attr('data-no'));
+		loadOrder($(this).attr('data-no'));
 	});
 
 	$(document).on('click', '.my-delete-btn', function() {
-		deleteGoods($(this).attr('data-no'))
-		loadGoods(0);
+		deleteOrder($(this).attr('data-no'))
+		loadOrder(0);
 	});
+	
 	
 	$(document).on('click','#order-category', function(){
 		saveList = 'category';
-		loadGoodsList(1,'category');
+		loadOrderList(1,'category');
 	});
 	
 	$(document).on('click','#order-code', function(){
 		saveList = 'code';
-		loadGoodsList(1,'code');
+		loadOrderList(1,'code');
 	});
 	
 	$(document).on('click','#order-name', function(){
 		saveList = 'name';
-		loadGoodsList(1,'name');
+		loadOrderList(1,'name');
 	});
 	
 });
@@ -42,13 +47,13 @@ $(function() {
 /*
 $('#prevBtn').click(function(event) {
 	if (currPageNo > 1) {
-		loadGoodsList(currPageNo - 1);
+		loadOrderList(currPageNo - 1);
 	}
 });
 
 $('#nextBtn').click(function(event) {
 	if (currPageNo < maxPageNo) {
-		loadGoodsList(currPageNo + 1);
+		loadOrderList(currPageNo + 1);
 	}
 });
 */
@@ -73,33 +78,54 @@ function setPageNo(currPageNo, maxPageNo) {
 	  page: currPageNo,
 	  maxVisible: 10 
 	}).on('page', function(event, num){
-		loadGoodsList(num, saveList);		
+		loadOrderList(num, saveList);		
 	});
+
 }
 
-	
-function loadGoodsList(pageNo, orderBy, category, code, name) {
+
+function loadOrderList(pageNo, supplierNo, orderBy, category, code, name) {
 	saveList = orderBy;
-	
 	if (pageNo <= 0)	pageNo = currPageNo;
-	
+
+	if (supplierNo == null)	supplierNo ="";
 	if (orderBy == null)	orderBy ="";
 	if (category == null)	category ="";
 	if (code == null)	code ="";
 	if (name == null)	name ="";
 
-	
 		
 	$.getJSON('../json/order/list.do?pageNo=' + pageNo + '&orderBy=' + orderBy
-			+ '&category=' + category + '&code=' + code + '&name=' + name, 
+			+ '&supplierNo=' + supplierNo + '&category=' + category + '&code=' + code + '&name=' + name, 
 	function(data) {
 		setPageNo(data.currPageNo, data.maxPageNo);
-		var goodss = data.goodss;
+		var orders = data.orders;
+	  
+/*		
+		var template = Handlebars.compile(p1);
+	  var html = template(
+	      {
+	        cards: [
+	                {name: '홍길동',age: 20,tel: '111-1111'},
+	                {name: '임꺽정',age: 30,tel: '111-2222'},
+	                {name: '안중근',age: 40,tel: '111-3333'},
+	                {name: '윤봉길',age: 50,tel: '111-4444'},
+	                {name: '유관순',age: 60,tel: '111-5555'}
+	               ]
+	      }
+	  );
+		*/
+		
 		require([ 'text!templates/order-table.html' ], function(html) {
 			var template = Handlebars.compile(html);
+
+			
 			$('#listDiv').html(template(data));
 		});
 	});
+	
+	
+
 }
 
 
@@ -116,12 +142,12 @@ $(document).on('click', '#btnCancel', function() {
 	$('.my-update-form').css('display', 'none');
 	$('.my-new-form').css('display', '');
   $('input').val('');
-	goods = null;
+	Order = null;
 });
 
 $(document).on('click', '#btnDelete', function() {
 //$('#btnDelete').click(function(){		
-	deleteGoods($('#no').val());
+	deleteOrder($('#no').val());
 	
 });
 
@@ -130,27 +156,27 @@ $(document).on('click', '#btnUpdate', function() {
 
 	$('.my-update-form').css('display', '');
 	$('.my-new-form').css('display', 'none');
-	if (goods.supplierNo == $('#supplierNo').val() &&
-			goods.code == $('#code').val() &&
-			goods.name == $('#name').val() &&
-			goods.url == $('#url').val() &&
-			goods.unit == $('#unit').val() &&
-			goods.category == $('#category').val() &&
-			goods.note == $('#note').val() &&
-			goods.priceA == $('#priceA').val() &&
-			goods.priceB == $('#priceB').val() &&
-			goods.priceC == $('#priceC').val()) {
+	if (Order.supplierNo == $('#supplierNo').val() &&
+			Order.code == $('#code').val() &&
+			Order.name == $('#name').val() &&
+			Order.url == $('#url').val() &&
+			Order.unit == $('#unit').val() &&
+			Order.category == $('#category').val() &&
+			Order.note == $('#note').val() &&
+			Order.priceA == $('#priceA').val() &&
+			Order.priceB == $('#priceB').val() &&
+			Order.priceC == $('#priceC').val()) {
 		alert('변경한것이 없습니다');
 		return;
 	}
 
 //	if (!validateForm()) return;
-	updateGoods(aaa);
+	updateOrder(aaa);
 });
 
 $(document).on('click', '#btnAdd', function() {
 //$('#btnAdd').click(function(){
-	$.post('../json/goods/add.do' URL  , 
+	$.post('../json/Order/add.do' URL  , 
 			{
 			no : $('#no').val(),
 			supplierNo : $('#supplierNo').val(),
@@ -165,7 +191,7 @@ $(document).on('click', '#btnAdd', function() {
 			priceC : $('#priceC').val()
 			}, function(result) {
 				if (result.status == "success") {
-					loadGoodsList(maxPageNo);
+					loadOrderList(maxPageNo);
 					$('#btnCancel').click();
 					$('#closeModal').click();
 					
@@ -181,34 +207,34 @@ $(document).on('click', '#btnAdd', function() {
 });
 
 
-function loadGoods(goodsNo) {
-	$.getJSON('../json/goods/view.do?no=' + goodsNo, 
+function loadOrder(OrderNo) {
+	$.getJSON('../json/Order/view.do?no=' + OrderNo, 
 			function(data){
 		$('#btnCancel').click();
-		$('#supplierNo').val(data.goods.supplierNo),
-		$('#code').val(data.goods.code),
-		$('#name').val(data.goods.name),
-		$('#unit').val(data.goods.unit),
-		$('#category').val(data.goods.category),
-		$('#note').val(data.goods.note),
-		$('#priceA').val(data.goods.priceA),
-		$('#priceB').val(data.goods.priceB),
-		$('#priceC').val(data.goods.priceC),
-//		$('#url').val(data.goods.url)
+		$('#supplierNo').val(data.Order.supplierNo),
+		$('#code').val(data.Order.code),
+		$('#name').val(data.Order.name),
+		$('#unit').val(data.Order.unit),
+		$('#category').val(data.Order.category),
+		$('#note').val(data.Order.note),
+		$('#priceA').val(data.Order.priceA),
+		$('#priceB').val(data.Order.priceB),
+		$('#priceC').val(data.Order.priceC),
+//		$('#url').val(data.Order.url)
 
-		goods = data.goods;
-		aaa = data.goods.no;
+		Order = data.Order;
+		aaa = data.Order.no;
 		
 		$('.my-update-form').css('display', '');
 		$('.my-new-form').css('display', 'none');
 	});
 }
 
-function deleteGoods(goodsNo) {
-	$.getJSON('../json/goods/delete.do?no=' + goodsNo, 
+function deleteOrder(OrderNo) {
+	$.getJSON('../json/Order/delete.do?no=' + OrderNo, 
 			function(data){
 		if (data.status == 'success') {
-			loadGoodsList(0);
+			loadOrderList(0);
 
 			$('#btnCancel').click();
 		}
@@ -217,8 +243,8 @@ function deleteGoods(goodsNo) {
 
 
 
-function updateGoods(goodsNo) {
-	$.post('../json/goods/update.do'
+function updateOrder(OrderNo) {
+	$.post('../json/Order/update.do'
 			, {
 				no : aaa,
 				supplierNo : $('#supplierNo').val(),
@@ -234,7 +260,7 @@ function updateGoods(goodsNo) {
 			}, function(result) {
 				console.log(result);
 				if (result.status == "success") {
-					loadGoodsList(0);
+					loadOrderList(0);
 					$('#btnCancel').click();
 					$('#closeModal').click();
 				} else {
