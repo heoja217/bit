@@ -49,7 +49,8 @@
     SELECT PNO, PNAME, QTY, MKNO, MADE_DATE 
     FROM PRODUCTS
   </sql>
-  
+
+        
   <select id="selectList" parameterType="map" 
         resultMap="orderListMap">
     SELECT 
@@ -72,8 +73,9 @@
     WHERE OCODE=#{value}
   </select>
   
-  <select id="totalSize" resultType="int">
-    SELECT count(OCODE) FROM ORDERLIST
+  <select id="totalSize" parameterType="int" resultType="int">
+    SELECT count(OCODE) FROM ORDERLIST WHERE SNO=#{value}
+    
   </select>
   
   <insert id="insert" parameterType="Order"

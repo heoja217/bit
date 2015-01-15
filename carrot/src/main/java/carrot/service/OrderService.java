@@ -29,8 +29,8 @@ public class OrderService {
     return orderDao.selectList(paramMap);
   }
   
-  public int getMaxPageNo(int pageSize) {
-    int totalSize = orderDao.totalSize();
+  public int getMaxPageNo(int pageSize, int supplierNo) {
+    int totalSize = orderDao.totalSize(supplierNo);
     int maxPageNo = totalSize / pageSize;
     if ((totalSize % pageSize) > 0) maxPageNo++;
     

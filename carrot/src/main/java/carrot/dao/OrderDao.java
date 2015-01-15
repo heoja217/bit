@@ -20,7 +20,7 @@ public interface OrderDao {
   void delete(int no);
   List<?> selectList(Map<String,Object> params);
   void insert(Order order);
-  int totalSize();
+  int totalSize(int supplierNo);
 }
 
 

@@ -9,12 +9,8 @@ $(function() {
   $('.header').load('../common/header.html');
 
 	$('.form').load('form.html');
-	
-	$.getJSON('/carrot/json/auth/loginUser.do', function(data) {
-		var supplierNo=data.loginUser.sno;
 
-		loadOrderList(1,supplierNo);
-	});
+		preOrderList(1,supplierNo);
 
 	$(document).on('click', '.data-row a', function() {
 		loadOrder($(this).attr('data-no'));
@@ -78,16 +74,24 @@ function setPageNo(currPageNo, maxPageNo) {
 	  page: currPageNo,
 	  maxVisible: 10 
 	}).on('page', function(event, num){
-		loadOrderList(num, saveList);		
+		preOrderList(num, saveList);		
 	});
 
 }
 
+var supplierNo;
+
+function preOrderList(no, saveList){
+	$.getJSON('/carrot/json/auth/loginUser.do', function(data) {
+		supplierNo=data.loginUser.sno;
+
+		loadOrderList(1,supplierNo,saveList);
+	});
+}
 
 function loadOrderList(pageNo, supplierNo, orderBy, category, code, name) {
 	saveList = orderBy;
 	if (pageNo <= 0)	pageNo = currPageNo;
-
 	if (supplierNo == null)	supplierNo ="";
 	if (orderBy == null)	orderBy ="";
 	if (category == null)	category ="";

@@ -19,7 +19,7 @@ import carrot.service.OrderService;
 @RequestMapping("/json/order")
 public class OrderControl {
   static Logger log = Logger.getLogger(OrderControl.class);
-  static final int PAGE_DEFAULT_SIZE = 5;
+  static final int PAGE_DEFAULT_SIZE = 10;
   
   @Autowired OrderService     	orderService;
   @Autowired ServletContext 		servletContext;
@@ -48,12 +48,12 @@ public class OrderControl {
   @RequestMapping("/list")
   public Object list(
       @RequestParam(defaultValue="1") int pageNo,
-      @RequestParam(defaultValue="5") int pageSize, int supplierNo) throws Exception {
+      @RequestParam(defaultValue="10") int pageSize, int supplierNo) throws Exception {
     
     if (pageSize <= 0)
       pageSize = PAGE_DEFAULT_SIZE;
     
-    int maxPageNo = orderService.getMaxPageNo(pageSize);
+    int maxPageNo = orderService.getMaxPageNo(pageSize, supplierNo);
     
     if (pageNo <= 0) pageNo = 1;
     if (pageNo > maxPageNo) pageNo = maxPageNo;
