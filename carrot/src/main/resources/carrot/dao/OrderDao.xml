@@ -25,7 +25,7 @@
   </resultMap>
 
   
-  <resultMap type="map" id="orderListMap">
+  <resultMap type="map" id="orderClientListMap">
     <!-- PK 컬럼은 id 태그를 사용하여 지정한다. -->
     <id column="OCODE" property="no"/>
     <result column="ODATE" property="orderDate"/>
@@ -39,34 +39,116 @@
     <result column="CNO" property="clientNo"/>
     <result column="CCNAME" property="clientName"/>
     
+    <result column="TOT_PRICE" property="monthTotal"/>
+    
+    <result column="MLEVEL" property="level"/>
+    
    	<result column="GNO" property="goodsNo"/>
     <result column="GNAME" property="name"/>
     <result column="GUNIT" property="unit"/>
 		<result column="GCAT" property="category"/>
   </resultMap>
   
+
+<!--   
+  <resultMap type="map" id="orderListMap">
+    PK 컬럼은 id 태그를 사용하여 지정한다.
+    <id column="CNO" property="no"/>
+    <result column="CCNAME" property="orderDate"/>
+    <result column="MLEVEL" property="endDate"/>
+    <result column="DDATE" property="quantity"/>
+    <result column="DEL_STAT" property="delState"/>
+    <result column="TOT_PRICE" property="monthTotal"/>
+    
+  </resultMap>
+  
+  --> 
   <sql id="orderSelect">
     SELECT PNO, PNAME, QTY, MKNO, MADE_DATE 
     FROM PRODUCTS
   </sql>
 
+  
         
+  <select id="selectList" parameterType="map" 
+        resultMap="orderClientListMap">
+
+
+		SELECT C.CNO, C.CCNAME, M.MLEVEL,
+			O.OCODE,O.RDATE,O.ODATE,O.ODATE, O.OQTY,O.DEL_STAT, O.OMEMO, OT.TOT_PRICE,
+		  G.GNO, G.GNAME, G.GUNIT, G.GCAT
+		FROM CLIENT C LEFT JOIN MATCHING M ON C.CNO=M.CNO
+			LEFT JOIN ORDERLIST O ON C.CNO=O.CNO
+			LEFT JOIN ORDERTOTAL OT ON C.CNO=OT.CNO
+			LEFT JOIN GOODS G ON O.GNO=G.GNO
+ 		WHERE M.SNO=#{supplierNo} group by O.CNO 	
+		ORDER BY O.ODATE	
+		
+    <if test="pageSize > 0">
+      limit #{startIndex}, #{pageSize}
+    </if>
+  </select>  
+  
+     <!--    
+  <select id="selectList" parameterType="map" 
+        resultMap="orderClientListMap">
+min
+		SELECT C.CNO, C.CCNAME, M.MLEVEL,O.DDATE,
+			substring(OT.TOT_MONTH,6,2), OT.TOT_PRICE
+		FROM CLIENT C, MATCHING M, ORDERLIST O, ORDERTOTAL OT
+		WHERE C.CNO=M.CNO AND C.CNO=O.CNO AND O.SNO=M.SNO AND
+			O.SNO=M.SNO AND O.CNO=OT.CNO AND O.SNO=OT.SNO GROUP BY CNO
+		
+
+		SELECT C.CNO, C.CCNAME, M.MLEVEL,O.RDATE,O.ODATE,O.ODATE,OT.TOT_PRICE
+		FROM CLIENT C LEFT JOIN MATCHING M ON C.CNO=M.CNO
+			LEFT JOIN ORDERLIST O ON C.CNO=O.CNO
+			LEFT JOIN ORDERTOTAL OT ON C.CNO=OT.CNO
+ 		WHERE M.SNO=#{supplierNo} group by O.CNO 	
+		ORDER BY O.ODATE	
+	
+	
+	
+ 
+ 		SELECT C.CNO, C.CCNAME, M.MLEVEL,O.DDATE,
+			substring(OT.TOT_MONTH,6,2), OT.TOT_PRICE
+		FROM CLIENT C LEFT JOIN MATCHING M ON C.CNO=M.CNO
+			LEFT JOIN ORDERLIST O ON C.CNO=O.CNO
+			LEFT JOIN ORDERTOTAL OT ON C.CNO=OT.CNO
+ 		WHERE O.SNO=#{supplierNo} group by O.CNO	
+		ORDER BY O.OCODE	
+ my
+	  SELECT 
+		  O.OCODE, O.SNO, O.ODATE, O.RDATE, O.OQTY, O.DEL_STAT, O.OMEMO,  
+		  C.CNO, C.CCNAME,
+		  G.GNO, G.GNAME, G.GUNIT, G.GCAT
+		FROM ORDERLIST O LEFT JOIN CLIENT C 
+			ON O.CNO=C.CNO LEFT JOIN GOODS G ON O.GNO=G.GNO
+		WHERE O.SNO=#{supplierNo} group by O.CNO	
+		ORDER BY O.OCODE	
+
+    <if test="pageSize > 0">
+      limit #{startIndex}, #{pageSize}
+    </if>
+  </select>   -->
+<!--   
   <select id="selectList" parameterType="map" 
         resultMap="orderListMap">
     SELECT 
-		  T1.OCODE, T1.SNO, T1.ODATE, T1.RDATE, T1.OQTY, T1.DEL_STAT, T1.OMEMO,  
-		  T2.CNO, T2.CCNAME,
-		  T3.GNO, T3.GNAME, T3.GUNIT, T3.GCAT
-		FROM ORDERLIST T1 LEFT JOIN CLIENT T2 
-		ON T1.CNO=T2.CNO LEFT JOIN GOODS T3 ON T1.GNO=T3.GNO
-		WHERE T1.SNO=#{supplierNo}
+		  O.OCODE, O.SNO, O.ODATE, O.RDATE, O.OQTY, O.DEL_STAT, O.OMEMO,  
+		  C.CNO, C.CCNAME,
+		  G.GNO, G.GNAME, G.GUNIT, G.GCAT
+		FROM ORDERLIST O LEFT JOIN CLIENT C 
+		ON O.CNO=C.CNO LEFT JOIN GOODS G ON O.GNO=G.GNO
+		WHERE O.SNO=#{supplierNo}
 		
-		ORDER BY T1.OCODE		
+		ORDER BY O.OCODE		
 	
     <if test="pageSize > 0">
       limit #{startIndex}, #{pageSize}
     </if>
   </select>
+   -->
   
   <select id="selectOne" parameterType="int" resultMap="orderMap">
     <include refid="orderSelect"/> 
@@ -77,11 +159,12 @@
     SELECT count(OCODE) FROM ORDERLIST WHERE SNO=#{value}
     
   </select>
+
   
   <insert id="insert" parameterType="Order"
-    useGeneratedKeys="true" keyColumn="PNO" keyProperty="no">
-    INSERT INTO 	(PNAME,QTY,MKNO,MADE_DATE) 
-    VALUES (#{name},#{quantity},#{makerNo},#{madeDate})
+    useGeneratedKeys="true" keyColumn="OCODE" keyProperty="no">
+    INSERT INTO ORDERLIST(OCODE,SNO,CNO,GNO,ODATE,DDATE,RDATE,OQTY,DEL_STAT,OMEMO) 
+    VALUES (#{no},#{supplierNo},#{clientNo},#{goodsNo},#{orderDate},#{deliveryDate},#{endDate},#{quantity},#{delState},#{note})
   </insert>
   
   <update id="update" parameterType="Order">
@@ -94,7 +177,7 @@
   </update>
   
   <delete id="delete" parameterType="int">
-    DELETE FROM PRODUCTS WHERE PNO=#{value}
+    DELETE FROM ORDERLIST WHERE OCODE=#{value}
   </delete>
 
 </mapper>

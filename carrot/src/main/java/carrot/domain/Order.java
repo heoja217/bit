@@ -29,10 +29,12 @@ public class Order implements Serializable {
   protected Date            orderDate;
   protected Date            deliveryDate;
   protected Date            endDate;
-	protected int             quantity;
-  protected String       	  delState;
-  protected String       	  note;
+  protected int             quantity;
+  protected String       	delState;
+  protected String       	note;
  
+  
+  
   
   
   @Override

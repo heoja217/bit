@@ -20,9 +20,9 @@ public interface ClientDao {
   void delete(int no);
   List<?> selectList(Map<String,Object> params);
   void insert(Client client);
-  int totalSize();
+  int totalSize(int supplierNo);
   List<Client> selectNameList();
   Client existUser(Map<String,String> params);
-  
+
 }
 

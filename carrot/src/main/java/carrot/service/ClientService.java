@@ -21,17 +21,18 @@ public class ClientService {
   @Autowired
   ClientDao clientDao;
   
-  public List<?> getList(int pageNo, int pageSize) {
+  public List<?> getList(int pageNo, int pageSize, int supplierNo) {
 	  
     HashMap<String,Object> paramMap = new HashMap<>();
     paramMap.put("startIndex", ((pageNo - 1) * pageSize));
     paramMap.put("pageSize", pageSize);
+    paramMap.put("supplierNo", supplierNo);
     
     return clientDao.selectList(paramMap);
   }
   
-  public int getMaxPageNo(int pageSize) {
-    int totalSize = clientDao.totalSize();
+  public int getMaxPageNo(int pageSize, int supplierNo) {
+    int totalSize = clientDao.totalSize(supplierNo);
     int maxPageNo = totalSize / pageSize;
     if ((totalSize % pageSize) > 0) maxPageNo++;
     
@@ -67,10 +68,16 @@ public class ClientService {
     Client client = clientDao.selectOne(clientNo);
     return client;
   }
-  
-  public List<Client> getList() {
-    return clientDao.selectNameList(); 
+  public Client validate(String clientTel, String clientPassword) {
+		HashMap<String, String> params = new HashMap<>();
+		params.put("clientTel", clientTel);
+		params.put("clientPassword", clientPassword);
+		return clientDao.existUser(params);
   }
+  
+//  public List<Client> getList() {
+//    return clientDao.selectNameList(); 
+//  }
 
 }
 

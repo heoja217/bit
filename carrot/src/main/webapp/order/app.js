@@ -7,13 +7,14 @@ var aaa;
 //$(document).ready(function(){});
 $(function() {
   $('.header').load('../common/header.html');
+  $('.form').load('form.html');
+  $('.footer').load('../common/footer.html');
 
-	$('.form').load('form.html');
 
 		preOrderList(1,supplierNo);
 
 	$(document).on('click', '.data-row a', function() {
-		loadOrder($(this).attr('data-no'));
+		loadOrderDetail(1, $(this).attr('data-no'));
 	});
 
 	$(document).on('click', '.my-delete-btn', function() {
@@ -55,6 +56,9 @@ $('#nextBtn').click(function(event) {
 */
 
 //paging
+$(function () {
+	  $('[data-toggle="popover"]').popover()
+})
 function setPageNo(currPageNo, maxPageNo) {
 	window.currPageNo = currPageNo;
 	window.maxPageNo = maxPageNo;
@@ -91,12 +95,12 @@ function preOrderList(no, saveList){
 
 function loadOrderList(pageNo, supplierNo, orderBy, category, code, name) {
 	saveList = orderBy;
-	if (pageNo <= 0)	pageNo = currPageNo;
+	if (pageNo <= 0)		pageNo = currPageNo;
 	if (supplierNo == null)	supplierNo ="";
 	if (orderBy == null)	orderBy ="";
 	if (category == null)	category ="";
-	if (code == null)	code ="";
-	if (name == null)	name ="";
+	if (code == null)		code ="";
+	if (name == null)		name ="";
 
 		
 	$.getJSON('../json/order/list.do?pageNo=' + pageNo + '&orderBy=' + orderBy
@@ -104,35 +108,44 @@ function loadOrderList(pageNo, supplierNo, orderBy, category, code, name) {
 	function(data) {
 		setPageNo(data.currPageNo, data.maxPageNo);
 		var orders = data.orders;
-	  
-/*		
-		var template = Handlebars.compile(p1);
-	  var html = template(
-	      {
-	        cards: [
-	                {name: '홍길동',age: 20,tel: '111-1111'},
-	                {name: '임꺽정',age: 30,tel: '111-2222'},
-	                {name: '안중근',age: 40,tel: '111-3333'},
-	                {name: '윤봉길',age: 50,tel: '111-4444'},
-	                {name: '유관순',age: 60,tel: '111-5555'}
-	               ]
-	      }
-	  );
-		*/
 		
-		require([ 'text!templates/order-table.html' ], function(html) {
+		require([ 'text!templates/orderClient-table.html' ], function(html) {
 			var template = Handlebars.compile(html);
 
 			
 			$('#listDiv').html(template(data));
 		});
 	});
+
+}
+
+function loadOrderDetail(pageNo, supplierNo, orderBy, category, code, name) {
+	saveList = orderBy;
+	if (pageNo <= 0)		pageNo = currPageNo;
+	if (supplierNo == null)	supplierNo ="";
+	if (orderBy == null)	orderBy ="";
+	if (category == null)	category ="";
+	if (code == null)		code ="";
+	if (name == null)		name ="";
+
+		
+	$.getJSON('../json/order/list.do?pageNo=' + pageNo + '&orderBy=' + orderBy
+			+ '&supplierNo=' + supplierNo + '&category=' + category + '&code=' + code + '&name=' + name, 
+	function(data) {
+		setPageNo(data.currPageNo, data.maxPageNo);
+		var orders = data.orders;
+		
+		require([ 'text!templates/order-table.html' ], function(html) {
+			var template = Handlebars.compile(html);
+
+			
+			$('#form').html(template(data));
+		});
+	});
 	
 	
 
 }
-
-
 
 
 /*

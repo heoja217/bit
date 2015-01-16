@@ -29,7 +29,6 @@ public class ClientControl {
 
 		clientService.add(client);
 
-
 		HashMap<String, Object> resultMap = new HashMap<>();
 		resultMap.put("status", "success");
 
@@ -48,12 +47,13 @@ public class ClientControl {
 	@RequestMapping("/list")
 	public Object list(
 			@RequestParam(defaultValue="1") int pageNo,
-			@RequestParam(defaultValue="5") int pageSize) throws Exception {
+			@RequestParam(defaultValue="5") int pageSize,
+			int supplierNo) throws Exception {
 
 		if (pageSize <= 0)
 			pageSize = PAGE_DEFAULT_SIZE;
 
-		int maxPageNo = clientService.getMaxPageNo(pageSize);
+		int maxPageNo = clientService.getMaxPageNo(pageSize, supplierNo);
 
 		if (pageNo <= 0) pageNo = 1;
 		if (pageNo > maxPageNo) pageNo = maxPageNo;
@@ -62,7 +62,7 @@ public class ClientControl {
 		resultMap.put("status", "success");
 		resultMap.put("currPageNo", pageNo);
 		resultMap.put("maxPageNo", maxPageNo);
-		resultMap.put("clients", clientService.getList(pageNo,pageSize));
+		resultMap.put("clients", clientService.getList(pageNo,pageSize,supplierNo));
 
 		return resultMap;
 	}

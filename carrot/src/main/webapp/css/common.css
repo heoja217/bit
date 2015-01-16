@@ -13,14 +13,7 @@
 	padding-bottom: 1%;
 }
 
-.tableform {
-  padding-left: 10%;
-  padding-right: 10%;
-}
-.delivery-table {
-  padding-left: 10%;
-  padding-right: 10%;
-}
+
 
 .bottom-bar {
 	position: relative;
@@ -35,7 +28,7 @@
 
 .sub_bar {
   border-radius: 25px;
-  margin-left: 8%;
+  margin-left: 0;
   margin-right: 8%;
 }
 
@@ -44,7 +37,7 @@
 	padding-left:0px;
 	padding-top:0px;
 	padding-bottom:0px;
-	margin-left: 74%;
+	margin-left: 900px;
 	margin-bottom: 0px;
 	
 }
@@ -62,8 +55,6 @@
 
 .main_menu {
   margin-top: 1%;
-  margin-left: 9%;
-  margin-right: 9%;
 }
 
 .subbar_calendar {
@@ -84,4 +75,69 @@
 
 #page-selection {
 	margin-left : 30%;
+}
+
+
+.bottom {
+height: 70px;
+overflow: hidden;
+position: relative;
+} 
+.bottombody {
+ background: #878787; 
+}
+.bottom_area {
+width: 990px;
+height: 70px;
+margin: 0 auto;
+}
+.bottom_area li:first-child {
+width: 380px;
+padding-left: 4px;
+}
+
+.bottom_area li {
+float: left;
+width: 16%;
+height: 60px;
+padding: 0 10px;
+margin-left: 13%;
+}
+.bottom_area li.nth2 {
+width: 200px;
+}
+.bottom_area li span {
+color: #e0e0e0; 
+display: block;
+padding-bottom: 2px;
+font-weight: bold;
+}
+.bottom_area ul {
+list-style: none;
+font-size: 11px;
+font-family: Dotum;
+line-height: 13px;
+letter-spacing: -1px;
+color: #c0c0c0; 
+padding: 15px 0;
+display: block;
+width: 990px;
+}
+html,body{height:100%; margin:0; padding:0;}
+
+.container {
+	min-height:100%;
+	position:relative;
+}
+
+/* .container.header{
+	height:70px;
+} */
+.content {
+	padding-bottom:60px;
+}
+.footer {
+	position:relative;
+	width:1140px;
+	
 }

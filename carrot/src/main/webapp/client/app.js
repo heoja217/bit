@@ -1,12 +1,14 @@
 var currPageNo;
 var maxPageNo;
+var aaa;
+var saveList="";
 
 //$(document).ready(function(){});
 $(function() {
-  $('.header').load('../common/header.html');
+	$('.header').load('../common/header.html');
 	$('.form').load('form.html');
-
-	loadClientList(1);
+	$('.footer').load('../common/footer.html');
+	preOrderList(1,supplierNo);
 
 	$(document).on('click', '.data-row a', function() {
 		loadClientList($(this).attr('data-no'));
@@ -18,23 +20,21 @@ $(function() {
 	});
 });
 
-$('#prevBtn').click(function(event) {
-	if (currPageNo > 1) {
-		loadClientList(currPageNo - 1);
-	}
-});
-
-$('#nextBtn').click(function(event) {
-	if (currPageNo < maxPageNo) {
-		loadClientList(currPageNo + 1);
-	}
-});
+//$('#prevBtn').click(function(event) {
+//	if (currPageNo > 1) {
+//		loadClientList(currPageNo - 1);
+//	}
+//});
+//
+//$('#nextBtn').click(function(event) {
+//	if (currPageNo < maxPageNo) {
+//		loadClientList(currPageNo + 1);
+//	}
+//});
 
 function setPageNo(currPageNo, maxPageNo) {
 	window.currPageNo = currPageNo;
 	window.maxPageNo = maxPageNo;
-
-	$('#pageNo').html(currPageNo);
 
 	if (currPageNo <= 1)
 		$('#prevBtn').css('display', 'none');
@@ -45,14 +45,32 @@ function setPageNo(currPageNo, maxPageNo) {
 		$('#nextBtn').css('display', 'none');
 	else
 		$('#nextBtn').css('display', '');
+
+	$('#page-selection').bootpag({
+		total: maxPageNo,
+		page: currPageNo,
+		maxVisible: 10 
+	}).on('page', function(event, num){
+		loadClientList(num, saveList);		
+	});
 }
 
-function loadClientList(pageNo) {
-	if (pageNo <= 0)
-		pageNo = currPageNo;
+var supplierNo;
 
-	$.getJSON('../json/client/list.do?pageNo=' + pageNo,
-		function(data) {
+function preOrderList(no, saveList){
+	$.getJSON('../json/auth/loginUser.do', function(data) {
+		supplierNo=data.loginUser.sno;
+
+		loadClientList(1,supplierNo,saveList);
+	});
+}
+
+function loadClientList(pageNo, supplierNo) {
+	if (pageNo <= 0)	pageNo = currPageNo;
+	if (supplierNo == null)	supplierNo ="";
+
+	$.getJSON('../json/client/list.do?pageNo=' + pageNo + '&supplierNo=' + supplierNo,
+			function(data) {
 		setPageNo(data.currPageNo, data.maxPageNo);
 		var clients = data.clients;
 
