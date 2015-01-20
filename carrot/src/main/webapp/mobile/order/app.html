@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="../css/Bootstrap.min.css">
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.0/jquery.mobile.structure-1.4.0.min.css" />
+<link rel="stylesheet" href="../css/jquery.mobile.icons.min.css"">
+<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script> 
+<script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.js"></script>
+
+<link rel="stylesheet" type="text/css"
+	href="/carrot/css/fileinput.min.css">
+
+<link rel="stylesheet" type="text/css"
+	href="/carrot/css/bootstrap-select.css">
+<link rel='stylesheet' href='/carrot/css/common-mobile.css'>
+
+
+
+
+<meta charset="UTF-8">
+
+
+<style type="text/css"> 
+    table { width:100%; }
+    table caption { text-align:left;  }
+    table thead th { text-align:left; border-bottom-width:1px; border-top-width:1px; }
+    table th, td { text-align:left; padding:6px;} 
+</style> 
+
+
+<title>Insert title here</title>
+</head>
+<div data-role="page" data-theme="a">
+
+
+<!-- header -->
+	<div data-role="header" data-position="inline" >
+		<h1>Carrot</h1>
+		<a href="index.html" data-icon="gear" class="ui-btn-right" style="border:#222222;background-color:#222222"
+></a>
+
+	</div>
+	<div data-role="navbar" data-theme="a">
+		<ul>
+			<li><a href="buttons.html" data-icon="star">today</a></li>
+			<li><a href="listviews.html" data-icon="grid">주문내역</a></li>
+			<!-- 		
+				<li><a href="forms.html" data-icon="gear" >Forms</a></li>
+ -->
+			<li><a href="nav.html" data-icon="plus" class="ui-btn-active">주문</a></li>
+		</ul>
+	</div>
+
+
+
+	<!-- content -->
+	<div data-role="content" data-theme="a">
+	<fieldset data-role="controlgroup">
+    <select name="select-native" id="select-native" data-icon="plus">
+        <option value="1">납품업체1</option>
+        <option value="2">납품업체2</option>
+        <option value="3">납품업체3</option>
+    </select>
+		<h2></h2>
+		<form action="#" method="get">
+			<div data-role="fieldcontain">
+				<label for="goodsCode">상품코드:</label> <input type="search"
+					name="password" id="goodsCode" value="" />
+			</div>
+
+			<div data-role="fieldcontain">
+				<label for="deleveryDate">배송요청일:</label> 
+				<input id="delDate" type="text" data-role="date">	
+			</div>
+			
+			<div data-role="fieldcontain">
+				<label for="select-choice-a" class="select">분류:</label>
+				<select name="select-choice-a" id="select-choice-a" data-native-menu="false">
+					<option>분류</option>
+					<option value="standard">청과류</option>
+					<option value="rush">육류</option>
+					<option value="express">양념</option>
+					<option value="overnight"></option>
+				</select>
+			</div>
+			
+			<div data-role="fieldcontain">
+				<label for="select-choice-a" class="select">단위:</label>
+				<select name="select-choice-a" id="select-choice-a" data-native-menu="false">
+					<option>Custom menu example</option>
+					<option value="standard">Standard: 7 day</option>
+					<option value="rush">Rush: 3 days</option>
+					<option value="express">Express: next day</option>
+					<option value="overnight">Overnight</option>
+				</select>
+			</div>
+
+			<div data-role="fieldcontain">
+				<label for="slider">수량:</label>
+			 	<input type="range" name="slider" id="slider" value="20" min="0" max="30" data-highlight="true"  />
+			</div>
+
+			<div data-role="fieldcontain">
+  <table data-role="table" data-mode="columntoggle" class="ui-responsive ui-shadow" id="myTable">
+      <thead>
+        <tr>
+          <th data-priority="6">ID</th>
+          <th>CustomerName</th>
+          <th data-priority="1">ContactName</th>
+          <th data-priority="2">Address</th>
+          <th data-priority="3">City</th>
+          <th data-priority="4">PostalCode</th>
+          <th data-priority="5">Country</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Alfreds Futterkiste</td>
+          <td>Maria Anders</td>
+          <td>Obere Str. 57</td>
+          <td>Berlin</td>
+          <td>12209</td>
+          <td>Germany</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Antonio Moreno Taquería</td>
+          <td>Antonio Moreno</td>
+          <td>Mataderos 2312</td>
+          <td>México D.F.</td>
+          <td>05023</td>
+          <td>Mexico</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Around the Horn</td>
+          <td>Thomas Hardy</td>
+          <td>120 Hanover Sq.</td>
+          <td>London</td>
+          <td>WA1 1DP</td>
+          <td>UK</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>Berglunds snabbköp</td>
+          <td>Christina Berglund</td>
+          <td>Berguvsvägen 8</td>
+          <td>Luleå</td>
+          <td>S-958 22</td>
+          <td>Sweden</td>
+        </tr>
+
+      </tbody>
+    </table>
+			</div>
+			
+				<fieldset class="ui-grid-a">
+					<div class="ui-block-a">
+						<button type="submit" data-theme="d">Cancel</button>
+					</div>
+					<div class="ui-block-b">
+						<button type="submit" data-theme="a">Submit</button>
+					</div>
+					</fieldset>
+
+		</form>
+	</fieldset>
+	</div>
+
+</div>
+
+<script>
+
+$( "#delDate" ).datepicker();
+
+var myselect = $("select#foo");
+myselect[0].selectedIndex = 3;
+myselect.selectmenu("refresh");
+
+</script>
+
+</body>
+</html>
