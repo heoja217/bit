@@ -1,13 +1,10 @@
 package carrot.control.json;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Iterator;
 
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import carrot.domain.Company;
 import carrot.domain.Goods;
 import carrot.service.GoodsService;
 
@@ -76,22 +71,33 @@ public class GoodsControl {
       @RequestParam(required=false) Boolean code,
       @RequestParam(required=false) Boolean name,
       @RequestParam(required=false) Boolean category,
-      @RequestParam(defaultValue="category") String orderBy) throws Exception {
+      @RequestParam(defaultValue="category") String orderBy,
+      HttpSession session) throws Exception {
     
     if (pageSize <= 0)
       pageSize = PAGE_DEFAULT_SIZE;
     
+	Company company = (Company)session.getAttribute("loginUser");
+	int supplierNo = company.getSno();
     int maxPageNo = goodsService.getMaxPageNo(pageSize);
     
     if (pageNo <= 0) pageNo = 1;
     if (pageNo > maxPageNo) pageNo = maxPageNo;
+
+    HashMap<String,Object> paramMap = new HashMap<>();
+	paramMap.put("startIndex", ((pageNo - 1) * pageSize));
+	paramMap.put("pageSize", pageSize);
+	paramMap.put("category", category);
+	paramMap.put("code", code);
+	paramMap.put("name", name);
+	paramMap.put("orderBy", orderBy);
+	paramMap.put("supplierNo", supplierNo);
     
     HashMap<String,Object> resultMap = new HashMap<>();
     resultMap.put("status", "success");
     resultMap.put("currPageNo", pageNo);
     resultMap.put("maxPageNo", maxPageNo);
-//    resultMap.put("goodss", goodsService.getList(pageNo, pageSize));
-    resultMap.put("goodss", goodsService.getList(pageNo, pageSize, category, code, name, orderBy));
+    resultMap.put("goodss", goodsService.getList(paramMap));
   
     return resultMap;
   }

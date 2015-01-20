@@ -61,6 +61,7 @@
   
 	<select id="selectList" parameterType="map" resultMap="goodsListItemMap">
 		<include refid="goodsSelect" />
+			WHERE SNO=#{supplierNo}
 		ORDER BY
 		<choose>
 			<when test="orderBy == 'category'">
