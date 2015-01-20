@@ -46,13 +46,13 @@
 	</div>
 	<div data-role="navbar" data-theme="a">
 		<ul>
-			<li><a href="buttons.html" data-icon="star">today</a></li>
-			<li><a href="listviews.html" data-icon="grid">주문내역</a></li>
+			<li><a href="../order/today.html" data-icon="star">today</a></li>
+			<li><a href="../order/list.html" data-icon="grid">주문내역</a></li>
 			<!-- 		
 				<li><a href="forms.html" data-icon="gear" >Forms</a></li>
  -->
-			<li><a href="nav.html" data-icon="plus" class="ui-btn-active">주문</a></li>
-		</ul>
+			<li><a href="../order/app.html" data-icon="plus"  class="ui-btn-active">주문</a></li>
+		</ul>	
 	</div>
 
 
@@ -79,95 +79,71 @@
 			
 			<div data-role="fieldcontain">
 				<label for="select-choice-a" class="select">분류:</label>
-				<select name="select-choice-a" id="select-choice-a" data-native-menu="false">
+				<select name="category" id="category" data-native-menu="false">
 					<option>분류</option>
 					<option value="standard">청과류</option>
 					<option value="rush">육류</option>
 					<option value="express">양념</option>
-					<option value="overnight"></option>
+					<option value="overnight">야호</option>
 				</select>
 			</div>
 			
 			<div data-role="fieldcontain">
 				<label for="select-choice-a" class="select">단위:</label>
-				<select name="select-choice-a" id="select-choice-a" data-native-menu="false">
-					<option>Custom menu example</option>
-					<option value="standard">Standard: 7 day</option>
-					<option value="rush">Rush: 3 days</option>
-					<option value="express">Express: next day</option>
-					<option value="overnight">Overnight</option>
+				<select name="unit" id="unit" data-native-menu="false">
+					<option>단위</option>
+					<option value="kg">kg</option>
+					<option value="g">g</option>
+					<option value="L">L</option>
+					<option value="ea">EA</option>
 				</select>
 			</div>
 
 			<div data-role="fieldcontain">
 				<label for="slider">수량:</label>
-			 	<input type="range" name="slider" id="slider" value="20" min="0" max="30" data-highlight="true"  />
+			 	<input type="range" name="slider" id="quantity" value="10" min="0" max="20" data-highlight="true"  />
 			</div>
+			
+
 
 			<div data-role="fieldcontain">
+				<fieldset class="ui-grid-a">
+					<div class="ui-block-a">
+						<button type="submit" data-theme="e">+</button>
+					</div>
+					<div class="ui-block-b">
+						<button type="submit" data-theme="a">X</button>
+					</div>
+				</fieldset>
+				</div>
+				
   <table data-role="table" data-mode="columntoggle" class="ui-responsive ui-shadow" id="myTable">
       <thead>
         <tr>
-          <th data-priority="6">ID</th>
-          <th>CustomerName</th>
-          <th data-priority="1">ContactName</th>
-          <th data-priority="2">Address</th>
-          <th data-priority="3">City</th>
-          <th data-priority="4">PostalCode</th>
-          <th data-priority="5">Country</th>
+          <th data-priority="1">상품명</th>
+          <th data-priority="2">단위</th>
+          <th data-priority="3">수량</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>1</td>
-          <td>Alfreds Futterkiste</td>
-          <td>Maria Anders</td>
-          <td>Obere Str. 57</td>
-          <td>Berlin</td>
-          <td>12209</td>
-          <td>Germany</td>
+          <td>2</td>
+          <td>3</td>
         </tr>
         <tr>
           <td>2</td>
-          <td>Antonio Moreno Taquería</td>
-          <td>Antonio Moreno</td>
-          <td>Mataderos 2312</td>
-          <td>México D.F.</td>
-          <td>05023</td>
-          <td>Mexico</td>
-        </tr>
-        <tr>
           <td>3</td>
-          <td>Around the Horn</td>
-          <td>Thomas Hardy</td>
-          <td>120 Hanover Sq.</td>
-          <td>London</td>
-          <td>WA1 1DP</td>
-          <td>UK</td>
-        </tr>
-        <tr>
           <td>4</td>
-          <td>Berglunds snabbköp</td>
-          <td>Christina Berglund</td>
-          <td>Berguvsvägen 8</td>
-          <td>Luleå</td>
-          <td>S-958 22</td>
-          <td>Sweden</td>
         </tr>
-
       </tbody>
     </table>
+			<div data-role="fieldcontain">
+			<fieldset class="ui-grid-a">
+				<button style="height:50px" type="submit" data-theme="d">주문하기</button>
 			</div>
-			
-				<fieldset class="ui-grid-a">
-					<div class="ui-block-a">
-						<button type="submit" data-theme="d">Cancel</button>
-					</div>
-					<div class="ui-block-b">
-						<button type="submit" data-theme="a">Submit</button>
-					</div>
-					</fieldset>
-
+<!-- 
+ -->
 		</form>
 	</fieldset>
 	</div>
