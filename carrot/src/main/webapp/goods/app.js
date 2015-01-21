@@ -22,8 +22,20 @@ $(function() {
 	});
 
 	$(document).on('click', '.my-delete-btn', function() {
-		deleteGoods($(this).attr('data-no'))
-		loadGoods(0);
+		if(confirm("삭제하시겠습니까?")){
+			var check_value = new Array();
+			var j = 0;
+			var check_arr = $(".ab");
+			for (var i = 0; i < check_arr.length ; i++) {
+				if (check_arr[i].checked) {
+					check_value[j++] = check_arr[i].value;
+				}
+			}
+			deleteGoods(check_value);
+			
+			//deleteGoods($(this).attr('data-no'))
+			loadGoods(0);
+		}
 	});
 
 	$(document).on('click','#order-category-head',function(){

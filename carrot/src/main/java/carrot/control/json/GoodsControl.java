@@ -27,8 +27,6 @@ public class GoodsControl {
   
   @Autowired GoodsService goodsService;
   @Autowired ServletContext servletContext;
-
-
   
   @RequestMapping(value="/add", method=RequestMethod.POST)
   public Object add(Goods goods) throws Exception {  
@@ -56,8 +54,11 @@ public class GoodsControl {
   }
 
   @RequestMapping("/delete")
-  public Object delete(int no) throws Exception {
-    goodsService.delete(no);    
+  public Object delete(int[] no) throws Exception {
+	  
+	for(int i = 0; i < no.length; i++) {
+	    goodsService.delete(no[i]);    
+	}
     
     HashMap<String, Object> resultMap = new HashMap<>();
     resultMap.put("status", "success");
