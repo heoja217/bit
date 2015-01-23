@@ -84,8 +84,8 @@
 					<label for="select-choice-a" class="select">분류:</label> <select
 						name="category" id="category" data-native-menu="false">
 						<option>분류</option>
-						<option value="청과류">청과류</option>
-						<option value="육류">육류</option>
+						<option value="간장">간장</option>
+						<option value="꽁치">꽁치</option>
 						<option value="양념">양념</option>
 						<option value="야호">야호</option>
 					</select>
@@ -113,7 +113,7 @@
 						
 						</div>
 						<div class="ui-block-b">
-							<button type="submit" data-theme="a">X</button>
+							<button id="btnCancel" type="reset" data-theme="a">X</button>
 						</div>
 					</fieldset>
 				</div>
@@ -125,24 +125,17 @@
           <th data-priority="1">상품명</th>
           <th data-priority="2">단위</th>
           <th data-priority="3">수량</th>			
-          <th>&nbsp;</th>
+          <th data-priority="4">배송일</th>		       
         </tr>
       </thead>
       <tbody>
-        <tr class="item1">
-          <td>1</td>
-          <td>2</td>
-          <td>3</td>
-          <td style="width:20%"><button class="delBtn" data-theme="c">삭제</button></td>
-        </tr>
-
       </tbody>
     </table>
     
     
 			<div data-role="fieldcontain">
 				<fieldset class="ui-grid-a">
-					<button style="height:50px" type="submit" data-theme="d">주문하기</button>
+					<button id="addOrderBtn" style="height:50px" type="submit" data-theme="d">주문하기</button>
 				</fieldset>
 			</div>
 
@@ -158,21 +151,43 @@
 
 
 <script>
+
+var order;
+
 $(document).ready(function(){
     // 옵션추가 버튼 클릭시
+
     $("#addItemBtn").click(function(){
-        // item 의 최대번호 구하기
-        var lastItemNo = $("#orderTable tr:last").attr("class").replace("item", "");
+    	if (!validateForm()) return;
 
-        var newitem = $("#orderTable tr:eq(1)").clone();
-        newitem.removeClass();
-        newitem.find("td:eq(0)").attr("rowspan", "1");
-        newitem.addClass("item"+(parseInt(lastItemNo)+1));
+			var tr = $('<tr>');
+			$('<td>').html($('#goodsName').val()).appendTo(tr);
+			$('<td>').html($('#unit').val()).appendTo(tr);
+			$('<td>').html($('#quantity').val()).appendTo(tr);
+			$('<td>').html($('#goodsCode').val()).appendTo(tr);
+					
 
-        $("#orderTable").append(newitem);
+    	$("#orderTable").find('tbody')
+        .append(tr);
+
     });
 
+    $("#addOrderBtn").click(function(){
+    	order = new Object();
 
+    	var MyRows = $('table#orderTable').find('tbody').find('tr');
+    	for (var i = 0; i < MyRows.length; i++) {
+    		order.goodsName = $(MyRows[i]).find('td:eq(0)').html();
+    		order.unit = $(MyRows[i]).find('td:eq(1)').html();
+    		order.quantity = $(MyRows[i]).find('td:eq(2)').html();
+    		order.goodsCode = $(MyRows[i]).find('td:eq(3)').html();
+    		addOrder(order);
+    	}
+  
+    });
+    
+    
+/*     
     // 삭제버튼 클릭시
     $(".delBtn").live("click", function(){
         var clickedRow = $(this).parent().parent();
@@ -187,11 +202,54 @@ $(document).ready(function(){
 
         clickedRow.remove();
     });
-
+ */
 });
 
 $( "#delDate" ).datepicker();
 
+function validateForm() {
+	if ( $('#goodsName').val().length == 0) {
+		alert('상품명은 필수 입력 항목입니다.');
+		return false;
+	}
+	if ( $('#goodsCode').val().length == 0) {
+		alert('상품코드는 필수 입력 항목입니다.');
+		return false;
+	}
+	if ( $('#unit').val().length == 0) {
+		alert('단위는 필수 입력 항목입니다.');
+		return false;
+	}
+
+	if ( $('#quantity').val() == '0') {
+		alert('수량은 필수 입력 항목입니다.');
+		return false;
+	}
+	return true;
+}
+
+
+function addOrder(order) {
+	$.post('../../json/order/add.do'
+			, {
+				supplierNo : 1,
+				clientNo : 2,
+				goodsNo : order.goodsCode,
+				endDate : '2015-02-06',
+				quantity : order.quantity
+			}, function(result) {
+				console.log(result);
+				if (result.status == "success") {
+					alert("성공!");
+				} else {
+					alert("변경 실패!");
+				}
+			}
+			, 'json')
+			.fail(function(jqXHR, textStatus, errorThrown){
+				alert(textStatus + ":" + errorThrown);
+			});
+}
 
 </script>
 

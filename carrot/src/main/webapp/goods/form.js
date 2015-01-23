@@ -85,7 +85,7 @@ function loadGoods(goodsNo) {
 		$('.my-update-form').css('display', 'none');
 		$('.my-new-form').css('display', '');
 	});
-}
+}	
 
 function deleteGoods(goodsNo) {
 	$.getJSON('../json/goods/delete.do?no=' + goodsNo, 
