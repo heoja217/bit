@@ -22,7 +22,22 @@
 		<result column="SADDR_DET" property="saddr_det" />
 		<result column="SMEMO" property="smemo" />
 	</resultMap>
-
+	
+	<resultMap type="map" id="companyNameMap">
+		<!-- PK 컬럼은 id 태그를 사용하여 지정한다. -->
+		<id column="SNO" property="sno" />
+		<result column="SCNAME" property="scname" />
+		<result column="CNO" property="clientNo" />
+	</resultMap>
+	
+	
+  <select id="selectNameList" parameterType="map" resultMap="companyNameMap">
+    SELECT S.SNO, S.SCNAME
+    	FROM SUPPLIER S LEFT JOIN MATCHING M ON S.SNO=M.SNO
+    WHERE M.CNO=#{clientNo}
+    ORDER BY S.SCNAME ASC
+  </select>
+	
 	<insert id="insert" parameterType="Company" useGeneratedKeys="true"
 		keyColumn="SNO" keyProperty="no">
 		INSERT INTO SUPPLIER(SID, SPWD, STEL,
@@ -36,6 +51,7 @@
 		FROM SUPPLIER
 		WHERE SID=#{sid} AND SPWD=#{spwd}
 	</select>
+	
 	<select id="selectOne" parameterType="int" resultMap="companyMap">
 		SELECT *
 		FROM SUPPLIER

@@ -19,6 +19,7 @@ public interface GoodsDao {
   void update(Goods goods);
   void delete(int no);
   List<?> selectList(Map<String,Object> params);
+  List<?> selectOptionList(Map<String,Object> params);
   void insert(Goods goods);
   int totalSize();
 }

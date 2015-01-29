@@ -32,6 +32,8 @@ public class Company implements Serializable {
 	protected String saddr;
 	protected String saddr_det;
 	protected String smemo;
+	
+
 	public int getSno() {
 		return sno;
 	}

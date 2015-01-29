@@ -136,6 +136,7 @@ function loadGoodsList(pageNo, orderBy, category, code, name, categoryDesc, code
 			function(data) {
 		setPageNo(data.currPageNo, data.maxPageNo);
 		var goodss = data.goodss;
+		console.log(goodss);
 		require([ 'text!templates/goods-table.html' ], function(html) {
 			var template = Handlebars.compile(html);
 			$('#listDiv').html(template(data));

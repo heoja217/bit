@@ -73,7 +73,6 @@
   <select id="selectList" parameterType="map" 
         resultMap="orderClientListMap">
 
-
 		SELECT C.CNO, C.CCNAME, M.MLEVEL,
 			O.OCODE,O.RDATE,O.ODATE,O.ODATE, O.OQTY,O.DEL_STAT, O.OMEMO, OT.TOT_PRICE,
 		  G.GNO, G.GNAME, G.GUNIT, G.GCAT
@@ -164,7 +163,7 @@ min
   <insert id="insert" parameterType="Order"
     useGeneratedKeys="true" keyColumn="OCODE" keyProperty="no">
     INSERT INTO ORDERLIST(SNO,CNO,GNO,ODATE,DDATE,RDATE,OQTY,DEL_STAT,OMEMO) 
-    VALUES (#{supplierNo},#{clientNo},#{goodsNo},NOW(),#{deliveryDate},#{endDate},#{quantity},#{delState},#{note})
+    VALUES (#{supplierNo},#{clientNo},#{goodsNo},CURDATE(),#{deliveryDate},#{endDate},#{quantity},#{delState},#{note})
   </insert>
   
   <update id="update" parameterType="Order">

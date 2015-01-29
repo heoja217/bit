@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import carrot.domain.Client;
 import carrot.domain.Company;
 import carrot.domain.Order;
 import carrot.service.OrderService;
@@ -27,9 +28,15 @@ public class OrderControl {
   @Autowired ServletContext 		servletContext;
  
   @RequestMapping(value="/add", method=RequestMethod.POST)
-  public Object add(Order order) throws Exception {  
+  public Object add(Order order, HttpSession session) throws Exception {  
     
-    orderService.add(order);
+	  
+		Client client = (Client)session.getAttribute("loginUser");
+		int clientNo = client.getNo(); 
+	    HashMap<String,Object> paramMap = new HashMap<>();
+		paramMap.put("clientNo", clientNo);
+		paramMap.put("", clientNo);
+		orderService.add(order);
     
     HashMap<String,Object> resultMap = new HashMap<>();
     resultMap.put("status", "success");

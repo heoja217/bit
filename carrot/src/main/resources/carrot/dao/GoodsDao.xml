@@ -30,56 +30,54 @@
   <resultMap type="Goods" id="goodsListItemMap">
     <id column="GNO" property="no"/>
     <result column="SNO" property="supplierNo"/>
-    <result column="GCODE" property="code"/>
     <result column="GNAME" property="name"/>
-    <result column="GIMG" property="url"/>
     <result column="GUNIT" property="unit"/>
     <result column="GCAT" property="category"/>
-    <result column="GMEMO" property="note"/>
-    <result column="GPRICE_A" property="priceA"/>
-    <result column="GPRICE_B" property="priceB"/>
-    <result column="GPRICE_C" property="priceC"/>
+    <result column="GCODE" property="code"/>
 	</resultMap>
   
-
- <!-- 
-  <resultMap type="GoodsListItem" id="goodsListItemMap">
-    PK 컬럼은 id 태그를 사용하여 지정한다.
-    <id column="PNO" property="no"/>
-    <result column="PNAME" property="name"/>
-    <result column="QTY" property="quantity"/>
-    <result column="MKNO" property="makerNo"/>
-    <result column="MKNAME" property="maker"/>
-  </resultMap>
--->  
 
   <sql id="goodsSelect">
     SELECT GNO, SNO, GCODE, GNAME, GIMG, GUNIT, GCAT, GMEMO, GPRICE_A, GPRICE_B, GPRICE_C
     FROM GOODS
   </sql>
-  
-  
-	<select id="selectList" parameterType="map" resultMap="goodsListItemMap">
-		<include refid="goodsSelect" />
-			WHERE SNO=#{supplierNo}
-		ORDER BY
-		<choose>
-			<when test="orderBy == 'category'">
-				GCAT
-			</when>
-			<when test="orderBy == 'code'">
-				GCODE
-			</when>
-			<when test="orderBy == 'name'">
-				GNAME
+ 	
+ 	<select id="selectOptionList" parameterType="map" resultMap="goodsListItemMap">
+		SELECT GNO, GCAT, GNAME, GUNIT, GCODE
+    	FROM GOODS	
+    <choose>
+    	<when test="category!=null">
+		    WHERE SNO=#{supplierNo} AND GCAT=#{category}
+		    ORDER BY GNAME ASC	
 			</when>
 			<otherwise>
-				GCAT
+		    WHERE SNO=#{supplierNo} group by GCAT
+		    ORDER BY GCAT ASC
 			</otherwise>
 		</choose>
-			<if test="pageSize > 0">
-				limit #{startIndex}, #{pageSize}
-			</if>
+  </select>
+
+	<select id="selectList" parameterType="map" resultMap="goodsMap">
+			<include refid="goodsSelect" />
+				WHERE SNO=#{supplierNo}
+			ORDER BY
+			<choose>
+				<when test="orderBy == 'category'">
+					GCAT
+				</when>
+				<when test="orderBy == 'code'">
+					GCODE
+				</when>
+				<when test="orderBy == 'name'">
+					GNAME
+				</when>
+				<otherwise>
+					GCAT
+				</otherwise>
+			</choose>
+				<if test="pageSize > 0">
+					limit #{startIndex}, #{pageSize}
+				</if>
 	</select>
   
 <!--   

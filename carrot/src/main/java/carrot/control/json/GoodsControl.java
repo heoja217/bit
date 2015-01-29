@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import carrot.domain.Client;
 import carrot.domain.Company;
 import carrot.domain.Goods;
 import carrot.service.GoodsService;
@@ -38,6 +39,8 @@ public class GoodsControl {
         servletContext.getRealPath("/fileupload");
       String filename = System.currentTimeMillis() + "_"; 
       File file = new File(fileuploadRealPath + "/" + filename);
+      
+      System.out.println("       ==>" + fileuploadRealPath);
     
       goods.getPhotofile().transferTo(file);
       goods.setUrl(filename);
@@ -64,6 +67,27 @@ public class GoodsControl {
     resultMap.put("status", "success");
     return resultMap;
   }
+ 
+  @RequestMapping("/optionlist")
+  public Object optionlist(
+	      int no, String category,
+	      HttpSession session) throws Exception {
+    
+	Client client = (Client)session.getAttribute("loginUser");
+	int clientNo = client.getNo();
+    
+    HashMap<String,Object> paramMap = new HashMap<>();
+	paramMap.put("clientNo", clientNo);
+	paramMap.put("supplierNo", no);
+	paramMap.put("category", category);
+    
+    HashMap<String,Object> resultMap = new HashMap<>();
+    resultMap.put("status", "success");
+    resultMap.put("goodss", goodsService.getOptionList(paramMap));
+  
+    return resultMap;
+  } 
+  
   
   @RequestMapping("/list")
   public Object list(
@@ -84,7 +108,8 @@ public class GoodsControl {
     
     if (pageNo <= 0) pageNo = 1;
     if (pageNo > maxPageNo) pageNo = maxPageNo;
-
+    
+    
     HashMap<String,Object> paramMap = new HashMap<>();
 	paramMap.put("startIndex", ((pageNo - 1) * pageSize));
 	paramMap.put("pageSize", pageSize);

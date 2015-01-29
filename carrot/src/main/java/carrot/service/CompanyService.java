@@ -1,6 +1,7 @@
 package carrot.service;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +36,10 @@ public Company validate(String sid, String spwd) {
 	public void add(Company company) {
 		companyDao.insert(company);
 
+	}
+	
+	public List<Company> getList(HashMap<String,Object> paramMap) {
+		return companyDao.selectNameList(paramMap);
 	}
 	
 	public Company selectOne(int sid) {

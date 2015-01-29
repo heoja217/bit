@@ -19,10 +19,13 @@ import carrot.domain.Goods;
 public class GoodsService {
 	@Autowired
 	GoodsDao goodsDao;
-	
-	public List<?> getList(HashMap<String,Object> paramMap){
 
+	public List<?> getList(HashMap<String,Object> paramMap){
 		return goodsDao.selectList(paramMap);
+	}
+	
+	public List<?> getOptionList(HashMap<String,Object> paramMap){
+		return goodsDao.selectOptionList(paramMap);
 	}
 	
   public int getMaxPageNo(int pageSize) {
