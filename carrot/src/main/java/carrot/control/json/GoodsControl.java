@@ -29,10 +29,14 @@ public class GoodsControl {
   @Autowired GoodsService goodsService;
   @Autowired ServletContext servletContext;
   
+  
   @RequestMapping(value="/add", method=RequestMethod.POST)
-  public Object add(Goods goods) throws Exception {  
+  public Object add(Goods goods, HttpSession session) throws Exception {  
+
+	Company company = (Company)session.getAttribute("loginUser");
+    goods.setSupplierNo(company.getSno());
     
-    if (goods.getPhotofile() != null
+	if (goods.getPhotofile() != null
         && !goods.getPhotofile().isEmpty()) {
 
       String fileuploadRealPath = 
@@ -72,7 +76,7 @@ public class GoodsControl {
   public Object optionlist(
 	      int no, String category,
 	      HttpSession session) throws Exception {
-    
+
 	Client client = (Client)session.getAttribute("loginUser");
 	int clientNo = client.getNo();
     
@@ -84,6 +88,7 @@ public class GoodsControl {
     HashMap<String,Object> resultMap = new HashMap<>();
     resultMap.put("status", "success");
     resultMap.put("goodss", goodsService.getOptionList(paramMap));
+    //System.out.println("            "+ resultMap.get("goodss"));
   
     return resultMap;
   } 

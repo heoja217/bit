@@ -159,14 +159,8 @@ var order = {
 } */
 
 $(document).ready( function (){
-		$("#delDate").datepicker({
-		    format: "yyyy-mm-dd"
-		});
-
-		readySelector();
 		
-		$("#orderSecond").hide();
-		
+	initOrder();	
 
 		$("#newOrder").click(function() {
 			order = new Object();
@@ -176,6 +170,7 @@ $(document).ready( function (){
 			
 			readySelector2(order.supplierNo);
 			console.log(order);
+			
 			$("#orderFirst").hide();
 			$("#orderSecond").show();
 		
@@ -209,12 +204,18 @@ $(document).ready( function (){
 //			order.code = $(this).find('option:selected').dataset.code;
 			order.goodsCode = res[0];
 			order.unit = res[1];
-
-			$('#unit').val(order.unit);
-			$('#goodsCode').val(order.goodsCode);
+			order.goodsNo = parseInt(res[2]);
 			
-			console.log(order.unit);
-			console.log(order.goodsName);
+
+			
+			
+			
+			// 차후수정!
+			
+			$('#unit').val(order.unit);
+			//$('#goodsCode').val(order.goodsCode);
+			$('#goodsCode').val(order.goodsNo);
+			
 		});
 		
 
@@ -243,8 +244,10 @@ $(document).ready( function (){
 				order.goodsName = $(MyRows[i]).find('td:eq(1)').html();
 				order.unit = $(MyRows[i]).find('td:eq(2)').html();
 				order.quantity = $(MyRows[i]).find('td:eq(3)').html();
+				console.log(order);
 				addOrder(order);
 			}
+			initOrder();
 		});
 
 		/* page refresh
@@ -252,6 +255,15 @@ $(document).ready( function (){
 		*/
 	});
 
+	function initOrder() {
+		$("#orderFirst").show();
+		$("#orderSecond").hide();
+		$("#delDate").datepicker({
+		    dateFormat: "yy-mm-dd"
+		});
+		readySelector();
+	}
+	
 	function readySelector() {
 
 		$.getJSON('../../json/company/list.do?', function(data) {

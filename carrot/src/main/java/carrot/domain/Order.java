@@ -32,8 +32,6 @@ public class Order implements Serializable {
   protected int             quantity;
   protected String       	delState;
   protected String       	note;
- 
-  
   
   
   

@@ -68,7 +68,6 @@
     FROM PRODUCTS
   </sql>
 
-  
         
   <select id="selectList" parameterType="map" 
         resultMap="orderClientListMap">

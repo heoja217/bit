@@ -32,12 +32,13 @@ public class OrderControl {
     
 	  
 		Client client = (Client)session.getAttribute("loginUser");
-		int clientNo = client.getNo(); 
-	    HashMap<String,Object> paramMap = new HashMap<>();
-		paramMap.put("clientNo", clientNo);
-		paramMap.put("", clientNo);
+		order.setClientNo(client.getNo()); 
+		
 		orderService.add(order);
     
+		System.out.println("     " + order);
+		
+		
     HashMap<String,Object> resultMap = new HashMap<>();
     resultMap.put("status", "success");
     
