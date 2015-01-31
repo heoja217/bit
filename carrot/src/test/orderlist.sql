@@ -101,5 +101,49 @@
 			LEFT JOIN GOODS G ON O.GNO=G.GNO
  		WHERE M.SNO=1 group by O.CNO 	
 		ORDER BY O.ODATE	
+	
+		SELECT GNO, GCAT, GUNIT
+    	FROM GOODS
+    WHERE SNO=1 group by GCAT
+    ORDER BY GCAT ASC
+    
+    SELECT GNO, GCAT, GUNIT
+    	FROM GOODS
+    WHERE SNO=1 group by GUNIT
+    ORDER BY GUNIT ASC
+    
+    SELECT GNO, GCAT, GNAME, GUNIT
+    	FROM GOODS
+    WHERE SNO=1 AND GCAT='대두유'
+    ORDER BY GNAME ASC		
+    
+    
+    
+	insert into ORDERLIST(SNO, CNO, GNO, ODATE, RDATE, OQTY, OPRICE)
+		select 2, 2, 8,'2015-01-01', '2015-01-02', 40, (case M.MLEVEL when '1' then G.GPRICE_A
+    when '2' then G.GPRICE_B 
+    when '3' then G.GPRICE_C
+    end)
+    	from GOODS G LEFT JOIN MATCHING M ON G.SNO=G.SNO
+		where M.SNO=1
+		and M.CNO=2
+		and G.GNO=8
 		
-				
+		
+		
+  	values(2, 2, 8,'2015-01-01', '2015-01-02', 40);
+    
+    select case M.MLEVEL when '1' then G.GPRICE_A
+    when '2' then G.GPRICE_B 
+    when '3' then G.GPRICE_C
+    end
+    	from GOODS G LEFT JOIN MATCHING M ON G.SNO=G.SNO
+		where M.SNO=1
+		and M.CNO=2
+		and G.GNO=8
+		
+    
+    
+    
+    
+    

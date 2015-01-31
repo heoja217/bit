@@ -1,110 +1,169 @@
+
 <!DOCTYPE html>
 <html>
 <head>
-    <base href="http://demos.telerik.com/kendo-ui/scheduler/adaptive">
-    <style>html { font-size: 12px; font-family: Arial, Helvetica, sans-serif; }</style>
-    <title></title>
-    <link rel="stylesheet" href="http://cdn.kendostatic.com/2014.3.1316/styles/kendo.common.min.css" />
-    <link rel="stylesheet" href="http://cdn.kendostatic.com/2014.3.1316/styles/kendo.default.min.css" />
-    <link rel="stylesheet" href="http://cdn.kendostatic.com/2014.3.1316/styles/kendo.dataviz.min.css" />
-    <link rel="stylesheet" href="http://cdn.kendostatic.com/2014.3.1316/styles/kendo.dataviz.default.min.css" />
-    <link rel="stylesheet" href="http://cdn.kendostatic.com/2014.3.1316/styles/kendo.mobile.all.min.css" />
+<meta charset='utf-8' />
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
-    <script src="http://cdn.kendostatic.com/2014.3.1316/js/jquery.min.js"></script>
-    <script src="http://cdn.kendostatic.com/2014.3.1316/js/kendo.all.min.js"></script>
-    <script src="http://cdn.kendostatic.com/2014.3.1316/js/kendo.timezones.min.js"></script>
+
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="../css/Bootstrap.min.css">
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.0/jquery.mobile.structure-1.4.0.min.css" />
+<link rel="stylesheet" href="../css/jquery.mobile.icons.min.css"">
+
+<link href='../css/fullcalendar.css' rel='stylesheet' />
+<link href='../css/fullcalendar.print.css' rel='stylesheet' media='print' />
+<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script> 
+<script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.js"></script>
+<script src='../js/moment.min.js'></script>
+<script src='../js/fullcalendar.js'></script>
+<script src='../js/ko.js'></script>
+
+
+<style>
+/* 
+	body {
+		margin: 40px 10px;
+		padding: 0;
+		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+		font-size: 14px;
+	}
+*/
+	#calendar {
+		background-color:white;
+		margin: 0 auto;
+	} 
+
+</style>
+
+<script>
+
+	$(document).ready(function() {
+		
+		  $.getJSON('../../json/goods/optionlist.do?', function(data) {
+		  	
+
+				var orders = data.orders;
+				console.log(orders);
+			  
+				$('#calendar').fullCalendar({
+					lang:'ko',
+			  	eventColor: '#ffffff',
+					header: {
+						left: 'prev,next today',
+						center: 'title',
+						right: 'month,agendaWeek,agendaDay'
+					},
+					defaultDate: '2014-11-12',
+					editable: true,
+					eventLimit: true, // allow "more" link when too many events
+					events: [
+						{
+							title: orders.,
+							start: 'delDate'
+						}
+					]
+				});
+			  
+			  
+			  
+			  var schedules = data.schedules;
+			  
+			  console.log(schedules.length);
+			  var events = parseSchedules(schedules);
+			  var groupColor = "#222222";
+			  
+			  if(schedules.length > 0){
+			  	groupColor = schedules[0].formColor;
+			  }
+			  
+			  $('#calendar').fullCalendar({
+			    langs : 'ko', //언어설정
+			    header : {
+			      right : 'prev,next today',
+			      center : 'title',
+			      left : 'month,basicWeek'
+			    },//달력 헤더 옵션 설정
+
+			    dayClick : function(date, jsEvent, view) {
+			    	startday = date;
+				    $('#tdate').text(date.format());
+				    popup(date, jsEvent, view);
+			    },//날짜 클릭 콜백함수
+			    
+			    eventClick: function(calEvent, jsEvent, view) {
+			    	var thisEvent = calEvent.title;
+			    	console.log(thisEvent);
+			    	var start = calEvent.start.format();
+			    	
+			    	if (end != null){
+			    		var end = calEvent.end.format()
+			    		$('#schdate').text(start + " ~ " + end);
+			    	} else {
+			    		$('#schdate').text(start);
+			    	}
+			    	
+			    	$('#groupBubble').css('border',"2px solid " + groupColor);
+			    	
+			    	$('#eschedule').text(thisEvent);
+						schBubble(calEvent, jsEvent, view);
+		        
+		   		},
+		   		
+			    eventSources : [
+			        {
+						   	
+						  ,
+						  				 color : groupColor,
+						  				 textColor: 'yellow'
+			        }
+			  				 ]
+			  });
+		  });//getJSON
+	
+		
+	});
+	
+
+
+</script>
+<style>
+/* 
+	body {
+		margin: 40px 10px;
+		padding: 0;
+		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+		font-size: 14px;
+	}
+
+	#calendar {
+		max-width: 900px;
+		margin: 0 auto;
+	}
+ */
+</style>
 </head>
 <body>
-  <div data-role="view" data-init="initScheduler">
-      <header data-role="header"></header>
-      <div id="scheduler"></div>
-  </div>
-  <script>
-      function initScheduler() {
-          $("#scheduler").kendoScheduler({
-              date: new Date("2013/6/26"),
-              startTime: new Date("2013/6/26 07:00 AM"),
-              height: kendo.support.mobileOS.wp ? "28em" : 600,
-              views: [
-                  {	type: "month", selected: true},              
-                  { type: "week", selectedDateFormat: "{0:ddd,MMM dd,yyyy} - {1:ddd,MMM dd,yyyy}" },
-                  { type: "day" }
-              ],
-              mobile: "phone",
-              timezone: "Etc/UTC",
-              dataSource: {
-                  batch: true,
-                  transport: {
-                      read: {
-                          url: "http://demos.telerik.com/kendo-ui/service/meetings",
-                          dataType: "jsonp"
-                      },
-                      update: {
-                          url: "http://demos.telerik.com/kendo-ui/service/meetings/update",
-                          dataType: "jsonp"
-                      },
-                      create: {
-                          url: "http://demos.telerik.com/kendo-ui/service/meetings/create",
-                          dataType: "jsonp"
-                      },
-                      destroy: {
-                          url: "http://demos.telerik.com/kendo-ui/service/meetings/destroy",
-                          dataType: "jsonp"
-                      },
-                      parameterMap: function(options, operation) {
-                          if (operation !== "read" && options.models) {
-                              return {models: kendo.stringify(options.models)};
-                          }
-                      }
-                  },
-                  schema: {
-                      model: {
-                          id: "meetingID",
-                          fields: {
-                              meetingID: { from: "MeetingID", type: "number" },
-                              title: { from: "Title", defaultValue: "No title", validation: { required: true } },
-                              start: { type: "date", from: "Start" },
-                              end: { type: "date", from: "End" },
-                              startTimezone: { from: "StartTimezone" },
-                              endTimezone: { from: "EndTimezone" },
-                              description: { from: "Description" },
-                              recurrenceId: { from: "RecurrenceID" },
-                              recurrenceRule: { from: "RecurrenceRule" },
-                              recurrenceException: { from: "RecurrenceException" },
-                              roomId: { from: "RoomID", nullable: true },
-                              atendees: { from: "Atendees", nullable: true },
-                              isAllDay: { type: "boolean", from: "IsAllDay" }
-                          }
-                      }
-                  }
-              },
-              resources: [
-              {
-                  field: "roomId",
-                  dataSource: [
-                      { text: "Meeting Room 101", value: 1, color: "#6eb3fa" },
-                      { text: "Meeting Room 201", value: 2, color: "#f58a8a" }
-                  ],
-                  title: "Room"
-              },
-              {
-                  field: "atendees",
-                  dataSource: [
-                      { text: "Alex", value: 1, color: "#f8a398" },
-                      { text: "Bob", value: 2, color: "#51a0ed" },
-                      { text: "Charlie", value: 3, color: "#56ca85" }
-                  ],
-                  multiple: true,
-                  title: "Atendees"
-              }
-              ]
-          });
-      }
-  </script>
 
+	<div data-role="page" data-theme="a">
+		<div data-role="header" data-position="inline">
+			<h1>Carrot</h1>
+			<a href="index.html" data-icon="gear" class="ui-btn-right"
+				style="border: #222222; background-color: #222222"></a>
+			<div data-role="navbar" data-theme="a">
+				<ul>
+					<li><a href="today.html" data-ajax="false" data-icon="star">today</a></li>
+					<li><a href="list.html" data-ajax="false" data-icon="grid" class="ui-btn-active">주문내역</a></li>
+					<li><a href="app.html" data-ajax="false" data-icon="plus">주문</a></li>
+				</ul>
+			</div>
+		</div>
+		<div data-role="content" data-theme="a">
 
-  <script>
-      var app = new kendo.mobile.Application(document.body);
-  </script>
+			<div id='calendar' ></div>
+		</div>
+		
+
 </body>
 </html>

@@ -158,12 +158,25 @@ min
     
   </select>
 
-  
+<!--   
   <insert id="insert" parameterType="Order"
     useGeneratedKeys="true" keyColumn="OCODE" keyProperty="no">
     INSERT INTO ORDERLIST(SNO,CNO,GNO,ODATE,DDATE,RDATE,OQTY,DEL_STAT,OMEMO) 
     VALUES (#{supplierNo},#{clientNo},#{goodsNo},CURDATE(),#{deliveryDate},#{endDate},#{quantity},#{delState},#{note})
   </insert>
+   -->
+  <insert id="insert" parameterType="Order"
+    useGeneratedKeys="true" keyColumn="OCODE" keyProperty="no">
+		insert into ORDERLIST(SNO,CNO,GNO,ODATE,RDATE,OQTY,DEL_STAT,OMEMO,OPRICE)
+			select #{supplierNo}, #{clientNo},#{goodsNo},CURDATE(),#{endDate},#{quantity},#{delState},#{note},(case M.MLEVEL when '1' then G.GPRICE_A
+	    when '2' then G.GPRICE_B 
+	    when '3' then G.GPRICE_C
+	    end)
+	    	from GOODS G LEFT JOIN MATCHING M ON G.SNO=G.SNO
+			where M.SNO=#{supplierNo}
+			and M.CNO=#{clientNo}
+			and G.GNO=#{goodsNo}
+	</insert>
   
   <update id="update" parameterType="Order">
     UPDATE PRODUCTS SET 

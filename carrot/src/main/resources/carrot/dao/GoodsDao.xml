@@ -120,8 +120,6 @@
     WHERE GNO=#{no}
   </update>
   
-
-  
   <delete id="delete" parameterType="int">
     DELETE FROM GOODS WHERE GNO=#{value}
   </delete> 
