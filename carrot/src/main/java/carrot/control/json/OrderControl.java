@@ -34,9 +34,9 @@ public class OrderControl {
 		Client client = (Client)session.getAttribute("loginUser");
 		order.setClientNo(client.getNo()); 
 		
-		orderService.add(order);
-    
 		System.out.println("     " + order);
+		
+		orderService.add(order);
 		
 		
     HashMap<String,Object> resultMap = new HashMap<>();

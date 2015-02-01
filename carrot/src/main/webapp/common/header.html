@@ -37,10 +37,12 @@
 	$('#loginBtn').click(function(event) {
 		location.href = '/carrot/auth/Web_login.html';
 	});
-
+	
+	
 	$.getJSON('/carrot/json/auth/loginUser.do', function(data) {
 		if (data.status == 'fail') {
-			$('#loginBtn').css('display', '');
+			location.href = '/carrot/auth/Web_login.html';
+//			$('#loginBtn').css('display', '');
 
 		} else {
 			$('#logoutBtn').css('display', '');
@@ -49,7 +51,6 @@
 			//sno=data.loginUser.sno;
 			//console.log(sno);	
 			
-			data.loginU
 			
 			$('#sid').click(function() {
 				alert('사용자 정보 조회 창으로 보낼 예정');

@@ -25,7 +25,7 @@ public class Order implements Serializable {
   protected int             no;
   protected int             supplierNo;
   protected int             clientNo;
-  protected int             goodsNo;
+  protected String          goodsCode;
   protected Date            orderDate;
   protected Date            deliveryDate;
   protected Date            endDate;
@@ -38,7 +38,7 @@ public class Order implements Serializable {
   @Override
 	public String toString() {
 		return "Order [no=" + no + ", supplierNo=" + supplierNo + ", clientNo="
-				+ clientNo + ", goodsNo=" + goodsNo + ", orderDate="
+				+ clientNo + ", goodsCode=" + goodsCode + ", orderDate="
 				+ orderDate + ", deliveryDate=" + deliveryDate + ", deliveredDate="
 				+ endDate + ", quantity=" + quantity + ", note=" + note
 				+ ", delState=" + delState + "]";
@@ -61,11 +61,11 @@ public class Order implements Serializable {
 	public void setClientNo(int clientNo) {
 		this.clientNo = clientNo;
 	}
-	public int getGoodsNo() {
-		return goodsNo;
+	public String getGoodsCode() {
+		return goodsCode;
 	}
-	public void setGoodsNo(int goodsNo) {
-		this.goodsNo = goodsNo;
+	public void setGoodsCode(String goodsCode) {
+		this.goodsCode = goodsCode;
 	}
 	public Date getOrderDate() {
 		return orderDate;

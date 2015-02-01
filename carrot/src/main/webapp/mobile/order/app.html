@@ -55,8 +55,7 @@
 		</div>
 		<div data-role="content" data-theme="a">
 
-			<form action="#" method="post">
-
+			<form>
 				<div id="orderFirst">
 					<div data-role="fieldcontain">
 						<select id="selectCompany" data-native-menu="false" data-icon="plus">
@@ -130,7 +129,7 @@
 		    
 					<div data-role="fieldcontain">
 						<fieldset class="ui-grid-a">
-							<button id="addOrderBtn" style="height:50px" type="submit" data-theme="d">주문하기</button>
+							<button id="addOrderBtn" style="height:50px" type="button" data-theme="d">주문하기</button>
 						</fieldset>
 					</div>
 				</div>
@@ -176,6 +175,7 @@ $(document).ready( function (){
 		
 		});
 
+		// 분류를 선택하면 상품명 셀렉터가 변경!
 		$('#category').change(function() {
 			var option = $(this).find('option:selected').val();
 			order.category = option;
@@ -208,13 +208,9 @@ $(document).ready( function (){
 			
 
 			
-			
-			
-			// 차후수정!
-			
 			$('#unit').val(order.unit);
-			//$('#goodsCode').val(order.goodsCode);
-			$('#goodsCode').val(order.goodsNo);
+			$('#goodsCode').val(order.goodsCode);
+			//$('#goodsCode').val(order.goodsNo);
 			
 		});
 		
@@ -247,7 +243,6 @@ $(document).ready( function (){
 				console.log(order);
 				addOrder(order);
 			}
-			initOrder();
 		});
 
 		/* page refresh
@@ -279,7 +274,7 @@ $(document).ready( function (){
 	}
 
 	function readySelector2(supplierNo) {
-		console.log(supplierNo);
+	//	console.log(supplierNo);
 
 		$.getJSON('../../json/goods/optionlist.do?no=' + supplierNo, function(
 				data) {
@@ -319,17 +314,19 @@ $(document).ready( function (){
 	}
 
 	function addOrder(order) {
+		console.log("hi   ");
 		$.post('../../json/order/add.do', {
 			supplierNo : order.supplierNo,
-			goodsNo : order.goodsCode,
+			goodsCode : order.goodsCode,
 			endDate : order.delDate,
 			quantity : order.quantity
 		}, function(result) {
 			console.log(result);
 			if (result.status == "success") {
-				alert("성공!");
+				initOrder();
 			} else {
-				alert("변경 실패!");
+				alert("서버가 바쁩니다. 잠시 후 다시 주문해 주십시오.");
+				initOrder();
 			}
 		}, 'json').fail(function(jqXHR, textStatus, errorThrown) {
 			alert(textStatus + ":" + errorThrown);

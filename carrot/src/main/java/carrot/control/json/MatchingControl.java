@@ -3,51 +3,41 @@ package carrot.control.json;
 import java.util.HashMap;
 
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import carrot.domain.Client;
-import carrot.domain.Company;
-import carrot.service.ClientService;
+import carrot.domain.Matching;
 import carrot.service.MatchingService;
 
-@Controller("json.clientControl")
-@RequestMapping("/json/client")
-public class ClientControl {
-	static Logger log = Logger.getLogger(ClientControl.class);
+@Controller("json.matchingControl")
+@RequestMapping("/json/matching")
+public class MatchingControl {
+	static Logger log = Logger.getLogger(MatchingControl.class);
 	static final int PAGE_DEFAULT_SIZE = 5;
 
-	@Autowired ClientService clientService;
 	@Autowired MatchingService matchingService;
 	@Autowired ServletContext servletContext;
 
 	@RequestMapping(value="/add", method=RequestMethod.POST)
-	public Object add(Client client, HttpSession session) throws Exception {  
+	public Object add(Matching matching) throws Exception {  
 
-		Company company = (Company) session.getAttribute("loginUser");
-		int supplierNo = company.getSno();
-		
-		client.setSupplierNo(supplierNo);
-		
-		clientService.add(client);
+		matchingService.add(matching);
 
-		
 		HashMap<String, Object> resultMap = new HashMap<>();
 		resultMap.put("status", "success");
-		resultMap.put("client", client);  
 
 		return resultMap;
 	}
 
 	@RequestMapping("/delete")
 	public Object delete(int no) throws Exception {
-		clientService.delete(no);
+		matchingService.delete(no);
 
 		HashMap<String,Object> resultMap = new HashMap<>();
 		resultMap.put("status", "success");
@@ -63,7 +53,7 @@ public class ClientControl {
 		if (pageSize <= 0)
 			pageSize = PAGE_DEFAULT_SIZE;
 
-		int maxPageNo = clientService.getMaxPageNo(pageSize, supplierNo);
+		int maxPageNo = matchingService.getMaxPageNo(pageSize, supplierNo);
 
 		if (pageNo <= 0) pageNo = 1;
 		if (pageNo > maxPageNo) pageNo = maxPageNo;
@@ -72,27 +62,27 @@ public class ClientControl {
 		resultMap.put("status", "success");
 		resultMap.put("currPageNo", pageNo);
 		resultMap.put("maxPageNo", maxPageNo);
-		resultMap.put("clients", clientService.getList(pageNo,pageSize,supplierNo));
+		resultMap.put("matchings", matchingService.getList(pageNo,pageSize,supplierNo));
 
 		return resultMap;
 	}
 
 	@RequestMapping("/update")
-	public Object update(Client client) throws Exception {
-		clientService.update(client);
-		
+	public Object update(Matching matching) throws Exception {
+		matchingService.update(matching);
+
 		HashMap<String,Object> resultMap = new HashMap<>();
 		resultMap.put("status", "success");
 		return resultMap;
 	}
 
 	@RequestMapping("/view")
-	public Object view(int no) throws Exception {
-		Client client = clientService.get(no);
+	public Object view(int no, Model model) throws Exception {
+		Matching matching = matchingService.get(no);
 
 		HashMap<String,Object> resultMap = new HashMap<>();
 		resultMap.put("status", "success");
-		resultMap.put("client", client);
+		resultMap.put("matching", matching);
 		return resultMap;
 	}
 }

@@ -12,24 +12,23 @@
   <!-- 객체의 컬럼과 프로퍼티를 연결한다. -->
   <resultMap type="Order" id="orderMap">
     <!-- PK 컬럼은 id 태그를 사용하여 지정한다. -->
-    <id column="OCODE" property="no"/>
+    <id column="ONO" property="no"/>
     <result column="SNO" property="supplierNo"/>
     <result column="CNO" property="clientNo"/>
     <result column="GNO" property="goodsNo"/>
     <result column="ODATE" property="orderDate"/>
-    <result column="DDATE" property="deliveryDate"/>
-    <result column="RDATE" property="endDate"/>
+    <result column="ORDATE" property="endDate"/>
     <result column="OQTY" property="quantity"/>
-    <result column="DEL_STAT" property="delState"/>
+    <result column="ODEL_STAT" property="delState"/>
     <result column="OMEMO" property="note"/>
   </resultMap>
 
   
   <resultMap type="map" id="orderClientListMap">
     <!-- PK 컬럼은 id 태그를 사용하여 지정한다. -->
-    <id column="OCODE" property="no"/>
+    <id column="ONO" property="no"/>
     <result column="ODATE" property="orderDate"/>
-    <result column="RDATE" property="endDate"/>
+    <result column="ORDATE" property="endDate"/>
     <result column="OQTY" property="quantity"/>
     <result column="DEL_STAT" property="delState"/>
     <result column="OMEMO" property="note"/>
@@ -73,7 +72,7 @@
         resultMap="orderClientListMap">
 
 		SELECT C.CNO, C.CCNAME, M.MLEVEL,
-			O.OCODE,O.RDATE,O.ODATE,O.ODATE, O.OQTY,O.DEL_STAT, O.OMEMO, OT.TOT_PRICE,
+			O.ONO,O.ORDATE,O.ODATE,O.ODATE, O.OQTY,O.ODEL_STAT, O.OMEMO, OT.TOT_PRICE,
 		  G.GNO, G.GNAME, G.GUNIT, G.GCAT
 		FROM CLIENT C LEFT JOIN MATCHING M ON C.CNO=M.CNO
 			LEFT JOIN ORDERLIST O ON C.CNO=O.CNO
@@ -114,16 +113,16 @@ min
 			LEFT JOIN ORDERLIST O ON C.CNO=O.CNO
 			LEFT JOIN ORDERTOTAL OT ON C.CNO=OT.CNO
  		WHERE O.SNO=#{supplierNo} group by O.CNO	
-		ORDER BY O.OCODE	
+		ORDER BY O.ONO	
  my
 	  SELECT 
-		  O.OCODE, O.SNO, O.ODATE, O.RDATE, O.OQTY, O.DEL_STAT, O.OMEMO,  
+		  O.ONO, O.SNO, O.ODATE, O.RDATE, O.OQTY, O.DEL_STAT, O.OMEMO,  
 		  C.CNO, C.CCNAME,
 		  G.GNO, G.GNAME, G.GUNIT, G.GCAT
 		FROM ORDERLIST O LEFT JOIN CLIENT C 
 			ON O.CNO=C.CNO LEFT JOIN GOODS G ON O.GNO=G.GNO
 		WHERE O.SNO=#{supplierNo} group by O.CNO	
-		ORDER BY O.OCODE	
+		ORDER BY O.ONO	
 
     <if test="pageSize > 0">
       limit #{startIndex}, #{pageSize}
@@ -133,14 +132,14 @@ min
   <select id="selectList" parameterType="map" 
         resultMap="orderListMap">
     SELECT 
-		  O.OCODE, O.SNO, O.ODATE, O.RDATE, O.OQTY, O.DEL_STAT, O.OMEMO,  
+		  O.ONO, O.SNO, O.ODATE, O.RDATE, O.OQTY, O.DEL_STAT, O.OMEMO,  
 		  C.CNO, C.CCNAME,
 		  G.GNO, G.GNAME, G.GUNIT, G.GCAT
 		FROM ORDERLIST O LEFT JOIN CLIENT C 
 		ON O.CNO=C.CNO LEFT JOIN GOODS G ON O.GNO=G.GNO
 		WHERE O.SNO=#{supplierNo}
 		
-		ORDER BY O.OCODE		
+		ORDER BY O.ONO		
 	
     <if test="pageSize > 0">
       limit #{startIndex}, #{pageSize}
@@ -150,45 +149,45 @@ min
   
   <select id="selectOne" parameterType="int" resultMap="orderMap">
     <include refid="orderSelect"/> 
-    WHERE OCODE=#{value}
+    WHERE ONO=#{value}
   </select>
   
   <select id="totalSize" parameterType="int" resultType="int">
-    SELECT count(OCODE) FROM ORDERLIST WHERE SNO=#{value}
+    SELECT count(ONO) FROM ORDERLIST WHERE SNO=#{value}
     
   </select>
 
 <!--   
   <insert id="insert" parameterType="Order"
-    useGeneratedKeys="true" keyColumn="OCODE" keyProperty="no">
+    useGeneratedKeys="true" keyColumn="ONO" keyProperty="no">
     INSERT INTO ORDERLIST(SNO,CNO,GNO,ODATE,DDATE,RDATE,OQTY,DEL_STAT,OMEMO) 
     VALUES (#{supplierNo},#{clientNo},#{goodsNo},CURDATE(),#{deliveryDate},#{endDate},#{quantity},#{delState},#{note})
   </insert>
    -->
   <insert id="insert" parameterType="Order"
-    useGeneratedKeys="true" keyColumn="OCODE" keyProperty="no">
-		insert into ORDERLIST(SNO,CNO,GNO,ODATE,RDATE,OQTY,DEL_STAT,OMEMO,OPRICE)
-			select #{supplierNo}, #{clientNo},#{goodsNo},CURDATE(),#{endDate},#{quantity},#{delState},#{note},(case M.MLEVEL when '1' then G.GPRICE_A
+    useGeneratedKeys="true" keyColumn="ONO" keyProperty="no">
+		insert into ORDERLIST(SNO,CNO,GCODE,ODATE,ORDATE,OQTY,ODEL_STAT,OMEMO,OPRICE)
+			select #{supplierNo}, #{clientNo},#{goodsCode},CURDATE(),#{endDate},#{quantity},#{delState},#{note},(case M.MLEVEL when '1' then G.GPRICE_A
 	    when '2' then G.GPRICE_B 
 	    when '3' then G.GPRICE_C
 	    end)
 	    	from GOODS G LEFT JOIN MATCHING M ON G.SNO=G.SNO
 			where M.SNO=#{supplierNo}
 			and M.CNO=#{clientNo}
-			and G.GNO=#{goodsNo}
+			and G.GCODE=#{goodsCode}
 	</insert>
   
   <update id="update" parameterType="Order">
     UPDATE PRODUCTS SET 
       PNAME=#{name},
-      QTY=#{quantity},
+      OQTY=#{quantity},
       MKNO=#{makerNo},
       MADE_DATE=#{madeDate} 
     WHERE PNO=#{no}
   </update>
   
   <delete id="delete" parameterType="int">
-    DELETE FROM ORDERLIST WHERE OCODE=#{value}
+    DELETE FROM ORDERLIST WHERE ONO=#{value}
   </delete>
 
 </mapper>

@@ -3,7 +3,7 @@ package carrot.dao;
 import java.util.List;
 import java.util.Map;
 
-import carrot.domain.Client;
+import carrot.domain.Matching;
 
 /* myBatis에서 DAO 클래스를 만들 때 
  * 다음 인터페이스에 선언된 규칙에 따라 만들 것이다.
@@ -14,16 +14,16 @@ import carrot.domain.Client;
  * => 메서드 이름은 SQL 아이디와 같아야 한다.
  * => 인터페이스 패키지도 SQL 맵퍼 파일의 네임스페이스와 같아야 한다. 
  */
-public interface ClientDao {
-  Client selectOne(int no);
-  void update(Client client);
-  void updateMatch(Client client);
-  void deleteMatch(int no);
+public interface MatchingDao {
+  static Matching selectOne(int no) {
+	// TODO Auto-generated method stub
+	return null;
+} 
+  void update(Matching matching);
   void delete(int no);
   List<?> selectList(Map<String,Object> params);
-  void insert(Client client);
-  void insertMatch(Client client);
+  void insert(Matching matching);
   int totalSize(int supplierNo);
-  Client existUser(Map<String,String> params);
+  
 }
 

@@ -144,6 +144,14 @@
 		
     
     
-    
+    insert into ORDERLIST(SNO,CNO,GCODE,ODATE,ORDATE,OQTY,OPRICE)
+			select  1, 1, '87002','2015-01-01', '2015-01-02', 40,(case M.MLEVEL when '1' then G.GPRICE_A
+	    when '2' then G.GPRICE_B 
+	    when '3' then G.GPRICE_C
+	    end)
+	    	from GOODS G LEFT JOIN MATCHING M ON G.SNO=G.SNO
+			where M.SNO=1
+			and M.CNO=1
+			and G.GCODE='87002'
     
     

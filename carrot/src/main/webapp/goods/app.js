@@ -1,7 +1,7 @@
 var currPageNo;
 var maxPageNo;
 var saveList="";
-var aaa;
+var goodsNo;
 var categoryClick = 0;
 var codeClick = 0;
 var nameClick = 0;
@@ -12,7 +12,7 @@ var nameClick = 0;
 $(function() {
 
 	$('.header').load('../common/header.html');
-
+	$('.footer').load('../common/footer.html');
 //	$('.form').load('form.html');
 
 	loadGoodsList(1);
@@ -21,6 +21,15 @@ $(function() {
 		loadGoods($(this).attr('data-no'));
 	});
 
+/*
+	$(document).on('click', '#mycheck', function() {
+		if ($(this).is(':checked')) {
+			$("input[name=mycheck]").prop("checked", true);
+		} else {
+			$("input[name=mycheck]").prop("checked", false);
+		}
+	});
+*/
 	$(document).on('click', '.my-delete-btn', function() {
 		if(confirm("삭제하시겠습니까?")){
 			var check_value = new Array();
@@ -31,13 +40,24 @@ $(function() {
 					check_value[j++] = check_arr[i].value;
 				}
 			}
+			console.log(check_value);
 			deleteGoods(check_value);
+			loadGoods(1);
+		}
+	});
+/*
+	$(document).on('click', '.my-delete-btn', function() {
+		if(confirm("삭제하시겠습니까?")) {
+			$("input[name=mycheck]:checked").each(function() {
+				var temp = $(this).val();
+				console.log("test==>",temp);
+				deleteGoods(temp);
+			});
 			
-			//deleteGoods($(this).attr('data-no'))
 			loadGoods(0);
 		}
 	});
-
+	*/
 	$(document).on('click','#order-category-head',function(){
 		$('#order-category-head').css('color','red');
 		setcategoryList();
@@ -180,8 +200,6 @@ $(document).on('click', '#btnAdd', function() {
 //	$('#btnAdd').click(function(){
 	$.post('../json/goods/add.do'/* URL */ , 
 			{
-		no : $('#no').val(),
-		supplierNo : $('#supplierNo').val(),
 		code : $('#code').val(),
 		name : $('#name').val(),
 		url : $('#url').val(),
@@ -213,7 +231,6 @@ function loadGoods(goodsNo) {
 	$.getJSON('../json/goods/view.do?no=' + goodsNo, 
 			function(data){
 		$('#btnCancel').click();
-		$('#supplierNo').val(data.goods.supplierNo),
 		$('#code').val(data.goods.code),
 		$('#name').val(data.goods.name),
 		$('#unit').val(data.goods.unit),
@@ -225,7 +242,7 @@ function loadGoods(goodsNo) {
 //		$('#url').val(data.goods.url)
 
 		goods = data.goods;
-		aaa = data.goods.no;
+		goodsNo = data.goods.no;
 
 		$('.my-update-form').css('display', '');
 		$('.my-new-form').css('display', 'none');
@@ -250,8 +267,7 @@ function deleteGoods(goodsNo) {
 function updateGoods(goodsNo) {
 	$.post('../json/goods/update.do'
 			, {
-				no : aaa,
-				supplierNo : $('#supplierNo').val(),
+				no : goodsNo,
 				code : $('#code').val(),
 				name : $('#name').val(),
 				unit : $('#unit').val(),
@@ -277,129 +293,3 @@ function updateGoods(goodsNo) {
 			});
 }
 
-
-
-/* 수정전 
-
-$('#btnCancel').click(function(){
-	$('.my-update-form').css('display', 'none');
-	$('.my-new-form').css('display', '');
-	//goods = null;
-});
-
-$('#btnDelete').click(function(){		
-	deleteGoods($('#no').val());
-});
-
-$('#btnUpdate').click(function(){
-	if (goods.supplierNo == $('#supplierNo').val() &&
-			goods.code == $('#code').val() &&
-			goods.name == $('#name').val() &&
-			goods.url == $('#url').val() &&
-			goods.unit == $('#unit').val() &&
-			goods.category : $('#category').val() &&
-			goods.note == $('#note').val() &&
-			goods.priceA == $('#priceA').val() &&
-			goods.priceB == $('#priceB').val() &&
-			goods.priceC == $('#priceC').val()) {
-		alert('변경한것이 없습니다');
-		return;
-	}
-	if (!validateForm()) return;
-
-	updateGoods($('#no').val());
-});
-
-
-$('#btnAdd').click(function(){
-	$.post('../json/goods/add.do' URL 
-			no : $('#no').val(),
-			supplierNo : $('#supplierNo').val(),
-			code : $('#code').val(),
-			name : $('#name').val(),
-			url : $('#url').val(),
-			unit : $('#unit').val(),
-			category : $('#category').val(),
-			note : $('#note').val(),
-			priceA : $('#priceA').val(),
-			priceB : $('#priceB').val(),
-			priceC : $('#priceC').val()
-			}, function(result) {
-				if (result.status == "success") {
-					loadGoodsList(-1);
-					$('#btnCancel').click();
-
-				} else {
-					alert("등록 실패!");
-				}
-			} 서버로부터 응답을 받았을 때 호출될 메서드 
-			, 'json' 서버가 보낸 데이터를 JSON형식으로 처리 )
-			 서버 요청이 실패했을때 호출될 함수 등록 
-			.fail(function(jqXHR, textStatus, errorThrown){
-				alert(textStatus + ":" + errorThrown);
-			});
-});
-
-
-function loadGoods(goodsNo) {
-	$.getJSON('../json/goods/view.do?no=' + goodsNo, 
-			function(data){
-		$('#btnCancel').click();
-		no : $('#no').val(data.goods.no),
-		supplierNo : $('#supplierNo').val(data.goods.supplierNo),
-		code : $('#code').val(data.goods.code),
-		name : $('#name').val(data.goods.name),
-		url : $('#url').val(data.goods.url),
-		unit : $('#unit').val(data.goods.unit),
-		category : $('#category').val(data.goods.category),
-		note : $('#note').val(data.goods.note),
-		priceA : $('#priceA').val(data.goods.priceA),
-		priceB : $('#priceB').val(data.goods.priceB),
-		priceC : $('#priceC').val(data.goods.priceC)
-
-		goods = data.goods;
-
-		$('.my-update-form').css('display', '');
-		$('.my-new-form').css('display', 'none');
-	});
-}
-
-function deleteGoods(goodsNo) {
-	$.getJSON('../json/goods/delete.do?no=' + goodsNo, 
-			function(data){
-		if (data.status == 'success') {
-			loadGoodsList(0);
-
-			$('#btnCancel').click();
-		}
-	});
-}
-
-
-
-function updateGoods(goodsNo) {
-	$.post('../json/goods/update.do'
-			, {
-				no : $('#no').val(),
-				supplierNo : $('#supplierNo').val(),
-				code : $('#code').val(),
-				name : $('#name').val(),
-				url : $('#url').val(),
-				unit : $('#unit').val(),
-				category : $('#category').val(),
-				note : $('#note').val(),
-				priceA : $('#priceA').val(),
-				priceB : $('#priceB').val(),
-				priceC : $('#priceC').val()
-			}, function(result) {
-				if (result.status == "success") {
-					loadGoodsList(0);
-				} else {
-					alert("변경 실패!");
-				}
-			}
-			, 'json')
-			.fail(function(jqXHR, textStatus, errorThrown){
-				alert(textStatus + ":" + errorThrown);
-			});
-}*/
