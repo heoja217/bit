@@ -1,0 +1,23 @@
+<table id='myOrderTable' class="table table-striped table-hover">
+	<thead>
+		<tr class="table_head">
+			<th>분류</th>
+			<th>상품명</th>
+			<th>단위</th>
+			<th>수량</th>
+			<th>&nbsp;</th>
+		</tr>
+	</thead>
+
+		{{#each orders}}
+		<tr class="data-row">
+			<td>{{category}}</td>
+			<td>{{name}}</td>
+			<td>{{unit}}</td>
+			<td><input type='number' class='form-control' id='quantity'
+								placeholder='{{quantity}}'></td>
+			<td><button data-no='{{no}}' class='my-delete-btn btn-xs btn-danger'>삭제</button></td>
+		</tr>
+		{{/each}}
+		
+</table> 

@@ -66,15 +66,6 @@
 						<label for="deleveryDate">배송요청일:</label> 
 						<input id="delDate"	type="text"  data-role="date">
 					</div>
-				
-					<div data-role="fieldcontain">
-						<label for="slider2">간편주문:</label>
-						<select name="myOrder" id="myOrder" data-role="slider">
-							<option value="off">Off</option>
-							<option value="on">On</option>
-						</select>
-					</div>
-				
 					<div data-role="fieldcontain">
 						<fieldset class="ui-grid-a">
 							<button id="newOrder" type="button" data-theme="a">주문하기</button>
@@ -129,18 +120,12 @@
 			          <th>상품코드</th>		 
 			          <th>상품명</th>
 			          <th>단위</th>
-			          <th>수량</th>
-			          <th></th>		      
+			          <th>수량</th>			      
 			        </tr>
 			      </thead>
 			      <tbody>
 			      </tbody>
 			    </table>
-		    		<div data-role="fieldcontain">
-						<label for="textarea">Textarea:</label>
-						<textarea cols="40" rows="8" name="note" id="note"></textarea>
-					</div>
-
 		    
 					<div data-role="fieldcontain">
 						<fieldset class="ui-grid-a">
@@ -209,14 +194,6 @@ $(document).ready( function (){
 			});
 		});
 		
-		// on 이면 최근 주문목록을 불러옴
-		$('#myOrder').change(function() {
-			var state = $(this).find('option:selected').val();
-			console.log(state);
-
-		});
-		
-		
 
 		$('#goodsName').change(function() {
 			var str = $(this).find('option:selected').val();
@@ -248,31 +225,15 @@ $(document).ready( function (){
 			$('<td>').html(order.goodsName).appendTo(tr);
 			$('<td>').html($('#unit').val()).appendTo(tr);
 			$('<td>').html($('#quantity').val()).appendTo(tr);
-			var cols = '<td><input type="button" class="ibtnDel" value="X"></td>';
-			tr.append(cols);
-		    
+
 			$("#orderTable").find('tbody').append(tr);
 
 			$('#btnCancel').click();
 
 		});
 
-
-	    $("table.order-list").on("click", ".ibtnDel", function (event) {
-	        $(this).closest("tr").remove();
-	        calculateGrandTotal();
-	        
-	        counter -= 1
-	        $('#addrow').attr('disabled', false).prop('value', "Add Row");
-	    });
-	    
-	    //http://jsfiddle.net/sqrrt/2/
-	    
-	    
-	    
-	    
 		$("#addOrderBtn").click(function() {
-			order.note = $('#note').val();
+
 			var MyRows = $('table#orderTable').find('tbody').find('tr');
 			for (var i = 0; i < MyRows.length; i++) {
 				order.goodsCode = $(MyRows[i]).find('td:eq(0)').html();
@@ -289,23 +250,6 @@ $(document).ready( function (){
 		*/
 	});
 
-
-	function myOrderLoad(){
-		if (state == 'on') {
-			$.getJSON('../../json/order/myorder.do?no=' + order.supplierNo + '&category=' + order.category, function(
-					data) {
-				var orders = data.orders;
-				console.log(orders);
-
-				require([ 'text!templates/myorder-table.html' ],
-						function(html) {
-							var template = Handlebars.compile(html);
-							$('#goodsName').html(template(data)).selectmenu('refresh');
-						});
-			});
-		}
-		
-	}
 	function initOrder() {
 		$("#orderFirst").show();
 		$("#orderSecond").hide();
@@ -375,8 +319,7 @@ $(document).ready( function (){
 			supplierNo : order.supplierNo,
 			goodsCode : order.goodsCode,
 			endDate : order.delDate,
-			quantity : order.quantity,
-			note : order.note
+			quantity : order.quantity
 		}, function(result) {
 			console.log(result);
 			if (result.status == "success") {
