@@ -1,9 +1,11 @@
 package carrot.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import carrot.domain.Order;
+import carrot.domain.Order3;
 
 /* myBatis에서 DAO 클래스를 만들 때 
  * 다음 인터페이스에 선언된 규칙에 따라 만들 것이다.
@@ -16,11 +18,14 @@ import carrot.domain.Order;
  */
 public interface OrderDao {
   Order selectOne(int no);
-  void update(Order order);
   void delete(int no);
   List<?> selectList(Map<String,Object> params);
-  void insert(Order order);
+  //List<?> selectList(Map<String,Object> params);
+  void insert(Order3 order);
   int totalSize(int supplierNo);
+  List<?> selectMyOrderList(Map<String,Object> params);
+  List<?> selectList2(HashMap<String, Object> paramMap);
+  List<?> selectList_order(Map<String,Object> params);
 }
 
 

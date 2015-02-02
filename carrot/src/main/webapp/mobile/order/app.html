@@ -81,7 +81,7 @@
 						</fieldset>
 					</div>
 				</div>
-
+				<div id="myOrderSecond"></div>
 				<div id="orderSecond">
 					<div data-role="fieldcontain">
 						<label for="goodsCode">상품코드:</label> 
@@ -125,7 +125,7 @@
 					</div>
 			 	 <table data-role="table" data-mode="columntoggle" class="ui-responsive ui-shadow" id="orderTable">
 			      <thead>
-			        <tr>
+							<tr>
 			          <th>상품코드</th>		 
 			          <th>상품명</th>
 			          <th>단위</th>
@@ -137,7 +137,7 @@
 			      </tbody>
 			    </table>
 		    		<div data-role="fieldcontain">
-						<label for="textarea">Textarea:</label>
+						<label for="textarea">메모:</label>
 						<textarea cols="40" rows="8" name="note" id="note"></textarea>
 					</div>
 
@@ -173,23 +173,34 @@ var order = {
 } */
 
 $(document).ready( function (){
-		
 	initOrder();	
 
-		$("#newOrder").click(function() {
-			order = new Object();
-			order.supplierNo = $('#selectCompany').val();
-			order.supplierName = $('#selectCompany option:selected').text();
-			order.delDate = $('#delDate').val();
-			
-			readySelector2(order.supplierNo);
-			console.log(order);
-			
-			$("#orderFirst").hide();
-			$("#orderSecond").show();
-		
-		});
+	var state = 'off';
 
+	
+	$("#newOrder").click(function() {
+		order = new Object();
+		order.supplierNo = $('#selectCompany').val();
+		order.supplierName = $('#selectCompany option:selected').text();
+		order.delDate = $('#delDate').val();
+		
+		readySelector2(order.supplierNo);
+		console.log(order);
+		
+		$("#orderFirst").hide();
+		$("#orderSecond").show();
+		
+		if (state == 'on') {
+			myOrderLoad(state);
+		}
+	});
+	
+		// on 이면 최근 주문목록을 불러옴
+		$('#myOrder').change(function() {
+			state = $(this).find('option:selected').val();
+			console.log(state);
+		});
+		
 		// 분류를 선택하면 상품명 셀렉터가 변경!
 		$('#category').change(function() {
 			var option = $(this).find('option:selected').val();
@@ -209,13 +220,7 @@ $(document).ready( function (){
 			});
 		});
 		
-		// on 이면 최근 주문목록을 불러옴
-		$('#myOrder').change(function() {
-			var state = $(this).find('option:selected').val();
-			console.log(state);
 
-		});
-		
 		
 
 		$('#goodsName').change(function() {
@@ -257,16 +262,9 @@ $(document).ready( function (){
 
 		});
 
-
-	    $("table.order-list").on("click", ".ibtnDel", function (event) {
-	        $(this).closest("tr").remove();
-	        calculateGrandTotal();
-	        
-	        counter -= 1
-	        $('#addrow').attr('disabled', false).prop('value', "Add Row");
-	    });
-	    
-	    //http://jsfiddle.net/sqrrt/2/
+	  $("#orderTable").on("click", ".ibtnDel", function (event) {
+	      $(this).closest("tr").remove();
+	  });
 	    
 	    
 	    
@@ -278,21 +276,19 @@ $(document).ready( function (){
 				order.goodsCode = $(MyRows[i]).find('td:eq(0)').html();
 				order.goodsName = $(MyRows[i]).find('td:eq(1)').html();
 				order.unit = $(MyRows[i]).find('td:eq(2)').html();
-				order.quantity = $(MyRows[i]).find('td:eq(3)').html();
+				order.quantity = $(MyRows[i]).find("#orderqty").val();
+				//$("#orderqty").val()
+				//order.quantity = $(MyRows[i]).find('td:eq(3)').html();
 				console.log(order);
 				addOrder(order);
 			}
 		});
 
-		/* page refresh
-		$( ...new markup that contains widgets... ).appendTo( ".ui-page" ).trigger( "create" );
-		*/
 	});
 
 
-	function myOrderLoad(){
-		if (state == 'on') {
-			$.getJSON('../../json/order/myorder.do?no=' + order.supplierNo + '&category=' + order.category, function(
+	function myOrderLoad(state){
+			$.getJSON('../../json/order/myorder.do?no=' + order.supplierNo, function(
 					data) {
 				var orders = data.orders;
 				console.log(orders);
@@ -300,18 +296,22 @@ $(document).ready( function (){
 				require([ 'text!templates/myorder-table.html' ],
 						function(html) {
 							var template = Handlebars.compile(html);
-							$('#goodsName').html(template(data)).selectmenu('refresh');
+							
+							$('#orderTable tbody').html(template(data));
+
+							$('#addOrder').page("destroy").page();
 						});
-			});
-		}
-		
+			});		
 	}
+	
 	function initOrder() {
 		$("#orderFirst").show();
 		$("#orderSecond").hide();
 		$("#delDate").datepicker({
 		    dateFormat: "yy-mm-dd"
 		});
+
+		$('#addOrder').page("destroy").page();
 		readySelector();
 	}
 	

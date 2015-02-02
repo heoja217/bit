@@ -31,10 +31,13 @@
   margin-left: 0;
   margin-right: 8%;
 }
+.data-row{
+	cursor: pointer;
+}
 
 .subbar-btn {
 	position: absolute;
-	padding-left:0px;
+	padding-left:129px;
 	padding-top:0px;
 	padding-bottom:0px;
 	margin-left: 900px;
@@ -74,7 +77,9 @@
 }
 
 #page-selection {
-	margin-left : 30%;
+position: absolute;
+top: 122%;
+left: 33%;
 }
 
 
@@ -95,7 +100,6 @@ margin: 0 auto;
 width: 380px;
 padding-left: 4px;
 }
-
 .bottom_area li {
 float: left;
 width: 16%;
@@ -134,10 +138,17 @@ html,body{height:100%; margin:0; padding:0;}
 	height:70px;
 } */
 .content {
-	padding-bottom:60px;
+	margin-top:4%;
+	height: 78%;
 }
 .footer {
 	position:relative;
+	top: 0px;
 	width:1140px;
 	
+}
+
+.tableform {
+	position:relative;
+	height:72%;
 }

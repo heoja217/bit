@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import carrot.domain.Client;
 import carrot.domain.Company;
 import carrot.domain.Order;
+import carrot.domain.Order3;
 import carrot.service.OrderService;
 
 @Controller("json.orderControl")
@@ -28,7 +29,7 @@ public class OrderControl {
   @Autowired ServletContext 		servletContext;
  
   @RequestMapping(value="/add", method=RequestMethod.POST)
-  public Object add(Order order, HttpSession session) throws Exception {  
+  public Object add(Order3 order, HttpSession session) throws Exception {  
     
 	  
 		Client client = (Client)session.getAttribute("loginUser");
@@ -55,18 +56,41 @@ public class OrderControl {
     return resultMap;
   }
   
-  @RequestMapping("/list")
-  public Object list(
+  @RequestMapping("/myorder")
+  public Object mylist(int no,
+      @RequestParam(defaultValue="10") int orderSize,
+      HttpSession session) throws Exception {
+    
+	  
+	Client client = (Client)session.getAttribute("loginUser");
+	int clientNo = client.getNo(); 
+    
+    HashMap<String,Object> paramMap = new HashMap<>();
+	paramMap.put("orderSize", orderSize);
+	paramMap.put("supplierNo", no);
+	paramMap.put("clientNo", clientNo);
+	
+    HashMap<String,Object> resultMap = new HashMap<>();
+    resultMap.put("status", "success");
+    resultMap.put("orders", 
+        orderService.getMyList(paramMap));
+    
+    return resultMap;
+  }
+
+  @RequestMapping("/list_order")
+  public Object list_order(
       @RequestParam(defaultValue="1") int pageNo,
       @RequestParam(defaultValue="10") int pageSize,
+      String supplierName,
       HttpSession session) throws Exception {
     
     if (pageSize <= 0)
       pageSize = PAGE_DEFAULT_SIZE;
     
-    Company company = (Company)session.getAttribute("loginUser");
-	int supplierNo = company.getSno();
-    int maxPageNo = orderService.getMaxPageNo(pageSize, supplierNo);
+    Client client = (Client)session.getAttribute("loginUser");
+	int clientNo = client.getNo();
+    int maxPageNo = orderService.getMaxPageNo(pageSize, clientNo);
     
     if (pageNo <= 0) pageNo = 1;
     if (pageNo > maxPageNo) pageNo = maxPageNo;
@@ -74,8 +98,46 @@ public class OrderControl {
     HashMap<String,Object> paramMap = new HashMap<>();
 	paramMap.put("startIndex", ((pageNo - 1) * pageSize));
 	paramMap.put("pageSize", pageSize);
-	paramMap.put("supplierNo", supplierNo);
+	paramMap.put("clientNo", clientNo);
+	paramMap.put("supplierName", supplierName);
+	System.out.println(clientNo);
+	
+    System.out.println("supplierName : " + supplierName);
+	
+    HashMap<String,Object> resultMap = new HashMap<>();
+    resultMap.put("status", "success");
+    resultMap.put("currPageNo", pageNo);
+    resultMap.put("maxPageNo", maxPageNo);
+    resultMap.put("orders_a", 
+        orderService.getList_order(paramMap));
     
+    return resultMap;
+  }
+  
+  
+
+  
+  @RequestMapping("/list2")
+  public Object list2(
+      @RequestParam(defaultValue="1") int pageNo,
+      @RequestParam(defaultValue="10") int pageSize,
+      HttpSession session) throws Exception {
+    
+    if (pageSize <= 0)
+      pageSize = PAGE_DEFAULT_SIZE;
+    
+    Client client = (Client)session.getAttribute("loginUser");
+	int clientNo = client.getNo();
+    int maxPageNo = orderService.getMaxPageNo(pageSize, clientNo);
+    
+    if (pageNo <= 0) pageNo = 1;
+    if (pageNo > maxPageNo) pageNo = maxPageNo;
+    
+    HashMap<String,Object> paramMap = new HashMap<>();
+	paramMap.put("startIndex", ((pageNo - 1) * pageSize));
+	paramMap.put("pageSize", pageSize);
+	paramMap.put("clientNo", clientNo);
+	System.out.println(clientNo);
 	
     HashMap<String,Object> resultMap = new HashMap<>();
     resultMap.put("status", "success");
@@ -86,15 +148,37 @@ public class OrderControl {
     
     return resultMap;
   }
-  
-  @RequestMapping("/update")
-  public Object update(Order order) throws Exception {
-    orderService.update(order);
-    
-    HashMap<String,Object> resultMap = new HashMap<>();
-    resultMap.put("status", "success");
-    return resultMap;
-  }
+	@RequestMapping("/list")
+	public Object list(
+			@RequestParam(defaultValue="1") int pageNo,
+			@RequestParam(defaultValue="20") int pageSize,
+			HttpSession session) throws Exception {
+		
+		Company supplier = (Company)session.getAttribute("loginUser");
+		int sno = supplier.getSno();
+		String sname = supplier.getSname();
+
+		
+		supplier.setSno(sno);
+		supplier.setSname(sname);
+		
+		if (pageSize <= 0)
+			pageSize = PAGE_DEFAULT_SIZE;
+
+		int maxPageNo = orderService.getMaxPageNo(pageSize,sno);
+
+		if (pageNo <= 0) pageNo = 1;
+		if (pageNo > maxPageNo) pageNo = maxPageNo;
+
+		HashMap<String,Object> resultMap = new HashMap<>();
+		resultMap.put("status", "success");
+		resultMap.put("currPageNo", pageNo);
+		resultMap.put("maxPageNo", maxPageNo);		
+		//resultMap.put("sno", sno);
+		resultMap.put("orders", orderService.getList2(pageNo,pageSize,sno));
+		//resultMap.put("deliverys", deliveryService.getList(pageNo,pageSize));
+		return resultMap;
+	}
   
   @RequestMapping("/view")
   public Object view(int no, Model model) throws Exception {
