@@ -9,7 +9,14 @@ $(function() {
 	$('.form').load('form.html');
 	$('.footer').load('../common/footer.html');
 	preOrderList(1,supplierNo);
+	
 
+	
+////////	
+	$(document).on('click', '#clientTable tr', function(){
+		loadClient($(this).attr('data-no'));
+	});
+	
 	$(document).on('click', '.data-row a', function() {
 //		loadClientList($(this).attr('data-no'),supplierNo);
 		loadClient($(this).attr('data-no'));

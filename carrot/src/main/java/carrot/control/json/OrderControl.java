@@ -8,7 +8,6 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -55,6 +54,20 @@ public class OrderControl {
     
     return resultMap;
   }
+/*  
+  @RequestMapping("/update")
+  public Object update(Order order, HttpSession session) throws Exception {
+
+	Company company = (Company)session.getAttribute("loginUser");
+	order.setSno(company.getSno());
+	
+    orderService.update(order);
+    HashMap<String, Object> resultMap = new HashMap<>();
+    resultMap.put("status", "success");
+
+    return resultMap;  
+  }
+  */
   
   @RequestMapping("/myorder")
   public Object mylist(int no,
@@ -148,10 +161,11 @@ public class OrderControl {
     
     return resultMap;
   }
+  
 	@RequestMapping("/list")
 	public Object list(
 			@RequestParam(defaultValue="1") int pageNo,
-			@RequestParam(defaultValue="15") int pageSize,
+			@RequestParam(defaultValue="10") int pageSize,
 			HttpSession session) throws Exception {
 		
 		Company supplier = (Company)session.getAttribute("loginUser");
@@ -165,6 +179,12 @@ public class OrderControl {
 		if (pageSize <= 0)
 			pageSize = PAGE_DEFAULT_SIZE;
 
+		HashMap<String, Object> paramMap = new HashMap<>();
+
+		paramMap.put("startIndex", ((pageNo - 1) * pageSize));
+		paramMap.put("pageSize", pageSize);
+		paramMap.put("sno", sno);
+
 		int maxPageNo = orderService.getMaxPageNo(pageSize,sno);
 
 		if (pageNo <= 0) pageNo = 1;
@@ -175,7 +195,7 @@ public class OrderControl {
 		resultMap.put("currPageNo", pageNo);
 		resultMap.put("maxPageNo", maxPageNo);		
 		//resultMap.put("sno", sno);
-		resultMap.put("orders", orderService.getList2(pageNo,pageSize,sno));
+		resultMap.put("orders", orderService.getList2(paramMap));
 		//resultMap.put("deliverys", deliveryService.getList(pageNo,pageSize));
 		return resultMap;
 	}

@@ -134,7 +134,11 @@ public class GoodsControl {
   }
   
   @RequestMapping("/update")
-  public Object update(Goods goods) throws Exception {
+  public Object update(Goods goods, HttpSession session) throws Exception {
+
+	Company company = (Company)session.getAttribute("loginUser");
+	goods.setSupplierNo(company.getSno());
+		
     goodsService.update(goods);
     HashMap<String, Object> resultMap = new HashMap<>();
     resultMap.put("status", "success");

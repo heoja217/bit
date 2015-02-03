@@ -22,7 +22,7 @@ public interface OrderDao {
   void insert(Order3 order);
   int totalSize(int supplierNo);
   List<?> selectMyOrderList(Map<String,Object> params);
-  List<?> selectList2(HashMap<String, Object> paramMap);
+  List<?> selectList2(HashMap<String, Object> params);
   List<?> selectList_order(Map<String,Object> params);
 }
 

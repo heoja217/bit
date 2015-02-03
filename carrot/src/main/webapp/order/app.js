@@ -6,14 +6,14 @@ $(function() {
 	$('.form').load('form.html');
 	$('.footer').load('../common/footer.html');
 	
-	loadDeliveryList(1);
+	loadOrderList(1);
 	$(document).on('click', '.data-row a', function() {
-		loadDeliveryList($(this).attr('data-no'));
+		loadOrderList($(this).attr('data-no'));
 	});
 /*
 	$(document).on('click', '.my-delete-btn', function() {
 		delete ($(this).attr('data-no'));
-		loadDeliveryList(0);
+		loadOrderList(0);
 	});
 	*/
 	$(document).on('click', '.my-delete-btn', function() {
@@ -27,21 +27,21 @@ $(function() {
 				}
 			}
 			console.log(check_value);
-			deleteDeliverys(check_value);
-			loadDeliveryList(0);
+			deleteOrders(check_value);
+			loadOrderList(0);
 		}
 	});
 });
 
 $('#prevBtn').click(function(event) {
 	if (currPageNo > 1) {
-		loadDeliveryList(currPageNo - 1);
+		loadOrderList(currPageNo - 1);
 	}
 });
 
 $('#nextBtn').click(function(event) {
 	if (currPageNo < maxPageNo) {
-		loadDeliveryList(currPageNo + 1);
+		loadOrderList(currPageNo + 1);
 	}
 });
 
@@ -65,12 +65,12 @@ function setPageNo(currPageNo, maxPageNo) {
 		page: currPageNo,
 		maxVisible: 10 
 	}).on('page', function(event, num){
-		loadDeliveryList(num);		
+		loadOrderList(num);		
 	});
 }
 
 
-function loadDeliveryList(pageNo, sno) {
+function loadOrderList(pageNo, sno) {
 	if (pageNo <= 0)
 		pageNo = currPageNo;
 

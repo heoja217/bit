@@ -35,12 +35,7 @@ public class OrderService {
 	  }
   
 
-  public List<?> getList2(int pageNo, int pageSize,int sno) {
-	HashMap<String, Object> paramMap = new HashMap<>();
-	paramMap.put("startIndex", ((pageNo - 1) * pageSize));
-	paramMap.put("pageSize", pageSize);
-	paramMap.put("sno", sno);
-
+  public List<?> getList2(HashMap<String,Object> paramMap) {
 	
 	return orderDao.selectList2(paramMap);
   }
