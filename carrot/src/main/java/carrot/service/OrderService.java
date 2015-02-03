@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import carrot.dao.OrderDao;
-import carrot.domain.Order;
 import carrot.domain.Order3;
 
 /* Service 컴포넌트의 역할
@@ -28,29 +27,24 @@ public class OrderService {
   }
   */
   public List<?> getList(HashMap<String,Object> paramMap) {
-
 	    return orderDao.selectList(paramMap);
   }
   
   public List<?> getList_order(HashMap<String,Object> paramMap) {
-
 	    return orderDao.selectList_order(paramMap);
 	  }
   
 
-	public List<?> getList2(int pageNo, int pageSize,int sno) {
-		
-		HashMap<String, Object> paramMap = new HashMap<>();
-		paramMap.put("startIndex", ((pageNo - 1) * pageSize));
-		paramMap.put("pageSize", pageSize);
-		paramMap.put("sno", sno);
+  public List<?> getList2(int pageNo, int pageSize,int sno) {
+	HashMap<String, Object> paramMap = new HashMap<>();
+	paramMap.put("startIndex", ((pageNo - 1) * pageSize));
+	paramMap.put("pageSize", pageSize);
+	paramMap.put("sno", sno);
 
 	
-		return orderDao.selectList2(paramMap);
-	}
+	return orderDao.selectList2(paramMap);
+  }
 
-  
-  
   public List<?> getMyList(HashMap<String,Object> paramMap) {
 
 	return orderDao.selectMyOrderList(paramMap);
@@ -81,11 +75,7 @@ public class OrderService {
   public void delete(int orderNo) {
     orderDao.delete(orderNo);
   }
-  
-  public Order get(int orderNo) {
-    Order order = orderDao.selectOne(orderNo);
-    return order;
-  }
+
 }
 
 

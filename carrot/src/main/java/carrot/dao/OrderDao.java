@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import carrot.domain.Order;
 import carrot.domain.Order3;
 
 /* myBatis에서 DAO 클래스를 만들 때 
@@ -17,7 +16,6 @@ import carrot.domain.Order3;
  * => 인터페이스 패키지도 SQL 맵퍼 파일의 네임스페이스와 같아야 한다. 
  */
 public interface OrderDao {
-  Order selectOne(int no);
   void delete(int no);
   List<?> selectList(Map<String,Object> params);
   //List<?> selectList(Map<String,Object> params);

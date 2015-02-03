@@ -22,21 +22,38 @@
 		<result column="SADDR_DET" property="saddr_det" />
 		<result column="SMEMO" property="smemo" />
 	</resultMap>
-	
-	<resultMap type="map" id="companyNameMap">
-		<!-- PK 컬럼은 id 태그를 사용하여 지정한다. -->
+
+<!-- 	<resultMap type="Company" id="companyListItem2Map">
 		<id column="SNO" property="sno" />
+		<result column="SID" property="sid" />
+		<result column="SPWD" property="spwd" />
+		<result column="STEL" property="stel" />
 		<result column="SCNAME" property="scname" />
-		<result column="CNO" property="clientNo" />
-	</resultMap>
-	
-	
-  <select id="selectNameList" parameterType="map" resultMap="companyNameMap">
-    SELECT S.SNO, S.SCNAME
-    	FROM SUPPLIER S LEFT JOIN MATCHING M ON S.SNO=M.SNO
-    WHERE M.CNO=#{clientNo}
-    ORDER BY S.SCNAME ASC
-  </select>
+		<result column="SNAME" property="sname" />
+		<result column="SBNO" property="sbno" />
+		<result column="SPOSTNO" property="spostno" />
+		<result column="SADDR" property="saddr" />
+		<result column="SADDR_DET" property="saddr_det" />
+		<result column="SMEMO" property="smemo" />
+	</resultMap> -->
+
+	<sql id="companySelect">
+		SELECT SNO, SID, SPWD, STEL, SCNAME, SBNO, SPOSTNO, SADDR,
+		SADDR_DET, SMEMO FROM SUPPLIER
+	</sql>
+
+	<select id="selectList" parameterType="map" resultMap="companyMap">
+		<include refid="companySelect" />
+		<if test="pageSize > 0">
+			limit #{startIndex}, #{pageSize}
+		</if>
+	</select>
+
+	<select id="totalSize" resultType="int">
+		SELECT count(SNO) FROM SUPPLIER
+	</select>
+
+
 	
 	<insert id="insert" parameterType="Company" useGeneratedKeys="true"
 		keyColumn="SNO" keyProperty="no">
@@ -51,10 +68,19 @@
 		FROM SUPPLIER
 		WHERE SID=#{sid} AND SPWD=#{spwd}
 	</select>
-	
-	<select id="selectOne" parameterType="int" resultMap="companyMap">
+	<select id="auto" parameterType="map" resultMap="companyMap">
 		SELECT *
 		FROM SUPPLIER
-		WHERE SID=#{sid}
+		WHERE scname like #{scname} ||'%'
 	</select>
+	<select id="selectOne" parameterType="int" resultMap="companyMap">
+		SELECT SNO, SID, SPWD, STEL, SCNAME, SBNO, SPOSTNO, SADDR,
+		SADDR_DET, SMEMO
+		FROM SUPPLIER
+		WHERE SNO=#{sno}
+	</select>
+	  <delete id="delete" parameterType="int">
+    DELETE FROM SUPPLIER WHERE SNO=#{sno}
+  </delete> 
+
 </mapper>

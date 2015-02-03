@@ -44,7 +44,6 @@ public class AuthControl {
     } else {
       resultMap.put("status", "fail");
     }
-    
     return resultMap;
   }
   

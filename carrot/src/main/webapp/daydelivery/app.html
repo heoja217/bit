@@ -17,20 +17,18 @@
 <link rel='stylesheet' href='../css/common.css'>
 
 <meta charset="UTF-8">
-<title>배송정보</title>
+<title>당일배송정보</title>
 </head>
 <body>
 	<div class='container'>
 
 		<div class='header'></div>
-				<div class="subbar-btn">
-			<button class="btn btn-default" data-toggle="modal"
-				data-target="#myModal" id="add-goods">추가</button>
-			<button class="my-delete-btn btn btn-default">
-				삭제</a>
-		</div>
 
 		<div class='content'>
+			<legend>
+				<div id="titleDiv"></div>
+				<div id="titleDiv2"></div>
+			</legend>
 
 
 			<div class="tableform">
@@ -44,10 +42,10 @@
 		</div>
 
 
-		<div id='form'></div>
-		<div class='footer'></div>
 	</div>
 
+	<div id='form'></div>
+	<div class='footer'></div>
 	<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
 	<script type="text/javascript" src='../js/handlebars-v2.0.0.js'></script>
 	<script type="text/javascript" src='../js/require.js'></script>

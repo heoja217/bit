@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import carrot.domain.Client;
+import carrot.domain.Company;
 import carrot.service.ClientService;
 import carrot.service.CompanyService;
 
@@ -22,6 +23,18 @@ import carrot.service.CompanyService;
 public class MobileAutoControl {
   @Autowired CompanyService companyService;
   @Autowired ClientService clientService;
+  
+  @RequestMapping(value="/auto", method=RequestMethod.POST)
+  public Object auto(Company company) throws Exception {
+	  companyService.auto(company);
+	  
+	  System.out.println("company : "+company);
+	  
+	  HashMap<String,Object> resultMap = new HashMap<>();
+	    resultMap.put("status", "success");
+	    System.out.println(resultMap);
+	    return resultMap;
+  }
   
   @RequestMapping(value="/signup", method=RequestMethod.POST)
   public Object add(Client client) throws Exception {  

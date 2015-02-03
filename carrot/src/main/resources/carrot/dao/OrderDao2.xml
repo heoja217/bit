@@ -35,20 +35,22 @@
 		AND G.GCODE = O.GCODE AND G.SNO = O.SNO		
 		AND G.SNO = S.SNO 
 		AND C.CCNAME = #{oname} AND O.ODATE = #{oodate}
-		GROUP BY C.CCNAME
+		ORDER BY C.CCNAME
 		<if test="pageSize > 0">
 			limit #{startIndex}, #{pageSize}
 		</if>
 	</select>
 
 
-
-
-	<select id="totalSize" resultType="int">
-		SELECT count(GNO) FROM GOODS
-	</select>
-
-	
+  <select id="totalSize" parameterType="map" resultType="int">
+		SELECT count(O.ONO)
+		FROM GOODS G, ORDERLIST O, SUPPLIER S, MATCHING M, CLIENT C
+		WHERE S.SNO = M.SNO AND C.CNO = M.CNO
+		AND O.SNO = M.SNO AND M.CNO = O.CNO
+		AND G.GCODE = O.GCODE AND G.SNO = O.SNO		
+		AND G.SNO = S.SNO 
+		AND C.CCNAME = #{oname} AND O.ODATE = #{oodate}
+  </select>
 </mapper>
 
 

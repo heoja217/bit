@@ -152,3 +152,7 @@ html,body{height:100%; margin:0; padding:0;}
 	position:relative;
 	height:72%;
 }
+
+#totalDiv {
+	margin-left:72%
+}

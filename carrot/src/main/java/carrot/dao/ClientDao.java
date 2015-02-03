@@ -20,7 +20,7 @@ public interface ClientDao {
   void updateMatch(Client client);
   void deleteMatch(int no);
   void delete(int no);
-  List<?> selectList(Map<String,Object> params);
+  List<?> selectList(Map<String,Object> paramMap);
   void insert(Client client);
   void insertMatch(Client client);
   int totalSize(int supplierNo);

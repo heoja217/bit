@@ -23,7 +23,7 @@ import carrot.service.OrderService;
 @RequestMapping("/json/order")
 public class OrderControl {
   static Logger log = Logger.getLogger(OrderControl.class);
-  static final int PAGE_DEFAULT_SIZE = 10;
+  static final int PAGE_DEFAULT_SIZE = 15;
   
   @Autowired OrderService     	orderService;
   @Autowired ServletContext 		servletContext;
@@ -32,12 +32,12 @@ public class OrderControl {
   public Object add(Order3 order, HttpSession session) throws Exception {  
     
 	  
-		Client client = (Client)session.getAttribute("loginUser");
-		order.setClientNo(client.getNo()); 
+	Client client = (Client)session.getAttribute("loginUser");
+	order.setClientNo(client.getNo()); 
+	
+	System.out.println("     " + order);
 		
-		System.out.println("     " + order);
-		
-		orderService.add(order);
+	orderService.add(order);
 		
 		
     HashMap<String,Object> resultMap = new HashMap<>();
@@ -151,7 +151,7 @@ public class OrderControl {
 	@RequestMapping("/list")
 	public Object list(
 			@RequestParam(defaultValue="1") int pageNo,
-			@RequestParam(defaultValue="20") int pageSize,
+			@RequestParam(defaultValue="15") int pageSize,
 			HttpSession session) throws Exception {
 		
 		Company supplier = (Company)session.getAttribute("loginUser");
@@ -179,16 +179,7 @@ public class OrderControl {
 		//resultMap.put("deliverys", deliveryService.getList(pageNo,pageSize));
 		return resultMap;
 	}
-  
-  @RequestMapping("/view")
-  public Object view(int no, Model model) throws Exception {
-    Order order = orderService.get(no);
-    
-    HashMap<String,Object> resultMap = new HashMap<>();
-    resultMap.put("status", "success");
-    resultMap.put("order", order);
-    return resultMap;
-  }
+
 }
 
 

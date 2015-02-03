@@ -11,12 +11,14 @@ $(function() {
 	preOrderList(1,supplierNo);
 
 	$(document).on('click', '.data-row a', function() {
-		loadClientList($(this).attr('data-no'));
+//		loadClientList($(this).attr('data-no'),supplierNo);
+		loadClient($(this).attr('data-no'));
+		loadClientList(0,supplierNo);
 	});
 
 	$(document).on('click', '.my-delete-btn', function() {
 		deleteClient($(this).attr('data-no'));
-		loadClientList(0);
+		loadClientList(0,supplierNo);
 	});
 });
 
@@ -55,6 +57,32 @@ function setPageNo(currPageNo, maxPageNo) {
 	});
 }
 
+function loadClient(clientNo) {
+	$.getJSON('../json/client/view.do?no=' + clientNo, 
+			function(data){
+		
+		$('#btnCancel').click();
+		$('#clientNo').val(data.client.no),
+		$('#clientTel').val(data.client.clientTel),
+		$('#clientPassword').val(data.client.clientPassword),
+		$('#clientCorName').val(data.client.clientCorName),
+		$('#clientMail').val(data.client.clientMail),
+		$('#clientName').val(data.client.clientName),
+		$('#clientPostNo').val(data.client.clientPostNo),
+		$('#clientAddress').val(data.client.clientAddress),
+		$('#clientAddressDet').val(data.client.clientAddressDet),
+		$('#clientMemo').val(data.client.clientMemo),
+
+		client = data.client;
+		aaa = data.client.no;
+
+		$('.my-update-form').css('display', '');
+		$('.my-new-form').css('display', 'none');
+		$('#myModalLabel2').css('display', '');
+		$('#myModalLabel').css('display', 'none');
+	});
+}
+
 var supplierNo;
 
 function preOrderList(no, saveList){
@@ -66,14 +94,22 @@ function preOrderList(no, saveList){
 }
 
 function loadClientList(pageNo, supplierNo) {
+	var supplierNo;
+	
 	if (pageNo <= 0)	pageNo = currPageNo;
 	if (supplierNo == null)	supplierNo ="";
-
+	
+	$.getJSON('../json/auth/loginUser.do', function(data) {
+		supplierNo=data.loginUser.sno;
+		
+		console.log(supplierNo);
+	});
+	
 	$.getJSON('../json/client/list.do?pageNo=' + pageNo + '&supplierNo=' + supplierNo,
 			function(data) {
 		setPageNo(data.currPageNo, data.maxPageNo);
 		var clients = data.clients;
-
+		
 		require(['text!templates/client-table.html'], function(html) {
 			var template = Handlebars.compile(html);
 			$('#listDiv').html(template(data));

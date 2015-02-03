@@ -27,6 +27,8 @@ public class ClientControl {
 	@Autowired MatchingService matchingService;
 	@Autowired ServletContext servletContext;
 
+	
+	
 	@RequestMapping(value="/add", method=RequestMethod.POST)
 	public Object add(Client client, HttpSession session) throws Exception {  
 
@@ -72,7 +74,10 @@ public class ClientControl {
 		resultMap.put("status", "success");
 		resultMap.put("currPageNo", pageNo);
 		resultMap.put("maxPageNo", maxPageNo);
+		resultMap.put("supplierNo", supplierNo);
 		resultMap.put("clients", clientService.getList(pageNo,pageSize,supplierNo));
+		
+		System.out.println("supplierNo=" + supplierNo);
 
 		return resultMap;
 	}
@@ -83,6 +88,7 @@ public class ClientControl {
 		
 		HashMap<String,Object> resultMap = new HashMap<>();
 		resultMap.put("status", "success");
+		resultMap.put("client", client);
 		return resultMap;
 	}
 

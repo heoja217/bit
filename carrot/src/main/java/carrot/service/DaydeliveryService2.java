@@ -30,21 +30,12 @@ public class DaydeliveryService2 {
 	}
 
 
-	public List<?> getList2(int pageNo, int pageSize, String dname, String ddate) {
-		
-		HashMap<String, Object> paramMap = new HashMap<>();
-		paramMap.put("startIndex", ((pageNo - 1) * pageSize));
-		paramMap.put("pageSize", pageSize);
-		paramMap.put("ccname", dname);
-		paramMap.put("oddate", ddate);
-		
+	public List<?> getList2(HashMap<String, Object> paramMap) {
+
 		//System.out.println("paramMap : "+paramMap);
 		
 		return daydeliveryDao2.selectList2(paramMap);
 	}
-
-
-
 
 
 

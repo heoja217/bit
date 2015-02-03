@@ -1,8 +1,9 @@
 @CHARSET "UTF-8";
 #wrap{
-    margin: 0 auto;
-/*     width: 60%;
- */    font-family:sans-serif;
+ padding-top:10%;
+ margin :0px auto;
+ width: 68%;
+	font-family:sans-serif;
 }
 
 #CodeAdd{

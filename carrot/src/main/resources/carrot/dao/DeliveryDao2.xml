@@ -43,13 +43,11 @@
 		AND G.GCODE = O.GCODE AND G.SNO = O.SNO		
 		AND G.SNO = S.SNO 
 		AND C.CCNAME = #{ccname} AND O.ORDATE = #{oddate}
-		GROUP BY G.GCODE
+		ORDER BY G.GCODE
 		<if test="pageSize > 0">
 			limit #{startIndex}, #{pageSize}
 		</if>
 	</select>
-
-
 
 
 	<select id="totalSize" resultType="int">

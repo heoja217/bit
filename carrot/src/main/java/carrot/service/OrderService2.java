@@ -20,8 +20,12 @@ public class OrderService2 {
 
 
 
-	public int getMaxPageNo(int pageSize) {
-		int totalSize = orderDao2.totalSize();
+	public int getMaxPageNo(int pageSize, String oname, String oodate) {
+		HashMap<String, Object> paramMap = new HashMap<>();
+		paramMap.put("oname", oname);
+		paramMap.put("oodate", oodate);
+		
+		int totalSize = orderDao2.totalSize(paramMap);
 		int maxPageNo = totalSize / pageSize;
 		if ((totalSize % pageSize) > 0)
 			maxPageNo++;

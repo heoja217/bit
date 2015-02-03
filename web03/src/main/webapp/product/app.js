@@ -62,5 +62,5 @@ function loadProductList(pageNo) {
       	$('#listDiv').html(template(data));
       });
 
-		});
+	});
 }

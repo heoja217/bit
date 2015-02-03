@@ -3,7 +3,7 @@ var maxPageNo;
 
 
 $(function() {
-	$('.header').load('../common/header.html');
+  $('.header').load('../common/header.html');
 	$('.form').load('form.html');
 	$('.footer').load('../common/footer.html');
 
@@ -76,8 +76,8 @@ function loadDeliveryList(pageNo) {
 			console.log("mlevel : " + mlevel);
 			$('#listDiv').html(template(data));
 			$('#titleDiv').html(ccname);
-			$('#titleDiv2').html(oddate);
-			$('#sumDiv').html(mlevel);
+			$('#titleDiv2').html(mlevel);
+			$('#sumDiv').html(oddate);
 			/*if(mlevel == "1"){
 				
 			}*/

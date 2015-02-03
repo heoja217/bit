@@ -50,7 +50,7 @@ public class OrderControl2 {
 	@RequestMapping("/list")
 	public Object list(
 			@RequestParam(defaultValue="1") int pageNo,
-			@RequestParam(defaultValue="20") int pageSize,
+			@RequestParam(defaultValue="10") int pageSize,
 			HttpSession session) throws Exception {
 		
 		Company supplier = (Company)session.getAttribute("loginUser");
@@ -65,7 +65,8 @@ public class OrderControl2 {
 		if (pageSize <= 0)
 			pageSize = PAGE_DEFAULT_SIZE;
 
-		int maxPageNo = orderService2.getMaxPageNo(pageSize);
+		int maxPageNo = orderService2.getMaxPageNo(pageSize, oname, oodate);
+		System.out.println("maxPageNo                         " + maxPageNo);
 
 		if (pageNo <= 0) pageNo = 1;
 		if (pageNo > maxPageNo) pageNo = maxPageNo;

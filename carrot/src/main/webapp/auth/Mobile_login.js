@@ -25,7 +25,7 @@ $(function() {
 			save : $('#login-save').is(':checked')
 		}, function(data) {
 			if (data.status == 'success') {
-				location.href = '../mobile/order/app.html';	
+				location.href = '../mobile/order/today.html';	
 			} else {
 				alert('로그인 아이디 또는 암호가 맞지 않습니다.');
 				$('#mpwd').val('');

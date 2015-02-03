@@ -10,7 +10,7 @@
 	<!-- 객체의 컬럼과 프로퍼티를 연결한다. -->
 
 	<!-- 객체의 컬럼과 프로퍼티를 연결한다. -->
-	<resultMap type="Daydelivery2" id="daydeliveryMap2">
+	<resultMap type="map" id="daydeliveryMap2">
 		<!-- PK 컬럼은 id 태그를 사용하여 지정한다. -->
 		<id column="GCODE" property="gno" />
 		<result column="SNO" property="sno" />
@@ -36,15 +36,12 @@
 		FROM GOODS G, ORDERLIST O, SUPPLIER S, MATCHING M, CLIENT C
 		WHERE S.SNO = M.SNO AND C.CNO = M.CNO
 		AND O.SNO = M.SNO AND M.CNO = O.CNO
-		AND G.GCODE = O.GCODE 	 
-		AND C.CCNAME = #{ccname} AND O.ORDATE = CURDATE()
-		GROUP BY G.GCODE
+		AND G.GCODE = O.GCODE 	
+		AND C.CNO = #{ccname} AND S.SNO = #{sno} AND O.ORDATE = CURDATE()
 		<if test="pageSize > 0">
 			limit #{startIndex}, #{pageSize}
 		</if>
 	</select>
-
-
 
 
 	<select id="totalSize" resultType="int">

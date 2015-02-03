@@ -45,11 +45,10 @@ $('#nextBtn').click(function(event) {
 	}
 });
 
+
 function setPageNo(currPageNo, maxPageNo) {
 	window.currPageNo = currPageNo;
 	window.maxPageNo = maxPageNo;
-
-	$('#pageNo').html(currPageNo);
 
 	if (currPageNo <= 1)
 		$('#prevBtn').css('display', 'none');
@@ -60,7 +59,16 @@ function setPageNo(currPageNo, maxPageNo) {
 		$('#nextBtn').css('display', 'none');
 	else
 		$('#nextBtn').css('display', '');
+
+	$('#page-selection').bootpag({
+		total: maxPageNo,
+		page: currPageNo,
+		maxVisible: 10 
+	}).on('page', function(event, num){
+		loadDeliveryList(num);		
+	});
 }
+
 
 function loadDeliveryList(pageNo, sno) {
 	if (pageNo <= 0)

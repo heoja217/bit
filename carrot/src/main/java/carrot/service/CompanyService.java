@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import carrot.dao.ClientDao;
 import carrot.dao.CompanyDao;
+import carrot.domain.Client;
 import carrot.domain.Company;
 
 /* Service 컴포넌트의 역할
@@ -21,7 +23,33 @@ public class CompanyService {
 	@Autowired
 	CompanyDao companyDao;
 
-public Company validate(String sid, String spwd) {
+	@Autowired
+	ClientDao clientDao;
+
+	public List<?> getList(int pageNo, int pageSize, Boolean stel,
+			Boolean sname, Boolean scname, String orderBy) {
+
+		HashMap<String, Object> paramMap = new HashMap<>();
+		paramMap.put("startIndex", ((pageNo - 1) * pageSize));
+		paramMap.put("pageSize", pageSize);
+		paramMap.put("stel", stel);
+		paramMap.put("sname", sname);
+		paramMap.put("scname", scname);
+		paramMap.put("orderBy", orderBy);
+
+		return companyDao.selectList(paramMap);
+	}
+
+	public int getMaxPageNo(int pageSize) {
+		int totalSize = companyDao.totalSize();
+		int maxPageNo = totalSize / pageSize;
+		if ((totalSize % pageSize) > 0)
+			maxPageNo++;
+
+		return maxPageNo;
+	}
+
+	public Company validate(String sid, String spwd) {
 		HashMap<String, String> params = new HashMap<>();
 		params.put("sid", sid);
 		params.put("spwd", spwd);
@@ -37,13 +65,33 @@ public Company validate(String sid, String spwd) {
 		companyDao.insert(company);
 
 	}
-	
-	public List<Company> getList(HashMap<String,Object> paramMap) {
-		return companyDao.selectNameList(paramMap);
-	}
-	
+
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
 	public Company selectOne(int sid) {
 		System.out.println(sid);
 		return companyDao.selectOne(sid);
 	}
+
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+	public void add(Client client) {
+		clientDao.insert(client);
+
+	}
+
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+	public void delete(int companyNo) {
+		companyDao.delete(companyNo);
+	}
+
+	public Company get(int companyNo) {
+		Company company = companyDao.selectOne(companyNo);
+		return company;
+	}
+
+	public Company auto(Company companyName) {
+		Company company1 = companyDao.auto(companyName);
+		System.out.println("company1 =" + company1);
+		return company1;
+	}
+
 }

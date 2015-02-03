@@ -17,7 +17,7 @@ import carrot.service.DaydeliveryService;
 @Controller("json.daydeliveryControl")
 @RequestMapping("/json/daydelivery")
 public class DaydeliveryControl {
-//	static Logger log = Logger.getLogger(DeliveryControl.class);
+	static Logger log = Logger.getLogger(DeliveryControl.class);
 	static final int PAGE_DEFAULT_SIZE = 5;
 	String mlevel;
 	
@@ -65,8 +65,10 @@ public class DaydeliveryControl {
 		resultMap.put("currPageNo", pageNo);
 		resultMap.put("maxPageNo", maxPageNo);		
 		//resultMap.put("sno", sno);
+		
 		resultMap.put("daydeliverys", daydeliveryService.getList2(pageNo,pageSize,sno));
 		//resultMap.put("deliverys", deliveryService.getList(pageNo,pageSize));
+		System.out.println("daydeliverys : "+resultMap);
 		return resultMap;
 	}
 
