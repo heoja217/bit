@@ -202,4 +202,3 @@
 		AND C.CCNAME = '김밥천국' AND O.ODATE = '2015-02-03' and G.SNO=1
 		ORDER BY C.CCNAME
 		
-		

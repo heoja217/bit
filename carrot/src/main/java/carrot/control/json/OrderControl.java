@@ -130,7 +130,7 @@ public class OrderControl {
   
 
   
-  @RequestMapping("/list2")
+  @RequestMapping("/mobilelist")
   public Object list2(
       @RequestParam(defaultValue="1") int pageNo,
       @RequestParam(defaultValue="10") int pageSize,
@@ -157,7 +157,7 @@ public class OrderControl {
     resultMap.put("currPageNo", pageNo);
     resultMap.put("maxPageNo", maxPageNo);
     resultMap.put("orders", 
-        orderService.getList(paramMap));
+        orderService.getList2(paramMap));
     
     return resultMap;
   }

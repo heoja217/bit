@@ -15,8 +15,9 @@ function OrderList() {
 
 function loadOrderList(){
 
-	$.getJSON('../../json/order/list2.do',function(data){
+	$.getJSON('../../json/order/mobilelist.do',function(data){
 		var orders = data.orders;
+		console.log(orders);
 		require(['text!templates/list_detail_table.html'], function(html) {
 			var template = Handlebars.compile(html);
 			$('#listDiv').html(template(data));

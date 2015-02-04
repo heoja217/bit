@@ -34,6 +34,7 @@
     <result column="OMEMO" property="note"/>
     
     <result column="SNO" property="supplierNo"/>
+    <result column="SCNAME" property="supplierName"/>
     
     <result column="CNO" property="clientNo"/>
     <result column="CCNAME" property="clientName"/>
@@ -105,20 +106,7 @@
 
  -->
 <!--   
-	<select id="selectList" parameterType="map" resultMap="orderClientListMap">
-		SELECT C.CNO, O.SNO, O.ORDATE, S.SCNAME,
-		O.OQTY, O.ODEL_STAT, O.OMEMO, 
-		G.GCODE, G.GNAME, G.GUNIT, G.GCAT
-		FROM CLIENT C
-		LEFT JOIN ORDERLIST O
-		ON	 C.CNO=O.CNO
-		LEFT JOIN SUPPLIER S
-		ON O.SNO = S.SNO 
-		LEFT JOIN GOODS G 
-		ON O.GCODE=G.GCODE
-		WHERE C.CNO=#{clientNo}
-		AND O.ORDATE = CURDATE()
-		ORDER BY S.SCNAME -->
+ -->
  
  
 	<select id="selectList" parameterType="map" resultMap="orderClientListMap">
@@ -158,8 +146,25 @@
 
 
 
+	<select id="selectList2" parameterType="map" resultMap="orderClientListMap">
+		SELECT C.CNO, O.SNO, O.ORDATE, S.SCNAME,
+		O.OQTY, O.ODEL_STAT, O.OMEMO, 
+		G.GCODE, G.GNAME, G.GUNIT, G.GCAT
+		FROM CLIENT C
+		LEFT JOIN ORDERLIST O
+		ON	 C.CNO=O.CNO
+		LEFT JOIN SUPPLIER S
+		ON O.SNO = S.SNO 
+		LEFT JOIN GOODS G 
+		ON O.GCODE=G.GCODE
+		WHERE C.CNO=#{clientNo}
+		AND O.ORDATE = CURDATE()
+		ORDER BY S.SCNAME
+	</select>
+  
+<!-- 
 	<select id="selectList2" parameterType="map" resultMap="orderMap2">
-		<!-- <include refid="selectOne2" /> -->
+		<include refid="selectOne2" />
 
 		SELECT O.ONO, C.CCNAME, M.MLEVEL, O.ORDATE, O.ODATE , O.OPRICE ,
 		O.ODEL_STAT, O.OMEMO
@@ -173,7 +178,7 @@
 			limit #{startIndex}, #{pageSize}
 		</if>
 	</select>
-  
+   -->
         
         
 

@@ -177,25 +177,6 @@ $(document).on('click', '#btnDelete', function() {
 	deleteGoods($('#no').val());
 });
 
-$(document).on('click', '#btnUpdate', function() {
-//	$('#btnUpdate').click(function(){
-	if (
-			goods.code == $('#code').val() &&
-			goods.name == $('#name').val() &&
-			goods.url == $('#url').val() &&
-			goods.unit == $('#unit').val() &&
-			goods.category == $('#category').val() &&
-			goods.note == $('#note').val() &&
-			goods.priceA == $('#priceA').val() &&
-			goods.priceB == $('#priceB').val() &&
-			goods.priceC == $('#priceC').val()) {
-		alert('변경한것이 없습니다');
-		return;
-	}
-//	if (!validateForm()) return;
-	console.log($('#no').val());
-	updateGoods($('#no').val());
-});
 
 $(document).on('click', '#btnAdd', function() {
 //	$('#btnAdd').click(function(){
@@ -239,7 +220,7 @@ function loadGoods(goodsNo) {
 		$('#note').val(data.goods.note),
 		$('#priceA').val(data.goods.priceA),
 		$('#priceB').val(data.goods.priceB),
-		$('#priceC').val(data.goods.priceC),
+		$('#priceC').val(data.goods.priceC)
 //		$('#url').val(data.goods.url)
 
 		goods = data.goods;
@@ -249,6 +230,27 @@ function loadGoods(goodsNo) {
 		$('.my-new-form').css('display', 'none');
 		$('#myModalLabel2').css('display', '');
 		$('#myModalLabel').css('display', 'none');
+		
+		$(document).on('click', '#btnUpdate', function() {
+//			$('#btnUpdate').click(function(){
+			if (
+					goods.code == $('#code').val() &&
+					goods.name == $('#name').val() &&
+					goods.url == $('#url').val() &&
+					goods.unit == $('#unit').val() &&
+					goods.category == $('#category').val() &&
+					goods.note == $('#note').val() &&
+					goods.priceA == $('#priceA').val() &&
+					goods.priceB == $('#priceB').val() &&
+					goods.priceC == $('#priceC').val()) {
+				alert('변경한것이 없습니다');
+				return;
+			}
+//			if (!validateForm()) return;
+			console.log(goodsNo);
+			updateGoods(goodsNo);
+		});
+
 	});
 }
 
@@ -266,6 +268,7 @@ function deleteGoods(goodsNo) {
 
 
 function updateGoods(goodsNo) {
+	console.log(goodsNo);
 	$.post('../json/goods/update.do'
 			, {
 				no : goodsNo,
