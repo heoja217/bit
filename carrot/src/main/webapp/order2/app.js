@@ -63,16 +63,21 @@ function loadDeliveryList(pageNo) {
 		var oname = data.oname;
 		var oodate = data.oodate;
 		var mlevel = data.ograde;
+
+		var ccname = " "+data.oname;
+		var oddate = "("+data.oodate+")";
+		var mlevel = data.mlevel;
+		var title = ccname+oddate;
 		
 		require([ 'text!templates/order-table.html' ], function(html) {
 			var template = Handlebars.compile(html);
-			$('#listDiv').html(template(data));
+			$('#listDiv').html(template(data));		
+
 			console.log("oname : " + oname);
 			console.log("odate : " + oodate);
 			console.log("mlevel : " + mlevel);
 			$('#listDiv').html(template(data));
-			$('#titleDiv').html(oname);
-			$('#titleDiv2').html(oodate);
+			$('#titleDiv').html(title);
 		});
 	});
 }

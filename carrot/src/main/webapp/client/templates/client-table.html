@@ -8,15 +8,15 @@
 			<th>E-mail</th>
 			<th>업체등급</th>
 			<th>등록일</th>
-			<th>MeMo</th>
+			<th>비고</th>
 			<th>당월총액</th>
 		</tr>
 
 		{{#each clients}}
-		<tr class="data-row">
+		<tr data-toggle="modal" data-target="#myModal" href="#"
+				data-no="{{no}}" class="data-row">
 			<td>{{no}}</td>
-			<td><a data-toggle="modal" data-target="#myModal" href="#"
-				data-no="{{no}}">{{clientCorName}}</a></td>
+			<td>{{clientCorName}}</td>
 			<td>{{clientTel}}</td>
 			<td>{{clientAddress}}</td>
 			<td>{{clientMail}}</td>

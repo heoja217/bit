@@ -46,10 +46,11 @@ public class OrderService {
   }
   
   public int getMaxPageNo(int pageSize, int supplierNo) {
-    int totalSize = orderDao.totalSize(supplierNo);
+    int totalSize = orderDao.orderTotalSize(supplierNo);
     int maxPageNo = totalSize / pageSize;
     if ((totalSize % pageSize) > 0) maxPageNo++;
-    
+
+	System.out.println("               totalSize:"+totalSize+"      maxPageNo:"+maxPageNo);
     return maxPageNo;
   }
   

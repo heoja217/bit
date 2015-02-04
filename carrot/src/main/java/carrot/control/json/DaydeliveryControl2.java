@@ -52,7 +52,7 @@ public class DaydeliveryControl2 {
 	@RequestMapping("/list")
 	public Object list(
 			@RequestParam(defaultValue="1") int pageNo,
-			@RequestParam(defaultValue="20") int pageSize,
+			@RequestParam(defaultValue="10") int pageSize,
 			HttpSession session) throws Exception {
 		
 		Company supplier = (Company)session.getAttribute("loginUser");
@@ -61,23 +61,16 @@ public class DaydeliveryControl2 {
 		
 		supplier.setSno(sno);
 		supplier.setSname(sname);
-	
+		
 		
 		if (pageSize <= 0)
 			pageSize = PAGE_DEFAULT_SIZE;
 
-		int maxPageNo = daydeliveryService2.getMaxPageNo(pageSize);
+		int maxPageNo = daydeliveryService2.getMaxPageNo(pageSize,dname);
 
 		if (pageNo <= 0) pageNo = 1;
 		if (pageNo > maxPageNo) pageNo = maxPageNo;
 		
-		
-		HashMap<String, Object> paramMap = new HashMap<>();
-		paramMap.put("startIndex", ((pageNo - 1) * pageSize));
-		paramMap.put("pageSize", pageSize);
-		paramMap.put("ccname", dname);
-		paramMap.put("sno", sno);
-				
 		HashMap<String,Object> resultMap = new HashMap<>();
 		resultMap.put("status", "success");
 		resultMap.put("currPageNo", pageNo);
@@ -86,11 +79,12 @@ public class DaydeliveryControl2 {
 		resultMap.put("oddate", ddate);
 		resultMap.put("mlevel", dgrade);
 		
-		resultMap.put("daydeliverys", daydeliveryService2.getList2(paramMap));
+		Object daydeliverys = daydeliveryService2.getList2(pageNo,pageSize,dname, ddate);
 
-		System.out.println("          "+ resultMap);
+		System.out.println("                 "+daydeliverys);
+		resultMap.put("daydeliverys", daydeliverys);
+
 		//resultMap.put("deliverys", deliveryService2.getList(pageNo,pageSize));
-
 		return resultMap;
 	}
 	

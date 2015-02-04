@@ -17,7 +17,7 @@
 		<td>{{dname}}</td>
 		<td>{{dgrade}}</td>
 		<td>{{ddate}}</td>
-		<td>{{oprice}}</td>
+		<td>{{sum_oprice}}</td>
 		<td>{{del_stat}}</td>
 		<td>{{omemo}}</td>
 	</tr>
@@ -29,9 +29,9 @@
 		
 	$(document).on('click', '#deliveryTable tr', function(e) {
 
-		$dname = $(this).find('td:eq(2)').html(); // 거래처명
-		$ddate = $(this).find('td:eq(4)').html(); // 배송일자
-		$dgrade = $(this).find('td:eq(3)').html(); 
+		$dname = $(this).find('td:eq(1)').html(); // 거래처명
+		$ddate = $(this).find('td:eq(3)').html(); // 배송일자
+		$dgrade = $(this).find('td:eq(2)').html(); 
 		console.log("dgrade : " + $dgrade);
 		/* console.log("dname:" + $dname);
 		console.log("ddate:" + $ddate); */

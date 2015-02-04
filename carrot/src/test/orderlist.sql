@@ -4,6 +4,34 @@
   insert into MATCHING(CNO, SNO, MLEVEL, MDATE) 
   values('2', '2', '2', '2015-01-02');
   
+  
+  			select 
+		a.ono, d.ccname, c.mlevel,a.ORDATE ,b.oprice2 sum_oprice, a.ODEL_STAT, a.OMEMO
+		from 
+		(select a.* from ORDERLIST a where a.sno = 1) a
+		left outer join 
+		(select ono,sno,cno,ordate,sum(oprice) oprice2 from ORDERLIST where sno=1
+		group by sno,cno,ordate
+		order by ordate
+		) b 
+		on a.sno = b.sno 
+		and a.ono = b.ono
+        left outer join MATCHING c 
+        on a.sno = c.sno and a.cno = c.cno 
+        left outer join CLIENT d
+        on c.CNO = d.CNO
+		group by ORDATE, CCNAME
+        order by ORDATE
+        
+        
+  	SELECT count(*),G.GCODE, G.GNAME, G.GCAT, G.GUNIT, O.OQTY, ROUND((O.OPRICE/O.OQTY),0) OPRICE2, G.GMEMO
+			 FROM GOODS G, ORDERLIST O, SUPPLIER S, MATCHING M, CLIENT C
+		WHERE S.SNO = M.SNO AND C.CNO = M.CNO
+		AND O.SNO = M.SNO AND M.CNO = O.CNO
+		AND G.GCODE = O.GCODE 	
+		AND C.CCNAME = '강남분식' AND O.ORDATE = CURDATE()
+		ORDER BY ORDATE      
+  
   insert into ORDERLIST(OCODE, SNO, CNO, GNO, ODATE, RDATE, OQTY) 
   values(1, 1, 2, 4,'2015-01-01', '2015-01-01', 10);
   insert into ORDERLIST(OCODE, SNO, CNO, GNO, ODATE, RDATE, OQTY) 

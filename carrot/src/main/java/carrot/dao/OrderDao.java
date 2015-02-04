@@ -21,6 +21,7 @@ public interface OrderDao {
   //List<?> selectList(Map<String,Object> params);
   void insert(Order3 order);
   int totalSize(int supplierNo);
+  int orderTotalSize(int supplierNo);
   List<?> selectMyOrderList(Map<String,Object> params);
   List<?> selectList2(HashMap<String, Object> params);
   List<?> selectList_order(Map<String,Object> params);

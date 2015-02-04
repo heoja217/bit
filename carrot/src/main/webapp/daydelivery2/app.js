@@ -3,7 +3,7 @@ var maxPageNo;
 
 
 $(function() {
-  $('.header').load('../common/header.html');
+	$('.header').load('../common/header.html');
 	$('.form').load('form.html');
 	$('.footer').load('../common/footer.html');
 
@@ -57,9 +57,10 @@ function loadDeliveryList(pageNo) {
 		setPageNo(data.currPageNo, data.maxPageNo);
 		
 		var deliverys = data.deliverys;
-		var ccname = data.ccname;
-		var oddate = data.oddate;
+		var ccname = " "+data.ccname;
+		var oddate = "("+data.oddate+")";
 		var mlevel = data.mlevel;
+		var title = ccname+oddate;
 		
 		/*if(mlevel == '1'){
 			$.post('../json/delivery2/title.do'),{
@@ -71,13 +72,12 @@ function loadDeliveryList(pageNo) {
 
 		require(['text!templates/delivery-table.html'], function(html) {
 			var template = Handlebars.compile(html);
-			console.log("dname : " + ccname);
+			/*console.log("dname : " + ccname);
 			console.log("ddate : " + oddate);
-			console.log("mlevel : " + mlevel);
+			console.log("mlevel : " + mlevel);*/
 			$('#listDiv').html(template(data));
-			$('#titleDiv').html(ccname);
-			$('#titleDiv2').html(mlevel);
-			$('#sumDiv').html(oddate);
+			$('#titleDiv').html(title);
+			
 			/*if(mlevel == "1"){
 				
 			}*/

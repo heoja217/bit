@@ -1,5 +1,6 @@
 package carrot.control.json;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -59,10 +60,25 @@ public class OrderControl2 {
 		
 		if (pageSize <= 0)
 			pageSize = PAGE_DEFAULT_SIZE;
+/*		
+
+		System.out.println("             oodateS"+oodate);
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date to = transFormat.parse(oodate);
+		System.out.println("oodate"+to);
+		*/
+		System.out.println("             oodateS"+oodate);
+
+		Date from = oodate;
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String to = transFormat.format(from);
+		 
+
+		System.out.println("oodate"+to);
 		
 		HashMap<String, Object> params = new HashMap<>();
 		params.put("oname", oname);
-		params.put("oodate", oodate);
+		params.put("oodate", to);
 		params.put("pageSize", pageSize);
 		params.put("supplierNo", sno);
 		
@@ -79,7 +95,7 @@ public class OrderControl2 {
 		resultMap.put("currPageNo", pageNo);
 		resultMap.put("maxPageNo", maxPageNo);
 		resultMap.put("oname", oname);
-		resultMap.put("oodate", oodate);
+		resultMap.put("oodate", to);
 		resultMap.put("orders", orderService2.getList2(params));
 
 		//resultMap.put("deliverys", deliveryService2.getList(pageNo,pageSize));

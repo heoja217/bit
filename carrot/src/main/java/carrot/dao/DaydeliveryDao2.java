@@ -13,7 +13,7 @@ import java.util.List;
  * => 인터페이스 패키지도 SQL 맵퍼 파일의 네임스페이스와 같아야 한다. 
  */
 public interface DaydeliveryDao2 {
-  int totalSize();
+  int totalSize(String clientName);
   List<?> selectList2(HashMap<String, Object> paramMap);
 
 }

@@ -182,8 +182,12 @@ public class OrderControl {
 		paramMap.put("pageSize", pageSize);
 		paramMap.put("supplierNo", sno);
 
+		
+		
+		
 		int maxPageNo = orderService.getMaxPageNo(pageSize,sno);
 
+		
 		if (pageNo <= 0) pageNo = 1;
 		if (pageNo > maxPageNo) pageNo = maxPageNo;
 

@@ -13,7 +13,9 @@
 	padding-bottom: 1%;
 }
 
+#titleDiv {
 
+}
 
 .bottom-bar {
 	position: relative;
@@ -24,6 +26,12 @@
 .table_head {
   background-color: #D8D8D8;
   border-radius: 25px
+}
+.table th{
+   text-align: center;   
+}
+.table td{
+   text-align: center;   
 }
 
 .sub_bar {

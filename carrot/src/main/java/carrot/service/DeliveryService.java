@@ -20,8 +20,8 @@ public class DeliveryService {
 
 
 
-	public int getMaxPageNo(int pageSize) {
-		int totalSize = deliveryDao.totalSize();
+	public int getMaxPageNo(int pageSize,int sno) {
+		int totalSize = deliveryDao.totalSize(sno);
 		int maxPageNo = totalSize / pageSize;
 		if ((totalSize % pageSize) > 0)
 			maxPageNo++;
@@ -38,7 +38,7 @@ public class DeliveryService {
 		paramMap.put("pageSize", pageSize);
 		paramMap.put("sno", sno);
 
-	
+		
 		return deliveryDao.selectList2(paramMap);
 	}
 

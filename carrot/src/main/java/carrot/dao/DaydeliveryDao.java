@@ -15,7 +15,7 @@ import java.util.List;
 public interface DaydeliveryDao {
 
 
-	int totalSize();
+	int totalSize(int sno);
 
 	List<?> selectList2(HashMap<String, Object> paramMap);
 

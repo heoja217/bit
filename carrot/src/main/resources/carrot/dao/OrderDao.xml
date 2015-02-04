@@ -30,7 +30,7 @@
     <result column="ODATE" property="orderDate"/>
     <result column="ORDATE" property="endDate"/>
     <result column="OQTY" property="quantity"/>
-    <result column="DEL_STAT" property="delState"/>
+    <result column="ODEL_STAT" property="delState"/>
     <result column="OMEMO" property="note"/>
     
     <result column="SNO" property="supplierNo"/>
@@ -122,7 +122,16 @@
 		ORDER BY O.ODATE DESC	
 
 
-<!--  		<if test="pageSize > 0">
+<!--  	
+
+		SELECT count(distinct ODATE,CCNAME)
+		FROM ORDERLIST O LEFT JOIN GOODS G ON O.GCODE=G.GCODE
+			LEFT JOIN CLIENT C ON O.CNO=C.CNO
+			LEFT JOIN MATCHING M ON C.CNO=M.CNO
+			LEFT JOIN ORDERTOTAL OT ON O.CNO=OT.CNO
+ 		WHERE M.SNO=1
+
+	<if test="pageSize > 0">
 			limit #{startIndex}, #{pageSize}
 		</if> -->
 	</select>
@@ -192,6 +201,16 @@
 		limit #{orderSize}
 
   </select>  
+
+  <select id="orderTotalSize" resultType="int">
+		SELECT count(distinct ODATE,CCNAME)
+		FROM ORDERLIST O LEFT JOIN GOODS G ON O.GCODE=G.GCODE
+			LEFT JOIN CLIENT C ON O.CNO=C.CNO
+			LEFT JOIN MATCHING M ON C.CNO=M.CNO
+			LEFT JOIN ORDERTOTAL OT ON O.CNO=OT.CNO
+ 		WHERE M.SNO=#{value}
+ 	</select>
+
 
   <select id="totalSize" parameterType="int" resultType="int">
   	SELECT count(*)

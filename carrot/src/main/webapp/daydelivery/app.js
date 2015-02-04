@@ -5,7 +5,7 @@ $(function() {
 	$('.header').load('../common/header.html');
 	$('.form').load('form.html');
 	$('.footer').load('../common/footer.html');
-	
+
 	loadDeliveryList(1);
 	$(document).on('click', '.data-row a', function() {
 		loadDeliveryList($(this).attr('data-no'));
@@ -29,11 +29,10 @@ $('#nextBtn').click(function(event) {
 	}
 });
 
+
 function setPageNo(currPageNo, maxPageNo) {
 	window.currPageNo = currPageNo;
 	window.maxPageNo = maxPageNo;
-
-	$('#pageNo').html(currPageNo);
 
 	if (currPageNo <= 1)
 		$('#prevBtn').css('display', 'none');
@@ -44,6 +43,14 @@ function setPageNo(currPageNo, maxPageNo) {
 		$('#nextBtn').css('display', 'none');
 	else
 		$('#nextBtn').css('display', '');
+
+	$('#page-selection').bootpag({
+		total: maxPageNo,
+		page: currPageNo,
+		maxVisible: 10 
+	}).on('page', function(event, num){
+		loadDeliveryList(num, saveList);		
+	});
 }
 
 function loadDeliveryList(pageNo, sno) {
@@ -53,6 +60,7 @@ function loadDeliveryList(pageNo, sno) {
 	$.getJSON('../json/daydelivery/list.do?pageNo=' + pageNo, function(data) {
 		setPageNo(data.currPageNo, data.maxPageNo);
 		var daydeliverys = data.daydeliverys;
+		
 
 		require([ 'text!templates/delivery-table.html' ], function(html) {
 			var template = Handlebars.compile(html);

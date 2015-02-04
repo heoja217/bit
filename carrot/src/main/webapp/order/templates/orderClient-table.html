@@ -1,7 +1,6 @@
 <table id='orderTable' class="table table-striped table-hover">
 	<thead>
 		<tr class="table_head">
-			<th><input type="checkbox" class="check-all"></th>
 			<th>주문코드</th>
 			<th>거래처명</th>
 			<th>등급</th>
@@ -16,8 +15,6 @@
 
 		{{#each orders}}
 		<tr class="data-row">
-				
-			<td><input type="checkbox" data-no="{{ocode}}" class="ab"></td>
 			<td class="go">{{no}}</td>
 			<td class="go">{{clientName}}</td>
 			<td class="go">{{level}}</td>
@@ -53,10 +50,20 @@ console.log("삭제");
  } */
 
 $(document).on('click', '#orderTable tr', function(e) {
-	$oname = $(this).find('td:eq(2)').html(); // 거래처명
-	$oodate = $(this).find('td:eq(4)').html(); // 주문일자
-	$ograde = $(this).find('td:eq(3)').html(); // 거래처등급
-
+	$oname = $(this).find('td:eq(1)').html(); // 거래처명
+	$oodate = $(this).find('td:eq(3)').html(); // 주문일자
+	$ograde = $(this).find('td:eq(2)').html(); // 거래처등급
+	
+/* 	console.log($oname);
+	console.log($oodate);
+	
+	String from = $oodate;
+	console.log(from);
+	SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+	Date to = transFormat.parse(from);
+	console.log(to);
+	
+	 */
 	var currPageNo;
 	var maxPageNo;
 	$.post('../json/order2/title.do', {

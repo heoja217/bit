@@ -7,13 +7,14 @@
 			<th>배송일자</th>
 			<th>일총액</th>
 			<th>배송상태</th>
-			<th>메모</th>
+			<th>비고</th>
 		</tr>
 	</thead>
 
 	{{#each daydeliverys}}
 	<tr class="data-row">
-		<td>{{ocode}}</td>	
+		<td data-toggle="modal" data-target="#myModal" href="#"
+				data-no="{{dname}}">{{ocode}}</td>	
 		<td>{{dname}}</td>
 		<td>{{dgrade}}</td>
 		<td>{{ddate}}</td>
@@ -25,15 +26,23 @@
 
 </table>
 <script>
+	$(document).ready(function() {
+
+		$('.check-all').click(function() {
+			$('.ab').prop('checked', this.checked);
+
+		});
+	});
+		
 		
 	$(document).on('click', '#daydeliveryTable tr', function(e) {
 
-		$dname = $(this).find('td:eq(2)').html(); // 거래처명
-		$ddate = $(this).find('td:eq(4)').html(); // 배송일자
-		$dgrade = $(this).find('td:eq(3)').html(); 
+		$dname = $(this).find('td:eq(1)').html(); // 거래처명
+		$ddate = $(this).find('td:eq(3)').html(); // 배송일자
+		$dgrade = $(this).find('td:eq(2)').html(); 
 		console.log("dgrade : " + $dgrade);
-		/* console.log("dname:" + $dname);
-		console.log("ddate:" + $ddate); */
+		console.log("dname:" + $dname);
+		console.log("ddate:" + $ddate);
 		var currPageNo;
 		var maxPageNo;
 		$.post('../json/daydelivery2/title.do', {

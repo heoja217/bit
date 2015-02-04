@@ -15,7 +15,7 @@ import java.util.List;
 public interface DeliveryDao {
 
 
-	int totalSize();
+	int totalSize(int supplierNo);
 
 	List<?> selectList2(HashMap<String, Object> paramMap);
 

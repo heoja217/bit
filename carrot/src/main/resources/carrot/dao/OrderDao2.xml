@@ -10,7 +10,7 @@
 	<!-- 객체의 컬럼과 프로퍼티를 연결한다. -->
 
 	<!-- 객체의 컬럼과 프로퍼티를 연결한다. -->
-	<resultMap type="Order2" id="orderMap2">
+	<resultMap type="map" id="orderMap2">
 		<!-- PK 컬럼은 id 태그를 사용하여 지정한다. -->
 		<id column="GCODE" property="gno" />
 		<result column="SNO" property="sno" />

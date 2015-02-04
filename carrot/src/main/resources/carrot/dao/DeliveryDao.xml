@@ -27,15 +27,73 @@
 		<result column="GPRICE_B" property="gprice_b" />
 		<result column="GPRICE_C" property="gprice_c" />
 		<result column="ONO" property="ocode" />
-
+		<result column="OQTY" property="oqty"/>
+		<result column="oprice2" property="sum_oprice"/>
 	</resultMap>
 
 
 
 	<select id="selectList2" parameterType="map" resultMap="deliveryMap">
 		<!-- <include refid="selectOne2" /> -->
+				select 
+		a.ono, d.ccname, c.mlevel,a.ORDATE ,b.oprice2 sum_oprice, a.ODEL_STAT, a.OMEMO
+		from 
+		(select a.* from ORDERLIST a where a.sno = #{sno}) a
+		left outer join 
+		(select ono,sno,cno,ordate,sum(oprice) oprice2 from ORDERLIST where sno=#{sno}
+		group by sno,ordate
+		order by ordate
+		) b 
+		on a.sno = b.sno 
+		and a.ono = b.ono
+        left outer join MATCHING c 
+        on a.sno = c.sno and a.cno = c.cno 
+        left outer join CLIENT d
+        on c.CNO = d.CNO
+			group by ORDATE, CCNAME
+        order by ORDATE
+        
+	<!-- 	select 
+		a.ono, d.ccname, c.mlevel,a.ORDATE ,b.oprice2 sum_oprice, a.ODEL_STAT, a.OMEMO
+		from 
+		(select a.* from orderlist a where a.sno = #{sno}) a
+		left outer join 
+		(select sno,ordate,sum(oprice) oprice2 from orderlist 
+		group by sno,ordate
+		order by sno,ordate
+		) b 
+		on a.sno = b.sno
+        left outer join matching c 
+        on a.sno = c.sno and a.cno = c.cno 
+        left outer join client d
+        on c.cno = d.cno
+        group by CCNAME
+        order by ORDATE 
+        
+   select count(*)
+		from 
+		(select a.* from ORDERLIST a where a.sno = 1) a
+		left outer join 
+		(select ono,sno,cno,ordate,sum(oprice) oprice2 from ORDERLIST where sno=1
+		group by sno,ordate
+		order by ordate
+		) b 
+		on a.sno = b.sno 
+		and a.ono = b.ono
+        left outer join MATCHING c 
+        on a.sno = c.sno and a.cno = c.cno 
+        left outer join CLIENT d
+        on c.CNO = d.CNO
+			group by ORDATE, CCNAME
+        order by ORDATE     
+        
+        
+        
+  group by O.ORDATE, CCNAME 	
+        -->
+        
 
-		SELECT O.ONO, C.CCNAME , M.MLEVEL , O.ORDATE , O.OPRICE ,
+		<!-- SELECT O.ONO, C.CCNAME , M.MLEVEL , O.ORDATE , O.OPRICE ,
 		O.ODEL_STAT, O.OMEMO
 		FROM CLIENT C, MATCHING M, ORDERLIST O, GOODS G
 		WHERE C.CNO = M.CNO
@@ -43,7 +101,21 @@
 		AND G.GCODE = O.GCODE AND O.SNO = G.SNO
 		AND O.SNO=#{sno}
 		GROUP BY O.ORDATE
-		ORDER BY O.ORDATE DESC
+		ORDER BY O.ORDATE DESC 
+		
+		select 
+		a.* ,b.oprice2 sum_oprice
+		from
+		(select a.* from orderlist a where a.sno = #{sno}) a
+		left outer join 
+		(select 
+		sno,odate,sum(oprice) oprice2
+		from orderlist 
+		group by sno,odate
+		order by sno,odate
+		) b
+		on a.sno = b.sno
+		and a.odate = b.odate; -->
 		
 		<if test="pageSize > 0">
 			limit #{startIndex}, #{pageSize}
@@ -52,27 +124,13 @@
 
 
 	<select id="totalSize" resultType="int">
-		SELECT count(CNO) FROM CLIENT
+		SELECT count(distinct ORDATE,CCNAME)
+		FROM ORDERLIST O LEFT JOIN GOODS G ON O.GCODE=G.GCODE
+			LEFT JOIN CLIENT C ON O.CNO=C.CNO
+			LEFT JOIN MATCHING M ON C.CNO=M.CNO
+			LEFT JOIN ORDERTOTAL OT ON O.CNO=OT.CNO
+ 		WHERE M.SNO= #{value}
 	</select>
 
 
 </mapper>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

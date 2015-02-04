@@ -33,6 +33,7 @@ public class Order2 implements Serializable {
 	protected Date oodate;
 	protected String gmemo;
 	protected int oprice;
+	
 	public int getGno() {
 		return gno;
 	}

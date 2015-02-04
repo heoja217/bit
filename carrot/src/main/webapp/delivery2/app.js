@@ -6,28 +6,13 @@ $(function() {
 	$('.header').load('../common/header.html');
 	$('.form').load('form.html');
 	$('.footer').load('../common/footer.html');
+
 	loadDeliveryList(1);
 
 	$(document).on('click', '.data-row a', function() {
 		loadDeliveryList($(this).attr('data-no'));
 	});
-	
-	$(document).on('click', '.my-delete-btn', function() {
-		if(confirm("삭제하시겠습니까?")){
-			var check_value = new Array();
-			var j = 0;
-			var check_arr = $(".ab");
-			for (var i = 0; i < check_arr.length ; i++) {
-				if (check_arr[i].checked) {
-					check_value[j++] = check_arr[i].value;
-				}
-			}
-			console.log(check_value);
-			deleteDeliverys(check_value);
-			loadDeliveryList(1);
-		}
-	});
-	
+
 	$(document).on('click', '.my-delete-btn', function() {
 		delete($(this).attr('data-no'));
 		loadDeliveryList(0);
@@ -45,18 +30,6 @@ $('#nextBtn').click(function(event) {
 		loadDeliveryList(currPageNo + 1);
 	}
 });
-
-
-function deleteDeliverys(orderNo) {
-	$.getJSON('../json/order/delete.do?no=' + orderNo, 
-			function(data){
-		if (data.status == 'success') {
-			loadDeliveryList(1);
-
-			$('#btnCancel').click();
-		}
-	});
-}
 
 function setPageNo(currPageNo, maxPageNo) {
 	window.currPageNo = currPageNo;
@@ -84,31 +57,23 @@ function loadDeliveryList(pageNo) {
 		setPageNo(data.currPageNo, data.maxPageNo);
 		
 		var deliverys = data.deliverys;
-		var ccname = data.ccname;
-		var oddate = data.oddate;
+		var ccname = " "+data.ccname;
+		var oddate = "("+data.oddate+")";
 		var mlevel = data.mlevel;
+		var title = ccname+oddate;
 		
-		/*if(mlevel == '1'){
-			$.post('../json/delivery2/title.do'),{
-				mlevel : mlevel,
-			}, function(resultMap){
-				
-			}
-		}*/
-
 		require(['text!templates/delivery-table.html'], function(html) {
 			var template = Handlebars.compile(html);
-			console.log("dname : " + ccname);
+			/*console.log("dname : " + ccname);
 			console.log("ddate : " + oddate);
-			console.log("mlevel : " + mlevel);
+			console.log("mlevel : " + mlevel);*/
+			console.log(data);
 			$('#listDiv').html(template(data));
-			$('#titleDiv').html(ccname);
-			$('#titleDiv2').html(oddate);
-			$('#sumDiv').html(mlevel).css('display', 'none');
-			
+			$('#titleDiv').html(title);
 			
 	/*		.css('display', 'none')*/
 		});
 	});
+	
 }
 

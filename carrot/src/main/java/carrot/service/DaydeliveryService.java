@@ -20,8 +20,8 @@ public class DaydeliveryService {
 
 
 
-	public int getMaxPageNo(int pageSize) {
-		int totalSize = daydeliveryDao.totalSize();
+	public int getMaxPageNo(int pageSize,int sno) {
+		int totalSize = daydeliveryDao.totalSize(sno);
 		int maxPageNo = totalSize / pageSize;
 		if ((totalSize % pageSize) > 0)
 			maxPageNo++;

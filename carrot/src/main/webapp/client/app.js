@@ -10,14 +10,14 @@ $(function() {
 	$('.footer').load('../common/footer.html');
 	preOrderList(1,supplierNo);
 	
-
+	$('#mLevel').selectpicker('refresh');
 	
 ////////	
 	$(document).on('click', '#clientTable tr', function(){
 		loadClient($(this).attr('data-no'));
 	});
 	
-	$(document).on('click', '.data-row a', function() {
+	$(document).on('click', '.data-row tr', function() {
 //		loadClientList($(this).attr('data-no'),supplierNo);
 		loadClient($(this).attr('data-no'));
 		loadClientList(0,supplierNo);

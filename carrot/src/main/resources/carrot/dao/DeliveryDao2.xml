@@ -24,30 +24,36 @@
 		
 		<result column="GMEMO" property="gmemo"/>
 		
-		
-		<result column="OPRICE" property="oprice" />
-		
-		
 		<result column="GPRICE_A" property="gprice_a" />
 		<result column="GPRICE_B" property="gprice_b" />
 		<result column="GPRICE_C" property="gprice_c" />
+		<result column="OPRICE2" property="oprice2"/>
 	</resultMap>
 
 
 	<select id="selectList2" parameterType="map" resultMap="deliveryMap2">
 		<!-- <include refid="deliverySelect2" /> -->
-		SELECT G.GCODE, G.GNAME, G.GCAT, G.GUNIT, O.OQTY, O.OPRICE, G.GMEMO
+			SELECT G.GCODE, G.GNAME, G.GCAT, G.GUNIT, O.OQTY, ROUND((O.OPRICE/O.OQTY),0) OPRICE2, G.GMEMO
+		FROM GOODS G, ORDERLIST O, SUPPLIER S, MATCHING M, CLIENT C
+		WHERE S.SNO = M.SNO AND C.CNO = M.CNO
+		AND O.SNO = M.SNO AND M.CNO = O.CNO
+		AND G.GCODE = O.GCODE 	
+		AND C.CCNAME = #{ccname} AND O.ORDATE = #{oddate}
+		ORDER BY ORDATE
+		<!-- SELECT G.GCODE, G.GNAME, G.GCAT, G.GUNIT, O.OQTY, ROUND((O.OPRICE/O.OQTY),0) OPRICE2, G.GMEMO
 		FROM GOODS G, ORDERLIST O, SUPPLIER S, MATCHING M, CLIENT C
 		WHERE S.SNO = M.SNO AND C.CNO = M.CNO
 		AND O.SNO = M.SNO AND M.CNO = O.CNO
 		AND G.GCODE = O.GCODE AND G.SNO = O.SNO		
 		AND G.SNO = S.SNO 
 		AND C.CCNAME = #{ccname} AND O.ORDATE = #{oddate}
-		ORDER BY G.GCODE
+		GROUP BY G.GCODE -->
 		<if test="pageSize > 0">
 			limit #{startIndex}, #{pageSize}
 		</if>
 	</select>
+
+
 
 
 	<select id="totalSize" resultType="int">
