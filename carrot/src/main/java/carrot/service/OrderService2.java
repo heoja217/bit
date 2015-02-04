@@ -20,12 +20,9 @@ public class OrderService2 {
 
 
 
-	public int getMaxPageNo(int pageSize, String oname, String oodate) {
-		HashMap<String, Object> paramMap = new HashMap<>();
-		paramMap.put("oname", oname);
-		paramMap.put("oodate", oodate);
-		
-		int totalSize = orderDao2.totalSize(paramMap);
+	public int getMaxPageNo(int pageSize) {
+
+		int totalSize = orderDao2.totalSize(pageSize);
 		int maxPageNo = totalSize / pageSize;
 		if ((totalSize % pageSize) > 0)
 			maxPageNo++;
@@ -34,14 +31,9 @@ public class OrderService2 {
 	}
 
 
-	public List<?> getList2(int pageNo, int pageSize, String oname, String oodate) {
+	public List<?> getList2(HashMap<String, Object> paramMap) {
 		
-		HashMap<String, Object> paramMap = new HashMap<>();
-		paramMap.put("startIndex", ((pageNo - 1) * pageSize));
-		paramMap.put("pageSize", pageSize);
-		paramMap.put("oname", oname);
-		paramMap.put("oodate", oodate);
-		
+
 		//System.out.println("paramMap : "+paramMap);
 		
 		return orderDao2.selectList2(paramMap);

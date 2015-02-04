@@ -80,7 +80,7 @@ function loadOrderList(pageNo, sno) {
 		
 		console.log(orders);
 
-		require([ 'text!templates/order-table.html' ], function(html) {
+		require([ 'text!templates/orderClient-table.html' ], function(html) {
 			var template = Handlebars.compile(html);
 			$('#listDiv').html(template(data));
 			//console.log("deliverys : " + deliverys);

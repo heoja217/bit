@@ -14,7 +14,7 @@ $(document).on('click', '#btnDelete', function() {
 
 $(document).on('click', '#btnUpdate', function() {
 //$('#btnUpdate').click(function(){
-	if (goods.supplierNo == $('#supplierNo').val() &&
+	if (
 			goods.code == $('#code').val() &&
 			goods.name == $('#name').val() &&
 			goods.url == $('#url').val() &&
@@ -101,10 +101,10 @@ function deleteGoods(goodsNo) {
 
 
 function updateGoods(goodsNo) {
+	console.log(goodsNo);
 	$.post('../json/goods/update.do'
 			, {
 				no : $('#no').val(),
-				supplierNo : $('#supplierNo').val(),
 				code : $('#code').val(),
 				name : $('#name').val(),
 				url : $('#url').val(),

@@ -179,7 +179,7 @@ $(document).on('click', '#btnDelete', function() {
 
 $(document).on('click', '#btnUpdate', function() {
 //	$('#btnUpdate').click(function(){
-	if (goods.supplierNo == $('#supplierNo').val() &&
+	if (
 			goods.code == $('#code').val() &&
 			goods.name == $('#name').val() &&
 			goods.url == $('#url').val() &&
@@ -193,6 +193,7 @@ $(document).on('click', '#btnUpdate', function() {
 		return;
 	}
 //	if (!validateForm()) return;
+	console.log($('#no').val());
 	updateGoods($('#no').val());
 });
 

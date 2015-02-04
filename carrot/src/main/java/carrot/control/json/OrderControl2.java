@@ -1,5 +1,6 @@
 package carrot.control.json;
 
+import java.util.Date;
 import java.util.HashMap;
 
 import javax.servlet.ServletContext;
@@ -22,7 +23,7 @@ public class OrderControl2 {
 	static Logger log = Logger.getLogger(OrderControl2.class);
 	static final int PAGE_DEFAULT_SIZE = 5;
 	String oname;
-	String oodate;
+	Date oodate;
 	String ograde;
 	
 	@Autowired OrderService2 orderService2;
@@ -55,18 +56,20 @@ public class OrderControl2 {
 		
 		Company supplier = (Company)session.getAttribute("loginUser");
 		int sno = supplier.getSno();
-		String sname = supplier.getSname();
-		
-		supplier.setSno(sno);
-		supplier.setSname(sname);
-		
-
 		
 		if (pageSize <= 0)
 			pageSize = PAGE_DEFAULT_SIZE;
-
-		int maxPageNo = orderService2.getMaxPageNo(pageSize, oname, oodate);
+		
+		HashMap<String, Object> params = new HashMap<>();
+		params.put("oname", oname);
+		params.put("oodate", oodate);
+		params.put("pageSize", pageSize);
+		params.put("supplierNo", sno);
+		
+		int maxPageNo = orderService2.getMaxPageNo(pageSize);
 		System.out.println("maxPageNo                         " + maxPageNo);
+
+		params.put("startIndex", ((pageNo - 1) * pageSize));
 
 		if (pageNo <= 0) pageNo = 1;
 		if (pageNo > maxPageNo) pageNo = maxPageNo;
@@ -77,7 +80,7 @@ public class OrderControl2 {
 		resultMap.put("maxPageNo", maxPageNo);
 		resultMap.put("oname", oname);
 		resultMap.put("oodate", oodate);
-		resultMap.put("orders", orderService2.getList2(pageNo,pageSize,oname, oodate));
+		resultMap.put("orders", orderService2.getList2(params));
 
 		//resultMap.put("deliverys", deliveryService2.getList(pageNo,pageSize));
 

@@ -104,8 +104,7 @@
 	</resultMap>
 
  -->
- 
- 
+<!--   
 	<select id="selectList" parameterType="map" resultMap="orderClientListMap">
 		SELECT C.CNO, O.SNO, O.ORDATE, S.SCNAME,
 		O.OQTY, O.ODEL_STAT, O.OMEMO, 
@@ -119,12 +118,28 @@
 		ON O.GCODE=G.GCODE
 		WHERE C.CNO=#{clientNo}
 		AND O.ORDATE = CURDATE()
-		ORDER BY S.SCNAME
+		ORDER BY S.SCNAME -->
+ 
+ 
+	<select id="selectList" parameterType="map" resultMap="orderClientListMap">
+
+		SELECT C.CNO, C.CCNAME, M.MLEVEL,
+			O.ONO,O.ORDATE,O.ODATE,O.ODATE, O.OQTY,O.ODEL_STAT, O.OMEMO, OT.TOT_PRICE,
+		  O.GCODE, G.GNAME, G.GUNIT, G.GCAT
+		FROM ORDERLIST O LEFT JOIN GOODS G ON O.GCODE=G.GCODE
+			LEFT JOIN CLIENT C ON O.CNO=C.CNO
+			LEFT JOIN MATCHING M ON C.CNO=M.CNO
+			LEFT JOIN ORDERTOTAL OT ON O.CNO=OT.CNO
+ 		WHERE M.SNO=#{supplierNo} group by O.ODATE, CCNAME 	
+		ORDER BY O.ODATE DESC	
+
+
 <!--  		<if test="pageSize > 0">
 			limit #{startIndex}, #{pageSize}
 		</if> -->
 	</select>
 	
+
 	<select id="selectList_order" parameterType="map" resultMap="orderClientListMap">
 		SELECT C.CNO, C.CCNAME,
 		O.ONO,O.ORDATE,O.ODATE,

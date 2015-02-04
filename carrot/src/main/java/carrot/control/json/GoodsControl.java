@@ -139,6 +139,7 @@ public class GoodsControl {
 	Company company = (Company)session.getAttribute("loginUser");
 	goods.setSupplierNo(company.getSno());
 		
+	System.out.println(goods);
     goodsService.update(goods);
     HashMap<String, Object> resultMap = new HashMap<>();
     resultMap.put("status", "success");

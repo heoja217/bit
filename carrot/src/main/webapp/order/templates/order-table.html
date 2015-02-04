@@ -32,57 +32,5 @@
 </table>
 
 <script>
-	$(document).ready(function() {
-
-		$('.check-all').click(function() {
-			$('.ab').prop('checked', this.checked);
-
-		});
-		$("#orderTable").on("click", "#ok", function(event) {
-			$(this).closest("#orderTable tr").remove();
-		});
-	});
-	/* $('#orderTable tr').find('td:eq(9)').click(function() {
-	var c1;
-	console.log("삭제");
 	
-	}); */
-	/* 	$(document).on('click', 'orderTable td:eq(9)'), function(e){
-	 console.log("삭제");
-	 } */
-	
-	$(document).on('click', '#orderTable tr', function(e) {
-		$oname = $(this).find('td:eq(2)').html(); // 거래처명
-		$oodate = $(this).find('td:eq(5)').html(); // 주문일자
-		$ograde = $(this).find('td:eq(3)').html(); // 거래처등급
-
-		var currPageNo;
-		var maxPageNo;
-		$.post('../json/order2/title.do', {
-			//서버에 보낼 데이터를 객체에 담아 넘긴다 
-			oname : $oname,
-			oodate : $oodate,
-			ograde : $ograde,
-
-		}, function(resultMap) {
-			if (resultMap.oname != null && resultMap.oodate != null) {
-				oname = resultMap.oname;
-				oodate = resultMap.oodate;
-				ograde = resultMap.ograde;
-
-				console.log("oname2 : " + oname);
-				console.log("oodate2 : " + oodate);
-				console.log("ograde2 : " + ograde);
-				location.href = "../order2/app.html";
-
-			} else {
-
-			}
-		}, 'json')
-		//서버가 보낸 데이터를 JSON 형식으로 처리
-		//서버 요청이 실패했을 때 호출될 함수 등록
-		.fail(function(jqXHR, textStatus, errorThrown) {
-			alert(textStatus + ":" + errorThrown);
-		}); 
-	});
 </script>

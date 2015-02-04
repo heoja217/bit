@@ -17,6 +17,7 @@
 package carrot.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class Order2 implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -27,111 +28,77 @@ public class Order2 implements Serializable {
 	protected String gname;
 	protected String gcat;
 	protected String gunit;
-	protected String oqty;
-	protected String oddate;
-	protected String oodate;
+	protected int oqty;
+	protected Date oddate;
+	protected Date oodate;
 	protected String gmemo;
-	protected String oprice;
-	
-	
-	public String getOprice() {
-		return oprice;
-	}
-
-	public void setOprice(String oprice) {
-		this.oprice = oprice;
-	}
-
-	public String getOname() {
-		return oname;
-	}
-
-	public void setOname(String oname) {
-		this.oname = oname;
-	}
-
-	public String getGmemo() {
-		return gmemo;
-	}
-
-	public void setGmemo(String gmemo) {
-		this.gmemo = gmemo;
-	}
-
-	public int getSno() {
-		return sno;
-	}
-
-	public void setSno(int sno) {
-		this.sno = sno;
-	}
-
+	protected int oprice;
 	public int getGno() {
 		return gno;
 	}
-
 	public void setGno(int gno) {
 		this.gno = gno;
 	}
-
+	public int getSno() {
+		return sno;
+	}
+	public void setSno(int sno) {
+		this.sno = sno;
+	}
+	public String getOname() {
+		return oname;
+	}
+	public void setOname(String oname) {
+		this.oname = oname;
+	}
 	public String getGname() {
 		return gname;
 	}
-
 	public void setGname(String gname) {
 		this.gname = gname;
 	}
-
 	public String getGcat() {
 		return gcat;
 	}
-
 	public void setGcat(String gcat) {
 		this.gcat = gcat;
 	}
-
 	public String getGunit() {
 		return gunit;
 	}
-
 	public void setGunit(String gunit) {
 		this.gunit = gunit;
 	}
-
-	public String getOqty() {
+	public int getOqty() {
 		return oqty;
 	}
-
-	public void setOqty(String oqty) {
+	public void setOqty(int oqty) {
 		this.oqty = oqty;
 	}
-
-	public String getOddate() {
+	public Date getOddate() {
 		return oddate;
 	}
-
-	public void setOddate(String oddate) {
+	public void setOddate(Date oddate) {
 		this.oddate = oddate;
 	}
-
-	public String getOodate() {
+	public Date getOodate() {
 		return oodate;
 	}
-
-	public void setOodate(String oodate) {
+	public void setOodate(Date oodate) {
 		this.oodate = oodate;
 	}
-
-	@Override
-	public String toString() {
-		return "Delivery2 [gno=" + gno + ", sno=" + sno + ", oname=" + oname
-				+ ", gname=" + gname + ", gcat=" + gcat + ", gunit=" + gunit
-				+ ", oqty=" + oqty + ", oddate=" + oddate + ", oodate="
-				+ oodate + ", gmemo=" + gmemo + ", oprice=" + oprice + "]";
+	public String getGmemo() {
+		return gmemo;
 	}
-
+	public void setGmemo(String gmemo) {
+		this.gmemo = gmemo;
+	}
+	public int getOprice() {
+		return oprice;
+	}
+	public void setOprice(int oprice) {
+		this.oprice = oprice;
+	}
 	
-
 	
-
 }

@@ -173,9 +173,6 @@ public class OrderControl {
 		String sname = supplier.getSname();
 
 		
-		supplier.setSno(sno);
-		supplier.setSname(sname);
-		
 		if (pageSize <= 0)
 			pageSize = PAGE_DEFAULT_SIZE;
 
@@ -183,7 +180,7 @@ public class OrderControl {
 
 		paramMap.put("startIndex", ((pageNo - 1) * pageSize));
 		paramMap.put("pageSize", pageSize);
-		paramMap.put("sno", sno);
+		paramMap.put("supplierNo", sno);
 
 		int maxPageNo = orderService.getMaxPageNo(pageSize,sno);
 
@@ -195,7 +192,7 @@ public class OrderControl {
 		resultMap.put("currPageNo", pageNo);
 		resultMap.put("maxPageNo", maxPageNo);		
 		//resultMap.put("sno", sno);
-		resultMap.put("orders", orderService.getList2(paramMap));
+		resultMap.put("orders", orderService.getList(paramMap));
 		//resultMap.put("deliverys", deliveryService.getList(pageNo,pageSize));
 		return resultMap;
 	}
