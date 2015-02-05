@@ -1,20 +1,37 @@
 @CHARSET "UTF-8";
-#wrap{
- padding-top:10%;
- margin :0px auto;
- width: 68%;
-	font-family:sans-serif;
+
+#wrap {
+	margin: 0 auto;
+	width: 60%;
+	font-family: sans-serif;
 }
 
-#CodeAdd{
-	width : 10%;
-	float : right;	
-} 
-
-#checkPwd{
-	margin-left : 23%;
+#checkPwd {
+	margin-left: 23%;
 }
 
-#checkMsg{
-	margin-left : 23%;
+#checkMsg {
+	margin-left: 23%;
 }
+
+#checkcode {
+	border: 1px solid red;
+}
+
+#result {
+	/* border : 1px solid green; */
+	float: center;
+	margin-left: 23%;
+}
+/* #test0{
+	border : 1px solid red;
+}
+#test1{
+	border : 1px solid green;
+}
+#test2{
+	border : 1px solid blue;
+}
+#test3{
+	border : 1px solid orange;
+} */

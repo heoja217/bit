@@ -41,7 +41,7 @@
 		(select a.* from ORDERLIST a where a.sno = #{sno}) a
 		left outer join 
 		(select ono,sno,cno,ordate,sum(oprice) oprice2 from ORDERLIST where sno=#{sno}
-		group by sno,ordate
+		group by sno,CNO,ordate
 		order by ordate
 		) b 
 		on a.sno = b.sno 

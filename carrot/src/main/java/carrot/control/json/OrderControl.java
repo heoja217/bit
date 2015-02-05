@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import carrot.domain.Client;
 import carrot.domain.Company;
-import carrot.domain.Order;
 import carrot.domain.Order3;
 import carrot.service.OrderService;
 
@@ -31,8 +30,8 @@ public class OrderControl {
   public Object add(Order3 order, HttpSession session) throws Exception {  
     
 	  
-	Client client = (Client)session.getAttribute("loginUser");
-	order.setClientNo(client.getNo()); 
+	//Client client = (Client)session.getAttribute("loginUser");
+	//order.setClientNo(client.getNo()); 
 	
 	System.out.println("     " + order);
 		
@@ -128,7 +127,6 @@ public class OrderControl {
   }
   
   
-
   
   @RequestMapping("/mobilelist")
   public Object list2(
@@ -162,6 +160,7 @@ public class OrderControl {
     return resultMap;
   }
   
+//ORDER1 리스트
 	@RequestMapping("/list")
 	public Object list(
 			@RequestParam(defaultValue="1") int pageNo,
@@ -170,7 +169,6 @@ public class OrderControl {
 		
 		Company supplier = (Company)session.getAttribute("loginUser");
 		int sno = supplier.getSno();
-		String sname = supplier.getSname();
 
 		
 		if (pageSize <= 0)
@@ -182,8 +180,6 @@ public class OrderControl {
 		paramMap.put("pageSize", pageSize);
 		paramMap.put("supplierNo", sno);
 
-		
-		
 		
 		int maxPageNo = orderService.getMaxPageNo(pageSize,sno);
 

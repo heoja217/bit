@@ -58,7 +58,7 @@ $(document).on('click', '#btnAdd', function() {
 			priceC : $('#priceC').val()
 			}, function(result) {
 				if (result.status == "success") {
-					loadGoodsList(maxPageNo);
+					loadGoodsList(1);
 					$('#btnCancel').click();
 					$('#closeModal').click();
 					

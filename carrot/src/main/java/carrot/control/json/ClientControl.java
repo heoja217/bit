@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import carrot.domain.Client;
-import carrot.domain.Company;
 import carrot.service.ClientService;
 import carrot.service.MatchingService;
 
@@ -21,7 +20,7 @@ import carrot.service.MatchingService;
 @RequestMapping("/json/client")
 public class ClientControl {
 	static Logger log = Logger.getLogger(ClientControl.class);
-	static final int PAGE_DEFAULT_SIZE = 5;
+	static final int PAGE_DEFAULT_SIZE = 10;
 
 	@Autowired ClientService clientService;
 	@Autowired MatchingService matchingService;
@@ -31,12 +30,12 @@ public class ClientControl {
 	
 	@RequestMapping(value="/add", method=RequestMethod.POST)
 	public Object add(Client client, HttpSession session) throws Exception {  
-
+		/* 모바일 회원가입 가능해지면서 납품업체에서 거래처 등록하던부분을 수정.
 		Company company = (Company) session.getAttribute("loginUser");
 		int supplierNo = company.getSno();
 		
 		client.setSupplierNo(supplierNo);
-		
+		*/
 		clientService.add(client);
 
 		
@@ -59,13 +58,14 @@ public class ClientControl {
 	@RequestMapping("/list")
 	public Object list(
 			@RequestParam(defaultValue="1") int pageNo,
-			@RequestParam(defaultValue="5") int pageSize,
+			@RequestParam(defaultValue="10") int pageSize,
 			int supplierNo) throws Exception {
 
 		if (pageSize <= 0)
 			pageSize = PAGE_DEFAULT_SIZE;
 
 		int maxPageNo = clientService.getMaxPageNo(pageSize, supplierNo);
+
 
 		if (pageNo <= 0) pageNo = 1;
 		if (pageNo > maxPageNo) pageNo = maxPageNo;

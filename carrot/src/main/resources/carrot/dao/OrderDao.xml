@@ -105,14 +105,12 @@
 	</resultMap>
 
  -->
-<!--   
- -->
- 
+
  
 	<select id="selectList" parameterType="map" resultMap="orderClientListMap">
 
 		SELECT C.CNO, C.CCNAME, M.MLEVEL,
-			O.ONO,O.ORDATE,O.ODATE,O.ODATE, O.OQTY,O.ODEL_STAT, O.OMEMO, OT.TOT_PRICE,
+			O.ONO,O.ORDATE,O.ODATE, O.OQTY,O.ODEL_STAT, O.OMEMO, OT.TOT_PRICE,
 		  O.GCODE, G.GNAME, G.GUNIT, G.GCAT
 		FROM ORDERLIST O LEFT JOIN GOODS G ON O.GCODE=G.GCODE
 			LEFT JOIN CLIENT C ON O.CNO=C.CNO
@@ -120,22 +118,14 @@
 			LEFT JOIN ORDERTOTAL OT ON O.CNO=OT.CNO
  		WHERE M.SNO=#{supplierNo} group by O.ODATE, CCNAME 	
 		ORDER BY O.ODATE DESC	
-
-
-<!--  	
-
-		SELECT count(distinct ODATE,CCNAME)
-		FROM ORDERLIST O LEFT JOIN GOODS G ON O.GCODE=G.GCODE
-			LEFT JOIN CLIENT C ON O.CNO=C.CNO
-			LEFT JOIN MATCHING M ON C.CNO=M.CNO
-			LEFT JOIN ORDERTOTAL OT ON O.CNO=OT.CNO
- 		WHERE M.SNO=1
-
-	<if test="pageSize > 0">
+		<if test="pageSize > 0">
 			limit #{startIndex}, #{pageSize}
-		</if> -->
-	</select>
-	
+		</if>
+
+</select>
+		
+
+
 
 	<select id="selectList_order" parameterType="map" resultMap="orderClientListMap">
 		SELECT C.CNO, C.CCNAME,
@@ -212,34 +202,6 @@
  	</select>
 
 
-  <select id="totalSize" parameterType="int" resultType="int">
-  	SELECT count(*)
-			FROM CLIENT
-		WHERE CNO=#{value}
-
-  </select>
-<!-- 
-
-  <select id="totalSize" parameterType="int" resultType="int">
-  	SELECT count(DISTINCT C.CNO)
-			FROM CLIENT C, MATCHING M, ORDERLIST O
-		WHERE C.CNO = M.CNO 
-		AND M.SNO = O.SNO AND O.CNO = M.CNO
-		AND M.SNO=#{value}
-		GROUP BY C.CNO
-
-  </select>
-
- -->
-
-
-<!--   
-  <insert id="insert" parameterType="Order"
-    useGeneratedKeys="true" keyColumn="ONO" keyProperty="no">
-    INSERT INTO ORDERLIST(SNO,CNO,GNO,ODATE,DDATE,RDATE,OQTY,DEL_STAT,OMEMO) 
-    VALUES (#{supplierNo},#{clientNo},#{goodsNo},CURDATE(),#{deliveryDate},#{endDate},#{quantity},#{delState},#{note})
-  </insert>
-   -->
   <insert id="insert" parameterType="Order3"
     useGeneratedKeys="true" keyColumn="ONO" keyProperty="no">
 		insert into ORDERLIST(SNO,CNO,GCODE,ODATE,ORDATE,OQTY,ODEL_STAT,OMEMO,OPRICE)

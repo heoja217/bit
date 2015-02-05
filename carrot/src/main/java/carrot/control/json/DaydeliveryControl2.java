@@ -20,7 +20,7 @@ import carrot.service.DaydeliveryService2;
 @RequestMapping("/json/daydelivery2")
 public class DaydeliveryControl2 {
 	static Logger log = Logger.getLogger(DaydeliveryControl2.class);
-	static final int PAGE_DEFAULT_SIZE = 5;
+	static final int PAGE_DEFAULT_SIZE = 10;
 	String dname;
 	String ddate;
 	String dgrade;

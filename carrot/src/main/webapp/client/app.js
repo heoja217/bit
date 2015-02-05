@@ -45,6 +45,10 @@ function setPageNo(currPageNo, maxPageNo) {
 	window.currPageNo = currPageNo;
 	window.maxPageNo = maxPageNo;
 
+	
+	console.log(currPageNo);
+	console.log(maxPageNo);
+	
 	if (currPageNo <= 1)
 		$('#prevBtn').css('display', 'none');
 	else
@@ -60,7 +64,7 @@ function setPageNo(currPageNo, maxPageNo) {
 		page: currPageNo,
 		maxVisible: 10 
 	}).on('page', function(event, num){
-		loadClientList(num, saveList);		
+		loadClientList(num);		
 	});
 }
 

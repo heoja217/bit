@@ -20,7 +20,7 @@ import carrot.service.DeliveryService2;
 @RequestMapping("/json/delivery2")
 public class DeliveryControl2 {
 	static Logger log = Logger.getLogger(DeliveryControl2.class);
-	static final int PAGE_DEFAULT_SIZE = 5;
+	static final int PAGE_DEFAULT_SIZE = 10;
 	String dname;
 	String ddate;
 	String dgrade;
@@ -52,7 +52,7 @@ public class DeliveryControl2 {
 	@RequestMapping("/list")
 	public Object list(
 			@RequestParam(defaultValue="1") int pageNo,
-			@RequestParam(defaultValue="20") int pageSize,
+			@RequestParam(defaultValue="10") int pageSize,
 			HttpSession session) throws Exception {
 		
 		Company supplier = (Company)session.getAttribute("loginUser");

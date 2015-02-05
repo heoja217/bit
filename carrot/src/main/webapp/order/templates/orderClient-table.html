@@ -18,8 +18,8 @@
 			<td class="go">{{no}}</td>
 			<td class="go">{{clientName}}</td>
 			<td class="go">{{level}}</td>
-			<td class="go">{{orderDate}}</td>
 			<td class="go">{{endDate}}</td>
+			<td class="go">{{orderDate}}</td>
 			<td class="go">{{monthTotal}}</td>
 			<td class="go">{{note}}</td>
 			<td><button data-no='{{no}}' id="ok" class='my-check-btn btn-xs btn-info'>확인</button></td>
@@ -51,7 +51,7 @@ console.log("삭제");
 
 $(document).on('click', '#orderTable tr', function(e) {
 	$oname = $(this).find('td:eq(1)').html(); // 거래처명
-	$oodate = $(this).find('td:eq(3)').html(); // 주문일자
+	$oodate = $(this).find('td:eq(4)').html(); // 주문일자
 	$ograde = $(this).find('td:eq(2)').html(); // 거래처등급
 	
 /* 	console.log($oname);

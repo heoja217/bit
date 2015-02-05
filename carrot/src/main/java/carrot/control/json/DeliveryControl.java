@@ -20,7 +20,7 @@ import carrot.service.DeliveryService;
 @RequestMapping("/json/delivery")
 public class DeliveryControl {
 	static Logger log = Logger.getLogger(DeliveryControl.class);
-	static final int PAGE_DEFAULT_SIZE = 5;
+	static final int PAGE_DEFAULT_SIZE = 10;
 	String mlevel;
 	
 	@Autowired DeliveryService deliveryService;

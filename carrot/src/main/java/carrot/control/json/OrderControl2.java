@@ -22,7 +22,7 @@ import carrot.service.OrderService2;
 @RequestMapping("/json/order2")
 public class OrderControl2 {
 	static Logger log = Logger.getLogger(OrderControl2.class);
-	static final int PAGE_DEFAULT_SIZE = 5;
+	static final int PAGE_DEFAULT_SIZE = 10;
 	String oname;
 	Date oodate;
 	String ograde;

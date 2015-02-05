@@ -19,7 +19,7 @@ import carrot.service.CompanyService;
 @RequestMapping("/json/company")
 public class CompanyControl {
 	static Logger log = Logger.getLogger(CompanyControl.class);
-	static final int PAGE_DEFAULT_SIZE = 5;
+	static final int PAGE_DEFAULT_SIZE = 10;
 
 	@Autowired
 	CompanyService companyService;

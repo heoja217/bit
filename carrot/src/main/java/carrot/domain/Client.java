@@ -1,14 +1,11 @@
 package carrot.domain;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class Client implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	protected int no;
-	protected int supplierNo;
-	
 	protected String clientCorName;
 	protected String clientName;
 	protected String clientPassword;
@@ -18,24 +15,53 @@ public class Client implements Serializable {
 	protected String clientAddress;
 	protected String clientAddressDet;
 	protected String clientMemo;
+	protected String scname;
+	protected int sno;
+	//protected int cno;
+	protected String mdate;
 	
-	protected String mLevel;
-	protected Date mDate;
-	
-	protected int orderMonthTotal;
 
 	@Override
 	public String toString() {
-		return "Client [no=" + no + ", supplierNo=" + supplierNo
-				+ ", clientCorName=" + clientCorName + ", clientName="
-				+ clientName + ", clientPassword=" + clientPassword
-				+ ", clientTel=" + clientTel + ", clientMail=" + clientMail
-				+ ", clientPostNo=" + clientPostNo + ", clientAddress="
-				+ clientAddress + ", clientAddressDet=" + clientAddressDet
-				+ ", clientMemo=" + clientMemo + ", mLevel=" + mLevel
-				+ ", mDate=" + mDate + ", orderMonthTotal=" + orderMonthTotal
-				+ "]";
+		return "Client [no=" + no + ", clientCorName=" + clientCorName
+				+ ", clientName=" + clientName + ", clientPassword="
+				+ clientPassword + ", clientTel=" + clientTel + ", clientMail="
+				+ clientMail + ", clientPostNo=" + clientPostNo
+				+ ", clientAddress=" + clientAddress + ", clientAddressDet="
+				+ clientAddressDet + ", clientMemo=" + clientMemo + ", scname="
+				+ scname + ", sno=" + sno + ", mdate=" + mdate + "]";
 	}
+
+	
+	public String getMdate() {
+		return mdate;
+	}
+
+
+	public void setMdate(String mdate) {
+		this.mdate = mdate;
+	}
+
+
+	public int getSno() {
+		return sno;
+	}
+
+
+	public void setSno(int sno) {
+		this.sno = sno;
+	}
+
+
+	public String getScname() {
+		return scname;
+	}
+
+
+	public void setScname(String scname) {
+		this.scname = scname;
+	}
+
 
 	public int getNo() {
 		return no;
@@ -43,14 +69,6 @@ public class Client implements Serializable {
 
 	public void setNo(int no) {
 		this.no = no;
-	}
-
-	public int getSupplierNo() {
-		return supplierNo;
-	}
-
-	public void setSupplierNo(int supplierNo) {
-		this.supplierNo = supplierNo;
 	}
 
 	public String getClientCorName() {
@@ -123,30 +141,6 @@ public class Client implements Serializable {
 
 	public void setClientMemo(String clientMemo) {
 		this.clientMemo = clientMemo;
-	}
-
-	public String getmLevel() {
-		return mLevel;
-	}
-
-	public void setmLevel(String mLevel) {
-		this.mLevel = mLevel;
-	}
-
-	public Date getmDate() {
-		return mDate;
-	}
-
-	public void setmDate(Date mDate) {
-		this.mDate = mDate;
-	}
-
-	public int getOrderMonthTotal() {
-		return orderMonthTotal;
-	}
-
-	public void setOrderMonthTotal(int orderMonthTotal) {
-		this.orderMonthTotal = orderMonthTotal;
 	}
 	
 }

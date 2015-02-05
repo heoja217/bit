@@ -56,6 +56,7 @@
 		LEFT JOIN ORDERTOTAL T
 		ON
 		M.CNO = T.CNO
+		group by CNO
 	</sql>
 
 	<select id="selectList" parameterType="map" resultMap="clientListMap">
