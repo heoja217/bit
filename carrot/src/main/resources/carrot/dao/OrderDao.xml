@@ -116,7 +116,7 @@
 			LEFT JOIN CLIENT C ON O.CNO=C.CNO
 			LEFT JOIN MATCHING M ON C.CNO=M.CNO
 			LEFT JOIN ORDERTOTAL OT ON O.CNO=OT.CNO
- 		WHERE M.SNO=#{supplierNo} group by O.ODATE, CCNAME 	
+ 		WHERE M.SNO=#{supplierNo} AND O.ODATE between "2015-02-03" and "2015-03-01" group by O.ODATE, CCNAME 	
 		ORDER BY O.ODATE DESC	
 		<if test="pageSize > 0">
 			limit #{startIndex}, #{pageSize}
